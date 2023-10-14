@@ -13,6 +13,7 @@
         "react/jsx-filename-extension": "off",
         "no-use-before-define": "off",
         "react/style-prop-object": "off",
-        "import/prefer-default-export" : "off"
+        "import/prefer-default-export" : "off",
+        "global-require": "off"
     }
 }
