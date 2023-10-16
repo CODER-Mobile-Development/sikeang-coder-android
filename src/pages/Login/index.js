@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { MemberListView } from '../../components';
+import { MemberPointHistory } from '../../components';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,9 +30,17 @@ function Login() {
         fontSize: 40,
       }}
       >
-        Ini halam nlogin
+        Ini halam login
       </Text>
-    </View>
+      <MemberListView />
+      <MemberPointHistory />
+      <MemberListView />
+      <MemberPointHistory />
+      <MemberListView />
+      <MemberPointHistory />
+      <MemberListView />
+      <MemberPointHistory />
+    </View >
   );
 }
 
