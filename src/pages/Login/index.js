@@ -2,16 +2,18 @@ import React, { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { MemberListView } from '../../components';
-import { MemberPointHistory } from '../../components';
+
+const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
+const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
+const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
 function Login() {
   const [fontsLoaded] = useFonts({
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-SemiBold': require('../../assets/fonts/Poppins-SemiBold.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
+    'Poppins-Medium': poppinsMedium,
+    'Poppins-SemiBold': poppinsSemiBold,
+    'Poppins-Bold': poppinsBold,
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -32,7 +34,7 @@ function Login() {
       >
         Ini halam login
       </Text>
-    </View >
+    </View>
   );
 }
 
