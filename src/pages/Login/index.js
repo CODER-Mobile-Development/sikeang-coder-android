@@ -1,7 +1,11 @@
 import React, { useCallback } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+
+//testing preview
+import UserTabAdmin from '../../components/UserTab/Admin';
+import UserTabMember from '../../components/UserTab/Member';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -34,8 +38,22 @@ function Login() {
       >
         Ini halam login
       </Text>
+      <View style={styles.container}>
+        <UserTabAdmin imageUri="https://via.placeholder.com/42x42" name="Irvan Surya Nugraha" division="Divisi Mobile - Koordinator" />
+      </View>
+      <View style={styles.container}>
+        <UserTabMember imageUri="https://via.placeholder.com/42x42" name="Irvan Surya Nugraha" division="Divisi Mobile - Koordinator" points={200} />
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 20
+  },
+});
 
 export default Login;
