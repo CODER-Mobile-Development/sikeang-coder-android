@@ -1,5 +1,7 @@
-import Input from './Input';
+import MemberListView from './MemberListView';
+import MemberPointHistory from './MemberPointHistory';
 
 export {
-  Input,
+  MemberListView,
+  MemberPointHistory,
 };
