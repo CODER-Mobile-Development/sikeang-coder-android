@@ -32,14 +32,6 @@ function Login() {
       >
         Ini halam login
       </Text>
-      <MemberListView />
-      <MemberPointHistory />
-      <MemberListView />
-      <MemberPointHistory />
-      <MemberListView />
-      <MemberPointHistory />
-      <MemberListView />
-      <MemberPointHistory />
     </View >
   );
 }
