@@ -4,6 +4,7 @@ import UserTab from './UserTab';
 import EventOption from './EventOption';
 import NavbarTop from './NavbarTop';
 import SearchBar from './SearchBar';
+import MemberSelectCommittee from './MemberSelectCommittee';
 
 export {
   MemberListView,
@@ -12,4 +13,5 @@ export {
   EventOption,
   NavbarTop,
   SearchBar,
+  MemberSelectCommittee,
 };

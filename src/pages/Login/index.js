@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import {MemberSelectCommittee} from '../../components'
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -34,6 +35,7 @@ function Login() {
       >
         Ini halam login
       </Text>
+      <MemberSelectCommittee/>
 
     </View>
   );
