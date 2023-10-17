@@ -7,6 +7,11 @@ import * as SplashScreen from 'expo-splash-screen';
 import UserTabAdmin from '../../components/UserTab/Admin';
 import UserTabMember from '../../components/UserTab/Member';
 
+// TestNavbar
+import { Admin,Member } from '../../components/NavbarBottom/Index';
+// TestPrimaryButton
+import PrimaryButton from '../../components/PrimaryButton/Index';
+
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
 const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
@@ -43,6 +48,11 @@ function Login() {
       </View>
       <View style={styles.container}>
         <UserTabMember imageUri="https://via.placeholder.com/42x42" name="Irvan Surya Nugraha" division="Divisi Mobile - Koordinator" points={200} />
+      </View>
+      <View>
+        <Admin/>
+        <Member/>
+        <PrimaryButton/>
       </View>
     </View>
   );
