@@ -1,38 +1,34 @@
 import React from 'react';
-import { Image } from 'react-native';
-import { View, StyleSheet, Text } from 'react-native-web';
+import { StyleSheet, Text, View } from 'react-native';
+import { BackButton } from '../../assets/svgs';
 
-const NavbarTop = (props) => {
-    return(
-        <View style={style.Wrapper}>
-            <View style={style.img}>
-                <Image style={{ width: 24, height: 24 }} source={require('../../assets/BackArrow.png')} />
-            </View>
-            <Text style={style.Title}>
-                {props.title}
-            </Text>
-        </View>
-    )
+function NavbarTop({ title }) {
+  return (
+    <View style={style.wrapper}>
+      <View>
+        <BackButton height={24} width={24} />
+      </View>
+      <View style={{ flex: 1, alignItems: 'center' }}>
+        <Text style={style.title}>{title}</Text>
+      </View>
+    </View>
+  );
 }
 
-export default NavbarTop
+export default NavbarTop;
 
 const style = StyleSheet.create({
-    Wrapper: {
-        height: 30,
-        flexDirection: 'row',
-        display: 'flex',
-        alignItems: 'center',
-    },
-    img: {
-        width: 24,
-        marginLeft:35,
-    },
-    Title: {
-        fontFamily: 'Poppins-Bold',
-        textAlign: 'center',
-        fontSize: 20,
-        margin: 'auto',
-        paddingRight: 30,
-    }
-})
+  wrapper: {
+    height: 30,
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  title: {
+    fontFamily: 'Poppins-Bold',
+    textAlign: 'center',
+    fontSize: 20,
+    margin: 'auto',
+    paddingRight: 30,
+  },
+});
