@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 //testing preview
 import UserTabAdmin from '../../components/UserTab/Admin';
 import UserTabMember from '../../components/UserTab/Member';
+import { NavbarTop, SearchBar } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -44,6 +45,8 @@ function Login() {
       <View style={styles.container}>
         <UserTabMember imageUri="https://via.placeholder.com/42x42" name="Irvan Surya Nugraha" division="Divisi Mobile - Koordinator" points={200} />
       </View>
+      <NavbarTop title="Divisi Mobile"/>
+      <SearchBar/>
     </View>
   );
 }
