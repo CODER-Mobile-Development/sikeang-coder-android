@@ -3,6 +3,10 @@ import { Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
+//testing preview
+import UserTabAdmin from '../../components/UserTab/Admin';
+import UserTabMember from '../../components/UserTab/Member';
+
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
 const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
