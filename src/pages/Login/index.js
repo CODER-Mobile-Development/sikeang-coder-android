@@ -34,7 +34,6 @@ function Login() {
       >
         Ini halam login
       </Text>
-
     </View>
   );
 }
