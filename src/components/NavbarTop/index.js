@@ -1,15 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import { BackButton } from '../../assets/svgs';
 
 function NavbarTop({ title }) {
   return (
-    <View style={style.wrapper}>
-      <View>
+    <View style={styles.wrapper}>
+      <TouchableOpacity>
         <BackButton height={24} width={24} />
-      </View>
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <Text style={style.title}>{title}</Text>
+      </TouchableOpacity>
+      <View style={styles.wrapperTittle}>
+        <Text style={styles.title}>{title}</Text>
       </View>
     </View>
   );
@@ -17,16 +19,22 @@ function NavbarTop({ title }) {
 
 export default NavbarTop;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   wrapper: {
-    height: 30,
+    backgroundColor: 'white',
+    paddingHorizontal: 35,
+    paddingVertical: 15,
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',
   },
+  wrapperTittle: {
+    flex: 1,
+    alignItems: 'center',
+  },
   title: {
+    marginLeft: 24,
     fontFamily: 'Poppins-Bold',
-    textAlign: 'center',
     fontSize: 20,
     margin: 'auto',
     paddingRight: 30,

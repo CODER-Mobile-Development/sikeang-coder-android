@@ -6,6 +6,8 @@ import NavbarTop from './NavbarTop';
 import SearchBar from './SearchBar';
 import EventListView from './EventListView';
 import MemberSelectCommittee from './MemberSelectCommittee';
+import NavbarBottom from './NavbarBottom';
+import PrimaryButton from './PrimaryButton';
 
 export {
   MemberListView,
@@ -16,4 +18,6 @@ export {
   SearchBar,
   EventListView,
   MemberSelectCommittee,
+  NavbarBottom,
+  PrimaryButton,
 };

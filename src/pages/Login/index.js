@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { NavbarBottom, NavbarTop } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -26,16 +27,24 @@ function Login() {
     return null;
   }
   return (
-    <View style={{ marginHorizontal: 0 }} onLayout={onLayoutRootView}>
-      <Text style={{
-        fontFamily: 'Poppins-Bold',
-        fontSize: 40,
-      }}
-      >
-        Ini halam login
-      </Text>
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <View style={styles.wrapper}>
+        <NavbarTop title="Home" />
+        {/* Panggil component di bawah ini */}
+
+        {/* Panggil component di atas ini */}
+        <NavbarBottom type="Admin" />
+      </View>
     </View>
   );
 }
 
 export default Login;
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+  },
+});
