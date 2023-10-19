@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { RadioButton } from 'react-native-paper';
+import React, { useState } from 'react';
+import {
+  Image, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 
-function MemberSelectCommittee() {
+function MemberSelectCommittee({ name, email, imageUri }) {
   const [isSelected, setIsSelected] = useState(false);
 
   return (
@@ -10,21 +11,19 @@ function MemberSelectCommittee() {
       <View style={styles.item}>
         <View style={styles.itemLeft}>
           <View style={styles.circle}>
-            <Image style={styles.photo} />
+            <Image source={{ uri: imageUri }} style={styles.photo} />
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.name}>Muhammad Adib F</Text>
-            <Text style={styles.email}>adib@gmail.com</Text>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.email}>{email}</Text>
           </View>
         </View>
         <View style={styles.radioContainer}>
-          <RadioButton
-            value="isSelected"
-            status={isSelected ? 'checked' : 'unchecked'}
-            onPress={() => setIsSelected(!isSelected)}
-            color="#FFFFFF"
-            uncheckedColor="#FFFFFF"
-          />
+          <TouchableOpacity onPress={() => setIsSelected(!isSelected)}>
+            <View style={styles.radioOuterCircle}>
+              {isSelected && (<View style={styles.radioInnerCircle} />)}
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -33,19 +32,34 @@ function MemberSelectCommittee() {
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: "#3F5671",
+    backgroundColor: '#3F5671',
     height: 74,
     borderRadius: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderWidth: 2,
-    borderColor: "#E0E0E0",
+    borderColor: '#E0E0E0',
+  },
+  radioOuterCircle: {
+    height: 28,
+    width: 28,
+    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  radioInnerCircle: {
+    height: 14,
+    width: 14,
+    borderRadius: 7,
+    backgroundColor: 'white',
   },
   itemLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
   },
   circle: {
     marginRight: 15,
@@ -53,8 +67,8 @@ const styles = StyleSheet.create({
     marginLeft: 18,
   },
   textContainer: {
-    flexDirection: "column",
-    alignItems: "flex-start",
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   radioContainer: {
     marginRight: 20,
@@ -63,18 +77,18 @@ const styles = StyleSheet.create({
     width: 51,
     height: 51,
     borderRadius: 26,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: '#D9D9D9',
   },
   name: {
-    maxWidth: "100%",
-    color: "#FFFFFF",
-    fontFamily: "Poppins-SemiBold",
+    maxWidth: '100%',
+    color: '#FFFFFF',
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
   },
   email: {
-    maxWidth: "100%",
-    color: "#FFFFFF",
-    fontFamily: "Poppins-Medium",
+    maxWidth: '100%',
+    color: '#FFFFFF',
+    fontFamily: 'Poppins-Medium',
     fontSize: 14,
   },
 });
