@@ -38,12 +38,6 @@ function Login() {
       >
         Ini halam login
       </Text>
-      <View style={styles.container}>
-        <UserTabAdmin imageUri="https://via.placeholder.com/42x42" name="Irvan Surya Nugraha" division="Divisi Mobile - Koordinator" />
-      </View>
-      <View style={styles.container}>
-        <UserTabMember imageUri="https://via.placeholder.com/42x42" name="Irvan Surya Nugraha" division="Divisi Mobile - Koordinator" points={200} />
-      </View>
     </View>
   );
 }
