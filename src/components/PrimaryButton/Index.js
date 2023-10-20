@@ -1,49 +1,39 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { useFonts } from 'expo-font';
-const PrimaryButton = () =>{
-    const [fontsLoaded] = useFonts({
-        'Poppins-Medium': poppinsMedium,
-        'Poppins-SemiBold': poppinsSemiBold,
-        'Poppins-Bold': poppinsBold,
-      });
-    
-      const onLayoutRootView = useCallback(async () => {
-        if (fontsLoaded) {
-          await SplashScreen.hideAsync();
-        }
-      }, [fontsLoaded]);
-    
-      if (!fontsLoaded) {
-        return null;
-      }
-      return (
-        <View style={styles.container}>
-          <TouchableOpacity style={styles.button} onPress={onPress}>
-            <Text style={{
-        fontFamily: 'Poppins-Bold',
-        fontSize: 40,
-      }}>Tambah Divisi</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    };
-    
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 10,
-        backgroundColor:'#B31217'
-      },
-      button: {
-        alignItems: 'center',
-        backgroundColor: '#DDDDDD',
-        padding: 10,
-      },
-      countContainer: {
-        alignItems: 'center',
-        padding: 10,
-      },
-    });
-export default PrimaryButton
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+
+function PrimaryButton({ title }) {
+  return (
+    <TouchableOpacity style={styles.wrapper}>
+      <Text style={styles.text}>
+        {title}
+      </Text>
+    </TouchableOpacity>
+  );
+}
+
+export default PrimaryButton;
+
+const styles = StyleSheet.create({
+  wrapper: {
+    height: 40,
+    backgroundColor: '#B31217',
+    alignItems: 'center',
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
+  },
+  text: {
+    marginTop: 4,
+    textAlign: 'center',
+    fontFamily: 'Poppins-Bold',
+    fontSize: 20,
+    color: 'white',
+  },
+});
