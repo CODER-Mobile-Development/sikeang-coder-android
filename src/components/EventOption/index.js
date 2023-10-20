@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 
-const EventOption = ({ optionText, onPress }) => {
+function EventOption({ optionText, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -9,7 +11,7 @@ const EventOption = ({ optionText, onPress }) => {
       </View>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
