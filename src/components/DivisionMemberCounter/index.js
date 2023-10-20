@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-function MemberPointHistory({ divisonTitle, memberCounter }) {
+function DivisionMemberCounter({ divisonTitle, memberCounter }) {
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MemberPointHistory;
+export default DivisionMemberCounter;
