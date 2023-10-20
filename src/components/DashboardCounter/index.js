@@ -11,7 +11,7 @@ function DashboardCounter({ presencePoint, committeePoint  }) {
             <View style={styles.divider} />
             <View style={styles.itemRight}>
                 <Text style={styles.committeepoint}>{committeePoint}</Text>
-                <Text style={styles.committeetitle}>kepanitiaan</Text>
+                <Text style={styles.committeetitle}>Kepanitiaan</Text>
             </View>
         </View>
     );
