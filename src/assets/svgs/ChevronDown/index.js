@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-function ChevronDown() {
+function ChevronDown({ width, height }) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width={17}
-      height={11}
+      width={width}
+      height={height}
       fill="none"
     >
       <Path

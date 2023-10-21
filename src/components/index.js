@@ -9,6 +9,7 @@ import MemberSelectCommittee from './MemberSelectCommittee';
 import NavbarBottom from './NavbarBottom';
 import PrimaryButton from './PrimaryButton';
 import UserInput from './UserInput';
+import ManualAttendanceCard from './ManualAttendanceCard';
 
 export {
   MemberListView,
@@ -22,4 +23,5 @@ export {
   NavbarBottom,
   PrimaryButton,
   UserInput,
+  ManualAttendanceCard,
 };

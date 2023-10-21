@@ -5,7 +5,7 @@ import {
 import { ChevronDown, ChevronUp } from '../../assets/svgs';
 
 function UserInput({
-  label, type, onChange, data,
+  label, type, onChange, data, initialValue, smallSize,
 }) {
   const [showDropdownItem, setShowDropdownItem] = useState(false);
   const [selectedDropdownItem, setSelectedDropdownItem] = useState({
@@ -16,10 +16,10 @@ function UserInput({
 
   useEffect(() => {
     if (data) {
-      setSelectedDropdownItem({ id: data[0].id, value: data[0].value });
-      onChange({ id: data[0].id, value: data[0].value });
+      setSelectedDropdownItem(initialValue || { id: data[0].id, value: data[0].value });
+      onChange(initialValue || { id: data[0].id, value: data[0].value });
     }
-  }, [data]);
+  }, [data, initialValue]);
 
   useEffect(() => {
     if (data) {
@@ -35,9 +35,11 @@ function UserInput({
 
   return (
     <View>
+      {label && (
       <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 16 }}>
         {label}
       </Text>
+      )}
       {type === 'Basic' && <TextInput style={styles.textInputBasic} onChangeText={onChange} />}
       {type === 'TextArea' && <TextInput multiline style={styles.textInputArea} onChangeText={onChange} />}
       {type === 'Dropdown' && (
@@ -45,20 +47,23 @@ function UserInput({
         <TouchableOpacity
           style={{
             ...styles.dropdownButton,
+            height: smallSize ? 24 : 44,
             borderBottomRightRadius: showDropdownItem ? 0 : 12,
             borderBottomLeftRadius: showDropdownItem ? 0 : 12,
           }}
           onPress={() => setShowDropdownItem(!showDropdownItem)}
         >
           <Text style={{ fontFamily: 'Poppins-Medium' }}>{selectedDropdownItem.value}</Text>
-          {showDropdownItem ? <ChevronUp /> : <ChevronDown />}
+          {showDropdownItem
+            ? <ChevronUp width={17} height={11} />
+            : <ChevronDown width={17} height={11} />}
         </TouchableOpacity>
         {showDropdownItem && (
-        <View style={styles.wrapperMenuDropdown}>
+        <View style={{ ...styles.wrapperMenuDropdown, marginTop: smallSize ? 24 : 44 }}>
           {dataDropdownItem.map((item) => (
             <TouchableOpacity
               key={item.id}
-              style={styles.menuDropdownButton}
+              style={{ ...styles.menuDropdownButton, height: smallSize ? 24 : 44 }}
               onPress={(() => handleSelectedDropdownItem(item.id, item.value))}
             >
               <Text style={{ fontFamily: 'Poppins-Medium' }}>{item.value}</Text>
@@ -80,7 +85,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderWidth: 2,
     alignItems: 'center',
-    height: 44,
     paddingHorizontal: 15,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
@@ -94,17 +98,14 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 12,
     overflow: 'hidden',
     position: 'absolute',
-    marginTop: 44,
     width: '100%',
     backgroundColor: 'white',
     zIndex: 1,
   },
   menuDropdownButton: {
-    height: 44,
     paddingHorizontal: 16,
     justifyContent: 'center',
     borderBottomWidth: 1,
-
   },
   textInputBasic: {
     fontFamily: 'Poppins-Medium',
