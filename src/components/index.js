@@ -8,6 +8,7 @@ import EventListView from './EventListView';
 import MemberSelectCommittee from './MemberSelectCommittee';
 import NavbarBottom from './NavbarBottom';
 import PrimaryButton from './PrimaryButton';
+import UserInput from './UserInput';
 
 export {
   MemberListView,
@@ -20,4 +21,5 @@ export {
   MemberSelectCommittee,
   NavbarBottom,
   PrimaryButton,
+  UserInput,
 };

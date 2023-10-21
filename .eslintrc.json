@@ -23,6 +23,7 @@
                 "ts": "never",
                 "tsx": "never"
             }
-        ]
+        ],
+        "react-hooks/exhaustive-deps": "off"
     }
 }
