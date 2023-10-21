@@ -1,81 +1,59 @@
-import React from "react";
-import {Text,StyleSheet,View,} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-function DashboardCounter({ presencePoint, committeePoint  }) {
-    return (
-        <View style={styles.item}>
-            <View style={styles.itemLeft}>
-                <Text style={styles.presencepoint}>{presencePoint}</Text>
-                <Text style={styles.presencetitle}>Presensi</Text>
-            </View>
-            <View style={styles.divider} />
-            <View style={styles.itemRight}>
-                <Text style={styles.committeepoint}>{committeePoint}</Text>
-                <Text style={styles.committeetitle}>Kepanitiaan</Text>
-            </View>
-        </View>
-    );
+function DashboardCounter({ presencePoint, committeePoint }) {
+  return (
+    <View style={styles.wrapper}>
+      <View style={styles.item}>
+        <Text style={styles.pointSection}>{presencePoint}</Text>
+        <Text style={styles.pointTitle}>presensi</Text>
+      </View>
+      <View style={styles.divider} />
+      <View style={styles.item}>
+        <Text style={styles.pointSection}>{committeePoint}</Text>
+        <Text style={styles.pointTitle}>kepanitiaan</Text>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    item: {
-        height: 130,
-        borderRadius: 12,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderWidth: 4,
-        borderColor: '#B81519',
-    },
-    itemLeft: {
-        flexDirection: 'column',
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        display: 'flex',
-    },
-    itemRight: {
-        flexDirection: 'column',
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        display: 'flex',
-    },
-    presencepoint: {
-        maxWidth: '100%',
-        color: '#B81519',
-        fontFamily: 'Poppins-Bold',
-        fontSize: 50,
-        marginTop: 10,
-        marginLeft: 40,
-        flex: 1,
-    },
-    committeepoint: {
-        maxWidth: '100%',
-        color: '#B81519',
-        fontFamily: 'Poppins-Bold',
-        fontSize: 50,
-        marginTop: 10,
-        marginRight: 60,
-        flex: 1,
-    },
-    presencetitle: {
-        maxWidth: '100%',
-        color: '#B81519',
-        fontFamily: 'Poppins-Bold',
-        fontSize: 25,
-        marginLeft: 39,
-    },
-    committeetitle: {
-        maxWidth: '100%',
-        color: '#B81519',
-        fontFamily: 'Poppins-Bold',
-        fontSize: 25,
-        marginRight: 25,
-    },
-    divider: {
-        width: 2,
-        height: 90,
-        backgroundColor: 'red',
-    },
+  wrapper: {
+    height: 98,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderWidth: 2,
+    borderColor: '#B81519',
+    paddingHorizontal: 10,
+  },
+  item: {
+    minWidth: '45%',
+    maxWidth: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pointSection: {
+    color: '#B81519',
+    fontFamily: 'Poppins-Bold',
+    fontSize: 40,
+    paddingBottom: 10,
+    position: 'absolute',
+  },
+  pointTitle: {
+    color: '#B81519',
+    fontFamily: 'Poppins-Bold',
+    fontSize: 14,
+    textAlign: 'center',
+    marginTop: 45,
+  },
+  divider: {
+    width: 2,
+    height: 69,
+    backgroundColor: '#B81519',
+    marginLeft: 15,
+  },
 });
 
 export default DashboardCounter;
