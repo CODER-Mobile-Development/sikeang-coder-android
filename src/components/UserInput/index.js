@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
+    backgroundColor: 'white',
   },
   wrapperMenuDropdown: {
     borderLeftWidth: 2,
@@ -92,6 +93,11 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
     overflow: 'hidden',
+    position: 'absolute',
+    marginTop: 44,
+    width: '100%',
+    backgroundColor: 'white',
+    zIndex: 1,
   },
   menuDropdownButton: {
     height: 44,
@@ -106,6 +112,7 @@ const styles = StyleSheet.create({
     height: 44,
     borderRadius: 12,
     paddingHorizontal: 15,
+    backgroundColor: 'white',
   },
   textInputArea: {
     fontFamily: 'Poppins-Medium',
@@ -113,5 +120,6 @@ const styles = StyleSheet.create({
     height: 84,
     borderRadius: 12,
     paddingHorizontal: 15,
+    backgroundColor: 'white',
   },
 });
