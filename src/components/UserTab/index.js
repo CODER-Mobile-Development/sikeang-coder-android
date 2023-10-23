@@ -4,10 +4,10 @@ import {
 } from 'react-native';
 
 function UserTab({
-  type, imageUri, name, division, points,
+  type, imageUri, name, division, points, style,
 }) {
   return (
-    <View style={styles.card}>
+    <View style={{ ...styles.card, ...style }}>
       <View style={{ ...styles.contentContainer, justifyContent: type === 'Member' ? 'space-between' : 'flex-start' }}>
         <View style={{ flexDirection: 'row' }}>
           <Image source={{ uri: imageUri }} style={styles.image} />

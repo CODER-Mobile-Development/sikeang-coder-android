@@ -10,6 +10,7 @@ import NavbarBottom from './NavbarBottom';
 import PrimaryButton from './PrimaryButton';
 import UserInput from './UserInput';
 import ManualAttendanceCard from './ManualAttendanceCard';
+import Separator from './Separator';
 
 export {
   MemberListView,
@@ -24,4 +25,5 @@ export {
   PrimaryButton,
   UserInput,
   ManualAttendanceCard,
+  Separator,
 };

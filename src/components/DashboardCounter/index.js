@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-function DashboardCounter({ presencePoint, committeePoint }) {
+function DashboardCounter({ presencePoint, committeePoint, style }) {
   return (
-    <View style={styles.wrapper}>
+    <View style={{ ...styles.wrapper, ...style }}>
       <View style={styles.item}>
         <Text style={styles.pointSection}>{presencePoint}</Text>
         <Text style={styles.pointTitle}>presensi</Text>
