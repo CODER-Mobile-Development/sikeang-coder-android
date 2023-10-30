@@ -1,12 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { Login, MemberHome } from '../pages';
+import { Login, MemberHome,AdminAddEvent,AdminAddMember } from '../pages';
 
 const Stack = createNativeStackNavigator();
 
 function Router() {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="AdminAddMember"
+        component={AdminAddMember}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="MemberHome"
         component={MemberHome}
