@@ -10,6 +10,11 @@ function Router() {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="AdminAddMember"
         component={AdminAddMember}
         options={{ headerShown: false }}
@@ -22,11 +27,6 @@ function Router() {
       <Stack.Screen
         name="MemberHome"
         component={MemberHome}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={Login}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -1,8 +1,13 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import {
+  StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { NavbarBottom, NavbarTop } from '../../components';
+import {
+  GoogleIcon, OrganizationLogoHorizontal, WelcomeMan, WelcomeWoman,
+} from '../../assets/svgs';
+import { Separator } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -27,11 +32,34 @@ function Login() {
     return null;
   }
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <View style={styles.wrapper}>
-        <NavbarTop title="Home" />
-
-        <NavbarBottom type="Admin" />
+    <View
+      style={styles.wrapper}
+      onLayout={onLayoutRootView}
+    >
+      <View>
+        <View style={styles.welcomeIcon}>
+          <WelcomeWoman width={70} height={261} />
+          <WelcomeMan width={116} height={278} />
+        </View>
+        <View style={{ marginTop: 20 }}>
+          <Text style={styles.welcomeText}>
+            Selamat Datang
+          </Text>
+          <Text style={styles.welcomeDescription}>
+            Selamat datang di pusat keaktifan. Bersiaplah untuk
+            memulai perjalanan Anda menuju keberhasilan!
+          </Text>
+        </View>
+        <Separator height={65} />
+        <TouchableOpacity style={styles.buttonLogin}>
+          <Text style={styles.buttonLoginText}>
+            Masuk dengan Google
+          </Text>
+          <GoogleIcon />
+        </TouchableOpacity>
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <OrganizationLogoHorizontal width={182} height={20} />
       </View>
     </View>
   );
@@ -42,7 +70,39 @@ export default Login;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    paddingHorizontal: 35,
     justifyContent: 'space-between',
-    flexDirection: 'column',
+    paddingVertical: 30,
+  },
+  welcomeIcon: {
+    marginTop: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  welcomeText: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Bold',
+    fontSize: 32,
+    color: '#B81519',
+  },
+  welcomeDescription: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 16,
+  },
+  buttonLogin: {
+    height: 56,
+    borderRadius: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#B81519',
+    borderWidth: 2,
+  },
+  buttonLoginText: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 16,
+    color: '#B81519',
+    marginRight: 29,
   },
 });

@@ -6,6 +6,10 @@ import CalendarIcon from './CalendarIcon';
 import AdminIcon from './AdminIcon';
 import ChevronDown from './ChevronDown';
 import ChevronUp from './ChevronUp';
+import WelcomeWoman from './WelcomeWoman';
+import WelcomeMan from './WelcomeMan';
+import GoogleIcon from './GoogleIcon';
+import OrganizationLogoHorizontal from './OrganizationLogoHorizontal';
 
 export {
   PersonSearch,
@@ -16,4 +20,8 @@ export {
   AdminIcon,
   ChevronDown,
   ChevronUp,
+  WelcomeWoman,
+  WelcomeMan,
+  GoogleIcon,
+  OrganizationLogoHorizontal,
 };
