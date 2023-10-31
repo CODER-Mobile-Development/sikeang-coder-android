@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { Login, MemberHome,AdminAddEvent,AdminAddMember } from '../pages';
+import { AdminAddMember, Login, MemberHome } from '../pages';
 
 const Stack = createNativeStackNavigator();
 

@@ -2,7 +2,9 @@ import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput } from '../../components';
+import {
+  NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
+} from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -29,25 +31,23 @@ function AdminAddEvent() {
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <View style={styles.wrapper}>
-        <NavbarTop title="Tambah Acara"/>
+        <NavbarTop title="Tambah Acara" />
         <View style={styles.AddPadding}>
-          <UserInput type="Basic" label="Nama Acara"/>
-          <Separator/>
-          <UserInput type="Basic" label="Tanggal Mulai"/>
-          <Separator/>
-          <UserInput type="Basic" label="Tanggal Selesai"/>
-          <Separator/>
-          <UserInput type="TextArea" label="Deskripsi"/>
-          <Separator/>
-          <UserInput type="Basic" label="Foto"/>
-          <Separator/>
-          <UserInput type="Dropdown" label="Jenis Acara"/>
-          <Separator height={25}/>
-          <PrimaryButton title="Simpan Perubahan"/>
-          <Separator/>
+          <UserInput type="Basic" label="Nama Acara" />
+          <Separator />
+          <UserInput type="Basic" label="Tanggal Mulai" />
+          <Separator />
+          <UserInput type="Basic" label="Tanggal Selesai" />
+          <Separator />
+          <UserInput type="TextArea" label="Deskripsi" />
+          <Separator />
+          <UserInput type="Basic" label="Foto" />
+          <Separator />
+          <UserInput type="Dropdown" label="Jenis Acara" />
+          <Separator height={25} />
+          <PrimaryButton title="Simpan Perubahan" />
+          <Separator />
         </View>
-        {/* Panggil component di bawah ini */}
-        {/* Panggil component di atas ini */}
         <NavbarBottom type="Admin" />
       </View>
     </View>
@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     flexDirection: 'column',
-    backgroundColor:'white'
+    backgroundColor: 'white',
   },
-  AddPadding :{
-    padding:20,
-  }
+  AddPadding: {
+    padding: 20,
+  },
 });
