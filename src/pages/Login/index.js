@@ -30,8 +30,7 @@ function Login() {
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <View style={styles.wrapper}>
         <NavbarTop title="Home" />
-        {/* Panggil component di bawah ini */}
-        {/* Panggil component di atas ini */}
+
         <NavbarBottom type="Admin" />
       </View>
     </View>
