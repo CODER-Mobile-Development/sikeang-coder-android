@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -32,7 +32,7 @@ function AdminAddMember() {
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <NavbarTop title="Tambah Anggota" />
       <View style={styles.wrapper}>
-        <View style={{ marginTop: 20 }}>
+        <ScrollView style={styles.content}>
           <UserInput type="Basic" label="Nama Lengkap" />
           <Separator height={14} />
           <UserInput type="Basic" label="Alamat Email" />
@@ -44,7 +44,8 @@ function AdminAddMember() {
           <UserInput type="Dropdown" label="Jabatan Devisi" />
           <Separator height={40} />
           <PrimaryButton title="Simpan Perubahan" />
-        </View>
+          <Separator height={40} />
+        </ScrollView>
       </View>
       <NavbarBottom type="Admin" />
     </View>
@@ -59,9 +60,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'column',
     backgroundColor: 'white',
-    paddingHorizontal: 35,
   },
-  AddPadding: {
-    padding: 20,
+  content: {
+    marginTop: 20,
+    paddingHorizontal: 35,
   },
 });

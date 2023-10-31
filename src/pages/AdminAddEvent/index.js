@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -30,26 +30,26 @@ function AdminAddEvent() {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <NavbarTop title="Tambah Acara" />
       <View style={styles.wrapper}>
-        <NavbarTop title="Tambah Acara" />
-        <View style={styles.AddPadding}>
+        <ScrollView style={styles.content}>
           <UserInput type="Basic" label="Nama Acara" />
-          <Separator />
+          <Separator height={14} />
           <UserInput type="Basic" label="Tanggal Mulai" />
-          <Separator />
+          <Separator height={14} />
           <UserInput type="Basic" label="Tanggal Selesai" />
-          <Separator />
+          <Separator height={14} />
           <UserInput type="TextArea" label="Deskripsi" />
-          <Separator />
+          <Separator height={14} />
           <UserInput type="Basic" label="Foto" />
-          <Separator />
+          <Separator height={14} />
           <UserInput type="Dropdown" label="Jenis Acara" />
-          <Separator height={25} />
+          <Separator height={40} />
           <PrimaryButton title="Simpan Perubahan" />
-          <Separator />
-        </View>
-        <NavbarBottom type="Admin" />
+          <Separator height={40} />
+        </ScrollView>
       </View>
+      <NavbarBottom type="Admin" />
     </View>
   );
 }
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'white',
   },
-  AddPadding: {
-    padding: 20,
+  content: {
+    marginTop: 20,
+    paddingHorizontal: 35,
   },
 });
