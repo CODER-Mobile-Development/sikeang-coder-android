@@ -2,7 +2,9 @@ import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput } from '../../components';
+import {
+  NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
+} from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -28,26 +30,23 @@ function AdminAddMember() {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-    <NavbarTop title="Tambah Acara"/>
+      <NavbarTop title="Tambah Anggota" />
       <View style={styles.wrapper}>
-        <View style={styles.AddPadding}>
-          <UserInput type="Basic" label="Nama Lengkap"/>
-          <Separator/>
-          <UserInput type="Basic" label="Alamat Email"/>
-          <Separator/>
-          <UserInput type="Basic" label="Program Studi"/>
-          <Separator/>
-          <UserInput type="Dropdown" label="Nama Devisi"/>
-          <Separator/>
-          <UserInput type="Dropdown" label="Jabatan Devisi"/>
-          <Separator height={50}/>
-          <PrimaryButton title="Simpan Perubahan"/>
-          <Separator/>
+        <View style={{ marginTop: 20 }}>
+          <UserInput type="Basic" label="Nama Lengkap" />
+          <Separator height={14} />
+          <UserInput type="Basic" label="Alamat Email" />
+          <Separator height={14} />
+          <UserInput type="Basic" label="Program Studi" />
+          <Separator height={14} />
+          <UserInput type="Dropdown" label="Nama Divisi" />
+          <Separator height={14} />
+          <UserInput type="Dropdown" label="Jabatan Devisi" />
+          <Separator height={40} />
+          <PrimaryButton title="Simpan Perubahan" />
         </View>
-        {/* Panggil component di bawah ini */}
-        {/* Panggil component di atas ini */}
       </View>
-    <NavbarBottom type="Admin" />
+      <NavbarBottom type="Admin" />
     </View>
   );
 }
@@ -59,9 +58,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     flexDirection: 'column',
-    backgroundColor:'white'
+    backgroundColor: 'white',
+    paddingHorizontal: 35,
   },
-  AddPadding :{
-    padding:20,
-  }
+  AddPadding: {
+    padding: 20,
+  },
 });
