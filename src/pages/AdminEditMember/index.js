@@ -12,7 +12,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminAddEvent() {
+function AdminEditMember() {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -30,10 +30,18 @@ function AdminAddEvent() {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavbarTop title="Tambah Divisi" />
+      <NavbarTop title="Moch. Andi" />
       <View style={styles.wrapper}>
         <ScrollView style={styles.content}>
-          <UserInput type="Dropdown" label="Jenis Acara" />
+          <UserInput type="Basic" label="Nama Lengkap" />
+          <Separator height={14} />
+          <UserInput type="Basic" label="Alamat Email" />
+          <Separator height={14} />
+          <UserInput type="Basic" label="Program Studi" />
+          <Separator height={14} />
+          <UserInput type="Dropdown" label="Nama Divisi" />
+          <Separator height={14} />
+          <UserInput type="Dropdown" label="Jabatan Devisi" />
           <Separator height={40} />
           <PrimaryButton title="Simpan Perubahan" />
           <Separator height={40} />
@@ -44,7 +52,7 @@ function AdminAddEvent() {
   );
 }
 
-export default AdminAddEvent;
+export default AdminEditMember;
 
 const styles = StyleSheet.create({
   wrapper: {
