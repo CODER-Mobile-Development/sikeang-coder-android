@@ -6,27 +6,27 @@ import {
   AdminIcon, CalendarIcon, HomeIcon, StarIcon,
 } from '../../assets/svgs';
 
-function NavbarBottom({ type }) {
+function NavbarBottom({ type, isActive }) {
   return (
     <View style={{ overflow: 'hidden', paddingTop: 6 }}>
       <View style={{ ...styles.wrapper, justifyContent: type === 'Member' ? 'space-around' : 'space-between' }}>
         <View style={styles.menuSection}>
-          <TouchableOpacity><HomeIcon width={32} height={32} isActive /></TouchableOpacity>
+          <TouchableOpacity><HomeIcon width={32} height={32} isActive={isActive === 'Home'} /></TouchableOpacity>
           <Text style={styles.menuTitle}>home</Text>
         </View>
         <View style={styles.menuSection}>
-          <TouchableOpacity><CalendarIcon width={32} height={32} /></TouchableOpacity>
+          <TouchableOpacity><CalendarIcon width={32} height={32} isActive={isActive === 'Event'} /></TouchableOpacity>
           <Text style={styles.menuTitle}>event</Text>
         </View>
         {type === 'Admin' && (
         <View style={styles.menuSection}>
-          <TouchableOpacity><StarIcon width={32} height={32} /></TouchableOpacity>
+          <TouchableOpacity><StarIcon width={32} height={32} isActive={isActive === 'Poin'} /></TouchableOpacity>
           <Text style={styles.menuTitle}>poin</Text>
         </View>
         )}
         {type === 'Admin' && (
         <View style={styles.menuSection}>
-          <TouchableOpacity><AdminIcon width={32} height={32} /></TouchableOpacity>
+          <TouchableOpacity><AdminIcon width={32} height={32} isActive={isActive === 'Admin'}/></TouchableOpacity>
           <Text style={styles.menuTitle}>admin</Text>
         </View>
         )}
