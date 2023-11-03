@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: '#F0F0F0',
   },
   wrapperTittle: {
     flex: 1,

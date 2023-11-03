@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import {
-  AdminAddEvent, AdminAddMember, Login, MemberHome, AdminEditAdmin, AdminAddAdmin, AdminEditEvent,
+  AdminAddAdmin, AdminAddEvent, AdminAddMember, AdminEditAdmin, AdminEditEvent, MemberHome,
 } from '../pages';
 
 const Stack = createNativeStackNavigator();
@@ -10,8 +10,8 @@ function Router() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Login"
-        component={Login}
+        name="AdminEditAdmin"
+        component={AdminEditAdmin}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -20,8 +20,8 @@ function Router() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="AdminEditAdmin"
-        component={AdminEditAdmin}
+        name="AdminEditEvent"
+        component={AdminEditEvent}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -32,11 +32,6 @@ function Router() {
       <Stack.Screen
         name="AdminAddEvent"
         component={AdminAddEvent}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="AdminEditEvent"
-        component={AdminEditEvent}
         options={{ headerShown: false }}
       />
       <Stack.Screen

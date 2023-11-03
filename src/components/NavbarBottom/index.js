@@ -8,7 +8,12 @@ import {
 
 function NavbarBottom({ type, isActive }) {
   return (
-    <View style={{ overflow: 'hidden', paddingTop: 6 }}>
+    <View style={{
+      overflow: 'hidden',
+      borderTopWidth: 2,
+      borderTopColor: '#F0F0F0',
+    }}
+    >
       <View style={{ ...styles.wrapper, justifyContent: type === 'Member' ? 'space-around' : 'space-between' }}>
         <View style={styles.menuSection}>
           <TouchableOpacity><HomeIcon width={32} height={32} isActive={isActive === 'Home'} /></TouchableOpacity>
@@ -26,7 +31,7 @@ function NavbarBottom({ type, isActive }) {
         )}
         {type === 'Admin' && (
         <View style={styles.menuSection}>
-          <TouchableOpacity><AdminIcon width={32} height={32} isActive={isActive === 'Admin'}/></TouchableOpacity>
+          <TouchableOpacity><AdminIcon width={32} height={32} isActive={isActive === 'Admin'} /></TouchableOpacity>
           <Text style={styles.menuTitle}>admin</Text>
         </View>
         )}
@@ -43,11 +48,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 35,
     flexDirection: 'row',
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-    elevation: 5,
   },
   menuSection: {
     flexDirection: 'column',

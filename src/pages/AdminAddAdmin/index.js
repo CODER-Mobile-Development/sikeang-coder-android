@@ -38,12 +38,12 @@ function AdminAddAdmin() {
           <UserInput type="Basic" label="Email" />
           <Separator height={14} />
           <UserInput type="Dropdown" label="Divisi" />
-          <Separator height={300} />
+          <Separator height={40} />
           <PrimaryButton title="Simpan Perubahan" />
           <Separator height={40} />
         </ScrollView>
       </View>
-      <NavbarBottom type="Admin" isActive={"Event"}/>
+      <NavbarBottom type="Admin" isActive="Event" />
     </View>
   );
 }
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   content: {
-    marginTop: 20,
+    paddingTop: 20,
     paddingHorizontal: 35,
   },
 });

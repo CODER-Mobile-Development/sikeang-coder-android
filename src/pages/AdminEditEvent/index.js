@@ -49,7 +49,7 @@ function AdminEditEvent() {
           <Separator height={40} />
         </ScrollView>
       </View>
-      <NavbarBottom type="Admin" isActive={"Event"}/>
+      <NavbarBottom type="Admin" isActive="Event" />
     </View>
   );
 }
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   content: {
-    marginTop: 20,
+    paddingTop: 20,
     paddingHorizontal: 35,
   },
 });
