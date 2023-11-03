@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
     justifyContent: 'space-between',
     paddingVertical: 30,
+    backgroundColor: 'white',
   },
   welcomeIcon: {
     marginTop: 50,
