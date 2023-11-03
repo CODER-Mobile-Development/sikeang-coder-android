@@ -24,16 +24,16 @@ function NavbarBottom({ type, isActive }) {
           <Text style={styles.menuTitle}>event</Text>
         </View>
         {type === 'Admin' && (
-        <View style={styles.menuSection}>
-          <TouchableOpacity><StarIcon width={32} height={32} isActive={isActive === 'Poin'} /></TouchableOpacity>
-          <Text style={styles.menuTitle}>poin</Text>
-        </View>
+          <View style={styles.menuSection}>
+            <TouchableOpacity><StarIcon width={32} height={32} isActive={isActive === 'Poin'} /></TouchableOpacity>
+            <Text style={styles.menuTitle}>poin</Text>
+          </View>
         )}
         {type === 'Admin' && (
-        <View style={styles.menuSection}>
-          <TouchableOpacity><AdminIcon width={32} height={32} isActive={isActive === 'Admin'} /></TouchableOpacity>
-          <Text style={styles.menuTitle}>admin</Text>
-        </View>
+          <View style={styles.menuSection}>
+            <TouchableOpacity><AdminIcon width={32} height={32} isActive={isActive === 'Admin'} /></TouchableOpacity>
+            <Text style={styles.menuTitle}>admin</Text>
+          </View>
         )}
       </View>
     </View>
