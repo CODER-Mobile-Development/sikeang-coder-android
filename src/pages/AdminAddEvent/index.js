@@ -30,9 +30,19 @@ function AdminAddEvent() {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavbarTop title="Tambah Divisi" />
+      <NavbarTop title="Tambah Acara" />
       <View style={styles.wrapper}>
         <ScrollView style={styles.content}>
+          <UserInput type="Basic" label="Nama Acara" />
+          <Separator height={14} />
+          <UserInput type="Basic" label="Tanggal Mulai" />
+          <Separator height={14} />
+          <UserInput type="Basic" label="Tanggal Selesai" />
+          <Separator height={14} />
+          <UserInput type="TextArea" label="Deskripsi" />
+          <Separator height={14} />
+          <UserInput type="Basic" label="Foto" />
+          <Separator height={14} />
           <UserInput type="Dropdown" label="Jenis Acara" />
           <Separator height={40} />
           <PrimaryButton title="Simpan Perubahan" />
