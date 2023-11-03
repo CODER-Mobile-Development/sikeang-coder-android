@@ -19,15 +19,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#B31217',
     alignItems: 'center',
     borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
   },
   text: {
     marginTop: 4,
