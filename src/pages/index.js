@@ -7,10 +7,14 @@ import AdminAddDivision from './AdminAddDivision';
 import AdminEditEvent from './AdminEditEvent';
 import AdminAddAdmin from './AdminAddAdmin';
 import AdminEditAdmin from './AdminEditAdmin';
+import MemberDetailEvent from './MemberDetailEvent';
+import AdminDetailEvent from './AdminDetailEvent';
+import AdminPointDetailEvent from './AdminPointDetailEvent';
 
 export {
   Login,
   MemberHome,
+  MemberDetailEvent,
   AdminAddEvent,
   AdminAddMember,
   AdminEditMember,
@@ -18,4 +22,6 @@ export {
   AdminEditEvent,
   AdminAddAdmin,
   AdminEditAdmin,
+  AdminDetailEvent,
+  AdminPointDetailEvent,
 };
