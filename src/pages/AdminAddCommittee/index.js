@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { MemberSelectCommittee, NavbarBottom, NavbarTop, SearchBar, Separator} from '../../components';
+import { MemberSelectCommittee, NavbarBottom, NavbarTop, PrimaryButton, SearchBar, Separator} from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -31,15 +31,19 @@ function AdminAddCommittee() {
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <NavbarTop title={"Daftar Panitia"}/>
         <View style={styles.wrapper}>
-            <View style={{ gap: 10 }}>
+            <ScrollView style={styles.content}>
                 <SearchBar placeholder={"cari nama anggota"}/>
+                <Separator height={26}/>
                 <Text style={styles.Tagline}>
                     Daftar Anggota
                 </Text>
-                <MemberSelectCommittee name={"Moch. Andi Divangga P."} email={"andi@gmail.com"} style={{marginHorizontal: 20}}/>
-            </View>
+                <Separator height={11}/>
+                <MemberSelectCommittee name={"Moch. Andi Divangga P."} email={"andi@gmail.com"}/>
+                <Separator height={348}/>
+                <PrimaryButton title={"Simpan Perubahan"}/>
+            </ScrollView>
         </View>
-        <NavbarBottom type="Admin"/>
+        <NavbarBottom type="Admin" isActive="Event"/>
     </View>
   )}
 
@@ -49,9 +53,7 @@ export default AdminAddCommittee;
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        paddingHorizontal: 35,
         justifyContent: 'space-between',
-        paddingVertical: 30,
         backgroundColor: 'white',
       },
     Tagline: {

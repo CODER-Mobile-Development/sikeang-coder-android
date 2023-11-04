@@ -31,15 +31,17 @@ function AdminManualAttendance() {
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <NavbarTop title={"Presensi Manual"}/>
         <View style={styles.wrapper}>
-            <View style={{ gap: 10 }}>
+            <ScrollView style={styles.content}>
                 <SearchBar placeholder={"cari nama anggota"}/>
+                <Separator height={21}/>
                 <Text style={styles.Tagline}>
                     Daftar Peserta
                 </Text>
+                <Separator height={11}/>
                 <ManualAttendanceCard name={"Moch. Andi Divangga P."} email={"andi@gmail.com"} style={{marginHorizontal: 20}}/>
-            </View>
+            </ScrollView>
         </View>
-        <NavbarBottom type="Admin"/>
+        <NavbarBottom type="Admin" isActive="Event"/>
     </View>
   )}
 
@@ -49,9 +51,7 @@ export default AdminManualAttendance;
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        paddingHorizontal: 35,
         justifyContent: 'space-between',
-        paddingVertical: 30,
         backgroundColor: 'white',
       },
     Tagline: {

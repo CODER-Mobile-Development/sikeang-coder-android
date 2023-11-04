@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import {
-  StyleSheet, View,
+  StyleSheet, View, ScrollView
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { MemberListView, NavbarBottom, NavbarTop, PrimaryButton } from '../../components';
+import { MemberListView, NavbarBottom, NavbarTop, PrimaryButton, Separator } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -31,13 +31,15 @@ function AdminAdminList() {
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <NavbarTop title={"Data Admin"}/>
         <View style={styles.wrapper}>
-            <View style={{ gap: 10 }}>
-                <MemberListView name={"Moch. Andi Divangga"} email={"andi@gmail.com"}/>
-                <MemberListView name={"Moch. Andi Divangga"} email={"andi@gmail.com"}/>
-            </View>
-            <PrimaryButton title={"Tambah Admin"}/>
+            <ScrollView style={styles.content}>
+              <MemberListView name={"Moch. Andi Divangga"} email={"andi@gmail.com"}/>
+              <Separator height={13}/>
+              <MemberListView name={"Moch. Andi Divangga"} email={"andi@gmail.com"}/>
+              <Separator height={452}/>
+              <PrimaryButton title={"Tambah Admin"}/>
+            </ScrollView>
         </View>
-        <NavbarBottom type="Admin"/>
+        <NavbarBottom type="Admin" isActive="Event"/>
     </View>
   )}
 
@@ -47,13 +49,15 @@ export default AdminAdminList;
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        paddingHorizontal: 35,
         justifyContent: 'space-between',
-        paddingVertical: 30,
         backgroundColor: 'white',
       },
     Tagline: {
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    content: {
+      margin: 20,
+      paddingHorizontal: 50
     }
 })
