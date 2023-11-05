@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react';
 import {
-  StyleSheet, Text, View, ScrollView
+  ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { ManualAttendanceCard, NavbarBottom, NavbarTop, SearchBar, Separator } from '../../components';
+import {
+  ManualAttendanceCard, NavbarBottom, NavbarTop, SearchBar,
+} from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -27,39 +29,62 @@ function AdminManualAttendance() {
   if (!fontsLoaded) {
     return null;
   }
-  return (    
+  return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <NavbarTop title={"Presensi Manual"}/>
-        <View style={styles.wrapper}>
-            <ScrollView style={styles.content}>
-                <SearchBar placeholder={"cari nama anggota"}/>
-                <Separator height={21}/>
-                <Text style={styles.Tagline}>
-                    Daftar Peserta
-                </Text>
-                <Separator height={11}/>
-                <ManualAttendanceCard name={"Moch. Andi Divangga P."} email={"andi@gmail.com"} style={{marginHorizontal: 20}}/>
-            </ScrollView>
+      <NavbarTop title="Presensi Manual" />
+      <View style={styles.wrapper}>
+        <View style={{ paddingHorizontal: 35 }}>
+          <View style={{ paddingVertical: 20 }}>
+            <SearchBar placeholder="cari nama anggota" />
+          </View>
+          <Text style={styles.titleText}>
+            Daftar Peserta
+          </Text>
         </View>
-        <NavbarBottom type="Admin" isActive="Event"/>
+        <ScrollView style={styles.content}>
+          <View style={{ gap: 10, paddingBottom: 20 }}>
+            <ManualAttendanceCard
+              photo="https://source.unsplash.com/random/120x120/?fruit"
+              name="Moch. Andi Divangga P."
+              email="andi@gmail.com"
+            />
+            <ManualAttendanceCard
+              photo="https://source.unsplash.com/random/120x120/?animal"
+              name="Moch. Andi Divangga P."
+              email="andi@gmail.com"
+            />
+            <ManualAttendanceCard
+              photo="https://source.unsplash.com/random/120x120/?mountain"
+              name="Moch. Andi Divangga P."
+              email="andi@gmail.com"
+            />
+            <ManualAttendanceCard
+              photo="https://source.unsplash.com/random/120x120/?food"
+              name="Moch. Andi Divangga P."
+              email="andi@gmail.com"
+            />
+          </View>
+        </ScrollView>
+      </View>
+      <NavbarBottom type="Admin" isActive="Event" />
     </View>
-  )}
-
+  );
+}
 
 export default AdminManualAttendance;
 
 const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        justifyContent: 'space-between',
-        backgroundColor: 'white',
-      },
-    Tagline: {
-        fontSize: 16,
-        fontWeight: 'Bold',
-    },
-    content: {
-        marginTop: 20,
-        paddingHorizontal: 50
-    }
-})
+  wrapper: {
+    flex: 1,
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+  },
+  titleText: {
+    fontSize: 16,
+    fontFamily: 'Poppins-SemiBold',
+  },
+  content: {
+    marginTop: 5,
+    paddingHorizontal: 35,
+  },
+});

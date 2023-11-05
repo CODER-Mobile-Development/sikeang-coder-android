@@ -43,7 +43,13 @@ function AdminAddEvent() {
           <Separator height={14} />
           <UserInput type="Basic" label="Foto" />
           <Separator height={14} />
-          <UserInput type="Dropdown" label="Jenis Acara" />
+          <UserInput
+            data={[{ id: 1, value: 'Global' }, { id: 2, value: 'Divisi' }]}
+            initialValue={{ id: 1, value: 'Global' }}
+            type="Dropdown"
+            onChange={(val) => console.log(val)}
+            label="Jenis Acara"
+          />
           <Separator height={40} />
           <PrimaryButton title="Simpan Perubahan" />
           <Separator height={40} />
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   content: {
-    marginTop: 20,
+    paddingTop: 20,
     paddingHorizontal: 35,
   },
 });

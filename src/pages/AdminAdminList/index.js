@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
-import {
-  StyleSheet, View, ScrollView
-} from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { MemberListView, NavbarBottom, NavbarTop, PrimaryButton, Separator } from '../../components';
+import {
+  MemberListView, NavbarBottom, NavbarTop, PrimaryButton,
+} from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -27,37 +27,72 @@ function AdminAdminList() {
   if (!fontsLoaded) {
     return null;
   }
-  return (    
+  return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <NavbarTop title={"Data Admin"}/>
-        <View style={styles.wrapper}>
-            <ScrollView style={styles.content}>
-              <MemberListView name={"Moch. Andi Divangga"} email={"andi@gmail.com"}/>
-              <Separator height={13}/>
-              <MemberListView name={"Moch. Andi Divangga"} email={"andi@gmail.com"}/>
-              <Separator height={452}/>
-              <PrimaryButton title={"Tambah Admin"}/>
-            </ScrollView>
+      <NavbarTop title="Data Admin" />
+      <View style={styles.wrapper}>
+        <ScrollView style={styles.content}>
+          <View style={{ gap: 10, paddingVertical: 20 }}>
+            <MemberListView
+              photo="https://source.unsplash.com/random/120x120/?fruit"
+              name="Mochammad Andi Divangga Pratama"
+              email="andi.divangga.21@student.if.ittelkom-sby.ac.id"
+            />
+            <MemberListView
+              photo="https://source.unsplash.com/random/120x120/?fruit"
+              name="Irvan Surya Nugraha"
+              email="irvansurya1@gmail.com"
+            />
+            <MemberListView
+              photo="https://source.unsplash.com/random/120x120/?fruit"
+              name="Rayhan Furqoni"
+              email="rayhan.furqoni.21@student.if.ittelkom-sby.ac.id"
+            />
+            <MemberListView
+              photo="https://source.unsplash.com/random/120x120/?fruit"
+              name="Moch. Andi Divangga"
+              email="andi@gmail.com"
+            />
+            <MemberListView
+              photo="https://source.unsplash.com/random/120x120/?fruit"
+              name="Moch. Andi Divangga"
+              email="andi@gmail.com"
+            />
+            <MemberListView
+              photo="https://source.unsplash.com/random/120x120/?fruit"
+              name="Moch. Andi Divangga"
+              email="andi@gmail.com"
+            />
+            <MemberListView
+              photo="https://source.unsplash.com/random/120x120/?fruit"
+              name="Moch. Andi Divangga"
+              email="andi@gmail.com"
+            />
+          </View>
+        </ScrollView>
+        <View style={{ paddingHorizontal: 35, marginVertical: 10 }}>
+          <PrimaryButton title="Tambah Admin" />
         </View>
-        <NavbarBottom type="Admin" isActive="Event"/>
+      </View>
+      <NavbarBottom type="Admin" isActive="Event" />
     </View>
-  )}
-
+  );
+}
 
 export default AdminAdminList;
 
 const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        justifyContent: 'space-between',
-        backgroundColor: 'white',
-      },
-    Tagline: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    content: {
-      margin: 20,
-      paddingHorizontal: 50
-    }
-})
+  wrapper: {
+    flex: 1,
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+  },
+  Tagline: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  content: {
+    paddingHorizontal: 35,
+    // paddingTop: 20,
+  },
+});
