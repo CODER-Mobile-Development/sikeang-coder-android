@@ -7,6 +7,9 @@ import AdminAddDivision from './AdminAddDivision';
 import AdminEditEvent from './AdminEditEvent';
 import AdminAddAdmin from './AdminAddAdmin';
 import AdminEditAdmin from './AdminEditAdmin';
+import AdminManualAttendance from './AdminManualAttendance';
+import AdminAddCommittee from "./AdminAddCommittee";
+import AdminAdminList from "./AdminAdminList";
 
 export {
   Login,
@@ -18,4 +21,8 @@ export {
   AdminEditEvent,
   AdminAddAdmin,
   AdminEditAdmin,
+  AdminManualAttendance,
+  AdminAddCommittee,
+  AdminAdminList,
+
 };
