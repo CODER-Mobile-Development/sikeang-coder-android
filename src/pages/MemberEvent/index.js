@@ -5,7 +5,7 @@ import {
   ScrollView, StyleSheet, Text, View, Dimensions,
 } from 'react-native';
 import {
-  MemberPointHistory, NavbarBottom, Separator, UserTab, EventOption,
+  NavbarBottom, Separator, UserTab, EventOption, EventListView,
 } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -69,41 +69,41 @@ function MemberEvent() {
       }}
       >
         <UserTab
-          style={{ marginBottom: 33 }}
+          style={{ marginBottom: 24 }}
           division="Mobile Development"
           imageUri="https://source.unsplash.com/random/120x120/?fruit"
           name="Irvan Surya Nugraha"
           points="100"
           type="Member"
         />
-        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Tipe Event</Text>
-        <EventOption optionText="Divisi" />
-        <EventOption optionText="Umum" />
-        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Waktu Event</Text>
-        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Riwayat Poin</Text>
+        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>Tipe Event</Text>
+        <View style={styles.frameParent}>
+          <EventOption optionText="Divisi" />
+          <EventOption optionText="Umum" />
+        </View>
+        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginTop: 12 }}>Waktu Event</Text>
+        <View style={styles.frameParent}>
+          <EventOption optionText="Mendatang" />
+          <EventOption optionText="Berlangsung" />
+          <EventOption optionText="Selesai" />
+        </View>
+        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginTop: 12 }}>Daftar Event</Text>
       </View>
       <ScrollView style={styles.content}>
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
         <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
         <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
         <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
         <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
         <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
         <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
       </ScrollView>
-      <NavbarBottom isActive="Home" type="Admin" />
+      <NavbarBottom isActive="Home" type="Member" />
     </View>
   );
 }
@@ -118,6 +118,13 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 35,
-    marginTop: '80%',
+    marginTop: '84%',
+  },
+  frameParent: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    overflow: 'hidden',
   },
 });
