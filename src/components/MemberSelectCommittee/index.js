@@ -7,24 +7,20 @@ function MemberSelectCommittee({ name, email, imageUri }) {
   const [isSelected, setIsSelected] = useState(false);
 
   return (
-    <View>
-      <View style={styles.item}>
-        <View style={styles.itemLeft}>
-          <View style={styles.circle}>
-            <Image source={{ uri: imageUri }} style={styles.photo} />
+    <View style={styles.item}>
+      <View>
+        <Image source={{ uri: imageUri }} style={styles.photo} />
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.name} ellipsizeMode="tail" numberOfLines={2}>{name}</Text>
+        <Text style={styles.email} ellipsizeMode="tail" numberOfLines={2}>{email}</Text>
+      </View>
+      <View>
+        <TouchableOpacity onPress={() => setIsSelected(!isSelected)}>
+          <View style={styles.radioOuterCircle}>
+            {isSelected && (<View style={styles.radioInnerCircle} />)}
           </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.email}>{email}</Text>
-          </View>
-        </View>
-        <View style={styles.radioContainer}>
-          <TouchableOpacity onPress={() => setIsSelected(!isSelected)}>
-            <View style={styles.radioOuterCircle}>
-              {isSelected && (<View style={styles.radioInnerCircle} />)}
-            </View>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -33,13 +29,13 @@ function MemberSelectCommittee({ name, email, imageUri }) {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: '#3F5671',
-    height: 74,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 2,
     borderColor: '#E0E0E0',
+    padding: 15,
   },
   radioOuterCircle: {
     height: 28,
@@ -56,37 +52,24 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: 'white',
   },
-  itemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  circle: {
-    marginRight: 15,
-    marginTop: 0,
-    marginLeft: 18,
-  },
   textContainer: {
+    width: '65%',
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
-  radioContainer: {
-    marginRight: 20,
-  },
   photo: {
-    width: 51,
-    height: 51,
+    width: 52,
+    height: 52,
     borderRadius: 26,
     backgroundColor: '#D9D9D9',
+    marginRight: 10,
   },
   name: {
-    maxWidth: '100%',
     color: '#FFFFFF',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
   },
   email: {
-    maxWidth: '100%',
     color: '#FFFFFF',
     fontFamily: 'Poppins-Medium',
     fontSize: 14,

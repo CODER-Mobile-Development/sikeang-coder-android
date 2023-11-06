@@ -1,5 +1,6 @@
 import Login from './Login';
 import MemberHome from './MemberHome';
+import MemberProfile from './MemberProfile';
 import AdminAddEvent from './AdminAddEvent';
 import AdminAddMember from './AdminAddMember';
 import AdminEditMember from './AdminEditMember';
@@ -10,11 +11,14 @@ import AdminEditAdmin from './AdminEditAdmin';
 import MemberDetailEvent from './MemberDetailEvent';
 import AdminDetailEvent from './AdminDetailEvent';
 import AdminPointDetailEvent from './AdminPointDetailEvent';
+import AdminMemberList from './AdminMemberList';
+import AdminAttendanceList from './AdminAttendanceList';
 
 export {
   Login,
   MemberHome,
   MemberDetailEvent,
+  MemberProfile,
   AdminAddEvent,
   AdminAddMember,
   AdminEditMember,
@@ -24,4 +28,6 @@ export {
   AdminEditAdmin,
   AdminDetailEvent,
   AdminPointDetailEvent,
+  AdminMemberList,
+  AdminAttendanceList,
 };

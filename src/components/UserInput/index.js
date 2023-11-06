@@ -5,36 +5,20 @@ import {
 import { ChevronDown, ChevronUp } from '../../assets/svgs';
 
 function UserInput({
-  label, type, onChange, data, initialValue, smallSize,
+  label, type, onChange, data, initialValue, smallSize, dropdownState, onDropdown,
 }) {
   const [showDropdownItem, setShowDropdownItem] = useState(false);
-  const [selectedDropdownItem, setSelectedDropdownItem] = useState({
-    id: 0,
-    value: '',
-  });
+  const [selectedDropdownItem, setSelectedDropdownItem] = useState(initialValue);
   const [dataDropdownItem, setDataDropdownItem] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      setSelectedDropdownItem(initialValue || { id: data[0].id, value: data[0].value });
-      onChange(initialValue || { id: data[0].id, value: data[0].value });
-    }
-  }, [data, initialValue]);
 
   useEffect(() => {
     if (data) {
       setDataDropdownItem(data.filter((item) => !(item.value === selectedDropdownItem.value)));
     }
-  }, [data, selectedDropdownItem]);
-
-  const handleSelectedDropdownItem = (id, value) => {
-    setShowDropdownItem(false);
-    setSelectedDropdownItem({ id, value });
-    onChange({ id, value });
-  };
+  }, [selectedDropdownItem]);
 
   return (
-    <View>
+    <>
       {label && (
       <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 16 }}>
         {label}
@@ -51,7 +35,10 @@ function UserInput({
             borderBottomRightRadius: showDropdownItem ? 0 : 12,
             borderBottomLeftRadius: showDropdownItem ? 0 : 12,
           }}
-          onPress={() => setShowDropdownItem(!showDropdownItem)}
+          onPress={() => {
+            setShowDropdownItem(!showDropdownItem);
+            if (dropdownState) onDropdown(!showDropdownItem);
+          }}
         >
           <Text style={{ fontFamily: 'Poppins-Medium' }}>{selectedDropdownItem.value}</Text>
           {showDropdownItem
@@ -64,7 +51,12 @@ function UserInput({
             <TouchableOpacity
               key={item.id}
               style={{ ...styles.menuDropdownButton, height: smallSize ? 24 : 44 }}
-              onPress={(() => handleSelectedDropdownItem(item.id, item.value))}
+              onPress={(() => {
+                setShowDropdownItem(false);
+                onDropdown(false);
+                setSelectedDropdownItem({ id: item.id, value: item.value });
+                onChange({ id: item.id, value: item.value });
+              })}
             >
               <Text style={{ fontFamily: 'Poppins-Medium' }}>{item.value}</Text>
             </TouchableOpacity>
@@ -73,7 +65,7 @@ function UserInput({
         )}
       </View>
       )}
-    </View>
+    </>
   );
 }
 
