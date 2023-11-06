@@ -22,6 +22,7 @@ const style = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 12,
     height: 38,
+    paddingTop: 1,
   },
   Icon: {
     marginLeft: 19,
