@@ -15,7 +15,7 @@ function EventOption({ optionText, onPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    paddingTop: 1,
     paddingLeft: 12,
     paddingRight: 12,
     backgroundColor: '#B81519',

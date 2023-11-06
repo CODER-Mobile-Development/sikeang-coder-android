@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  ScrollView, StyleSheet, Text, View, Dimensions,
+  Dimensions, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import {
-  NavbarBottom, Separator, UserTab, EventOption, EventListView,
+  EventListView, EventOption, NavbarBottom, UserTab,
 } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -90,18 +90,16 @@ function MemberEvent() {
         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginTop: 12 }}>Daftar Event</Text>
       </View>
       <ScrollView style={styles.content}>
-        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
-        <Separator height={8} />
-        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
-        <Separator height={8} />
-        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
-        <Separator height={8} />
-        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
-        <Separator height={8} />
-        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
-        <Separator height={8} />
-        <EventListView name="Playbox" date="Kamis, 12 Oktober 2023" />
-        <Separator height={8} />
+        <View style={{ gap: 5 }}>
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+        </View>
       </ScrollView>
       <NavbarBottom isActive="Home" type="Member" />
     </View>
@@ -118,7 +116,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 35,
-    marginTop: '84%',
+    marginTop: 320,
   },
   frameParent: {
     flex: 1,

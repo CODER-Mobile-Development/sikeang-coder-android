@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  ScrollView, StyleSheet, Text, View, Dimensions,
+  Dimensions, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import {
-  MemberPointHistory, NavbarBottom, Separator, UserTab, DashboardCounter,
+  DashboardCounter, MemberPointHistory, NavbarBottom, UserTab,
 } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -80,29 +80,20 @@ function MemberHome() {
           style={{ marginBottom: 23 }}
           presencePoint={10}
           committeePoint={30}
+          leftTitle="presensi"
+          rigthTitle="kepanitiaan"
         />
         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Riwayat Poin</Text>
       </View>
       <ScrollView style={styles.content}>
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-        <Separator height={8} />
-        <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+        <View style={{ gap: 5 }}>
+          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+        </View>
       </ScrollView>
       <NavbarBottom isActive="Home" type="Admin" />
     </View>

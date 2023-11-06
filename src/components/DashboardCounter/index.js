@@ -8,12 +8,12 @@ function DashboardCounter({
     <View style={{ ...styles.wrapper, ...style }}>
       <View style={styles.item}>
         <Text style={styles.pointSection}>{presencePoint}</Text>
-        <Text style={styles.pointTitle}>{rigthTitle}</Text>
+        <Text style={styles.pointTitle}>{leftTitle}</Text>
       </View>
       <View style={styles.divider} />
       <View style={styles.item}>
         <Text style={styles.pointSection}>{committeePoint}</Text>
-        <Text style={styles.pointTitle}>{leftTitle}</Text>
+        <Text style={styles.pointTitle}>{rigthTitle}</Text>
       </View>
     </View>
   );

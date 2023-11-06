@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  ScrollView, StyleSheet, Text, View, Dimensions,
+  Dimensions, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import {
-  NavbarBottom, Separator, UserTab, DivisionMemberCounter, DashboardCounter,
+  DashboardCounter, DivisionMemberCounter, NavbarBottom, UserTab,
 } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -66,7 +66,6 @@ function AdminHome() {
         paddingHorizontal: 35,
         marginTop: 64,
         justifyContent: 'center',
-        position: '',
       }}
       >
         <UserTab
@@ -84,13 +83,16 @@ function AdminHome() {
           rigthTitle="anggota"
           leftTitle="divisi"
         />
-        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Daftar Divisi</Text>
+        <Text style={styles.titleList}>Daftar Divisi</Text>
       </View>
       <ScrollView style={styles.content}>
-        <DivisionMemberCounter memberCounter={20} divisonTitle="Divisi Mobile" />
-        <Separator height={8} />
-        <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
-        <Separator height={8} />
+        <View style={{ gap: 5 }}>
+          <DivisionMemberCounter memberCounter={20} divisonTitle="Divisi Mobile" />
+          <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
+          <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
+          <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
+          <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
+        </View>
       </ScrollView>
       <NavbarBottom isActive="Home" type="Admin" />
     </View>
@@ -106,7 +108,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    top: 0,
     paddingHorizontal: 35,
+  },
+  titleList: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 16,
   },
 });
