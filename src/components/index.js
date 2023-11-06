@@ -11,6 +11,7 @@ import PrimaryButton from './PrimaryButton';
 import UserInput from './UserInput';
 import ManualAttendanceCard from './ManualAttendanceCard';
 import Separator from './Separator';
+import OutlineButton from './OutlineButton';
 
 export {
   MemberListView,
@@ -26,4 +27,5 @@ export {
   UserInput,
   ManualAttendanceCard,
   Separator,
+  OutlineButton,
 };
