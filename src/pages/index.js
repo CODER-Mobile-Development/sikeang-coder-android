@@ -11,6 +11,7 @@ import AdminManualAttendance from './AdminManualAttendance';
 import AdminAddCommittee from './AdminAddCommittee';
 import AdminAdminList from './AdminAdminList';
 import AdminHome from './AdminHome';
+import MemberEvent from './MemberEvent';
 
 export {
   Login,
@@ -26,4 +27,5 @@ export {
   AdminAddCommittee,
   AdminAdminList,
   AdminHome,
+  MemberEvent,
 };

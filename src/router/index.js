@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { AdminHome } from '../pages';
+import { MemberEvent } from '../pages';
 
 const Stack = createNativeStackNavigator();
 
@@ -9,7 +9,7 @@ function Router() {
     <Stack.Navigator>
       <Stack.Screen
         name="Login"
-        component={AdminHome}
+        component={MemberEvent}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
