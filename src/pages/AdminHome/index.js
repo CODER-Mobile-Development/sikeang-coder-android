@@ -5,9 +5,8 @@ import {
   ScrollView, StyleSheet, Text, View, Dimensions,
 } from 'react-native';
 import {
-  MemberPointHistory, NavbarBottom, Separator, UserTab,
+  NavbarBottom, Separator, UserTab, DivisionMemberCounter, DashboardCounter,
 } from '../../components';
-import DashboardCounter from '../../components/DashboardCounter';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -88,9 +87,9 @@ function AdminHome() {
         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Daftar Divisi</Text>
       </View>
       <ScrollView style={styles.content}>
-        <MemberPointHistory eventDate="20 Anggota" eventTitle="Divisi Mobile" />
+        <DivisionMemberCounter memberCounter={20} divisonTitle="Divisi Mobile" />
         <Separator height={8} />
-        <MemberPointHistory eventDate="30 Anggota" eventTitle="Playbox Season 100" />
+        <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
         <Separator height={8} />
       </ScrollView>
       <NavbarBottom isActive="Home" type="Admin" />

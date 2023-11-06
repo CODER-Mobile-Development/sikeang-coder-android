@@ -7,7 +7,11 @@ function DivisionMemberCounter({ divisonTitle, memberCounter }) {
       <View style={styles.itemLeft}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>{divisonTitle}</Text>
-          <Text style={styles.memberCounter}>{memberCounter} Anggota</Text>
+          <Text style={styles.memberCounter}>
+            {memberCounter}
+            {' '}
+            Anggota
+          </Text>
         </View>
       </View>
     </View>
