@@ -1,18 +1,13 @@
 import React, { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { TouchableOpacity } from 'react-native';
 import {
-  ScrollView, StyleSheet, Text, View,
+  Image, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
-
 import {
-  NavbarTop, PrimaryButton, Separator, NavbarBottom
+  NavbarBottom, NavbarTop, OutlineButton, PrimaryButton,
 } from '../../components';
-
-import {
-  CalendarIcon, OrganizationLogoHorizontal
-} from '../../assets/svgs';
+import { SmallCalendarIcon } from '../../assets/svgs';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -20,7 +15,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminDetailEvent() {
+function AdminPointDetailEvent() {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -37,85 +32,94 @@ function AdminDetailEvent() {
     return null;
   }
   return (
-    <ScrollView contentContainerStyle={styles.wrapper} onLayout={onLayoutRootView}>
-      <NavbarTop/>
-      <Separator height={24} />
-      <View style={styles.container}>
-         <View style={styles.box}>
-            <OrganizationLogoHorizontal/>
-         </View>
-         <View>
-          <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24, marginTop: 11 }}>Rapat Anggota</Text>
-          <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 12, textAlign: 'center'  }}>
-          <CalendarIcon width={12} height={12} /> Kamis, 12 Oktober 2023</Text>
-         </View>
-         <View>
-            <Text style={{ fontFamily: 'Poppins-semiBold', fontSize: 14, marginTop: 27, marginLeft: 35 }}>Deskripsi Acara</Text>
-            <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 12, marginTop: 4, marginLeft: 35, marginRight: 35 }}>Rapat ini akan membahas tentang core componen react native. Diharapkan telah menginstall vscode dan node js.</Text>
-            <Text style={{ fontFamily: 'Poppins-semiBold', fontSize: 14, marginTop: 10, marginLeft: 35 }}>Tempat Acara</Text>
-            <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 12, marginTop: 4, marginLeft: 35, marginBottom: 44 }}>Google Meet</Text>
-         </View>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <NavbarTop title="Event" />
+      <ScrollView style={styles.wrapper} onLayout={onLayoutRootView}>
+        <View style={{ alignItems: 'center', marginTop: 20 }}>
+          <Image
+            style={{ borderRadius: 12 }}
+            height={293}
+            width={293}
+            source={{ uri: 'https://source.unsplash.com/random/120x120/?fruit' }}
+          />
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={styles.eventTitle}>Rapat Anggota</Text>
+          <View style={styles.eventDate}>
+            <SmallCalendarIcon />
+            <Text style={styles.eventDateText}>
+              Kamis, 12 Oktober 2023
+            </Text>
+          </View>
+        </View>
+        <View style={{ marginTop: 27 }}>
+          <Text style={styles.descriptionTitle}>
+            Deskripsi Acara
+          </Text>
+          <Text style={styles.descriptionText}>
+            Rapat ini akan membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini akan
+            membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini aka
+            n membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini
+            akan membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini akan m
+            embahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini akan
+            membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini akan memb
+            ahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.
+          </Text>
+        </View>
+        <View style={{ marginVertical: 10 }}>
+          <Text style={styles.descriptionTitle}>Tempat Acara</Text>
+          <Text style={styles.descriptionText}>Google Meet</Text>
+        </View>
+      </ScrollView>
+      <View style={{ marginVertical: 10, paddingHorizontal: 35, gap: 7 }}>
+        <PrimaryButton title="Lihat Data Presensi" />
+        <View style={{ flexDirection: 'row', gap: 7 }}>
+          <OutlineButton title="Ubah Data" color="#B31217" />
+          <OutlineButton title="Hapus Data" color="#8E8E8E" />
+        </View>
       </View>
-      <View style={styles.button}>
-         <PrimaryButton title="Lihat Data Presensi" />
-         <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.secondaryButtonUbah}>
-                <Text style={{color: '#B31217', fontFamily: 'Poppins-Bold'}}>Ubah Data</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.secondaryButtonHapus}>
-                <Text style={{color: '#655B5B', fontFamily: 'Poppins-semiBold'}}>Hapus Data</Text>
-              </TouchableOpacity>
-         </View>
-      </View>
-      <Separator height={12} />
-      <NavbarBottom type="Admin" isActive="Event"/>
-    </ScrollView>
+      <NavbarBottom type="Admin" isActive="Poin" />
+    </View>
   );
 }
 
-export default AdminDetailEvent;
+export default AdminPointDetailEvent;
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
     backgroundColor: 'white',
+    paddingHorizontal: 35,
   },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  eventTitle: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 24,
+    marginTop: 11,
   },
-  box: {
-    width: 293,
-    height: 296,
-    padding: 10,
-    borderRadius: 12,
-    backgroundColor: '#B31217',
-  },
-  button:{
-    paddingHorizontal: 36,
-  },
-  buttonContainer: {
+  eventDate: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
+    gap: 7,
+    justifyContent: 'center',
   },
-   secondaryButtonUbah: {
-     backgroundColor: '#FFFFFF',
-     borderWidth: 2,
-     borderColor: '#B31217',
-     padding: 10,
-     borderRadius: 12,
-     flex: 0.5,
-     alignItems: 'center',
-     marginRight: 6,
-   },
-   secondaryButtonHapus: {
-     backgroundColor: '#FFFFFF',
-     borderWidth: 2,
-     borderColor: '#8E8E8E',
-     padding: 10,
-     borderRadius: 12,
-     flex: 0.5,
-     alignItems: 'center',
-   },
+  eventDateText: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 12,
+    textAlign: 'center',
+    color: '#414141',
+  },
+  descriptionTitle: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 14,
+  },
+  descriptionText: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    marginTop: 4,
+  },
 });

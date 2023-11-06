@@ -2,18 +2,12 @@ import React, { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  ScrollView, StyleSheet, Text, View,
+  Image, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 
-import {
-  NavbarTop, PrimaryButton, NavbarBottom, Separator
-} from '../../components';
+import { NavbarBottom, NavbarTop, PrimaryButton } from '../../components';
 
-import DashboardCounter from '../../components/DashboardCounter';
-
-import {
-  CalendarIcon, OrganizationLogoHorizontal
-} from '../../assets/svgs';
+import { SmallCalendarIcon } from '../../assets/svgs';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -38,29 +32,57 @@ function MemberDetailEvent() {
     return null;
   }
   return (
-    <ScrollView contentContainerStyle={styles.wrapper} onLayout={onLayoutRootView}>
-      <NavbarTop/>
-      <Separator height={55} />
-      <View style={styles.container}>
-         <View style={styles.box}>
-            <OrganizationLogoHorizontal/>
-         </View>
-         <View>
-          <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24, marginTop: 11 }}>Rapat Anggota</Text>
-          <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 12, textAlign: 'center'  }}>
-          <CalendarIcon width={12} height={12} /> Kamis, 12 Oktober 2023</Text>
-         </View>
-         <View>
-            <Text style={{ fontFamily: 'Poppins-semiBold', fontSize: 14, marginTop: 27, marginLeft: 35 }}>Deskripsi Acara</Text>
-            <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 12, marginTop: 4, marginLeft: 35, marginRight: 35 }}>Rapat ini akan membahas tentang core componen react native. Diharapkan telah menginstall vscode dan node js.</Text>
-            <Text style={{ fontFamily: 'Poppins-semiBold', fontSize: 14, marginTop: 10, marginLeft: 35 }}>Tempat Acara</Text>
-            <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 12, marginTop: 4, marginLeft: 35, marginBottom: 79 }}>Google Meet</Text>
-         </View>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <NavbarTop title="Event" />
+      <ScrollView style={styles.wrapper} onLayout={onLayoutRootView}>
+        <View style={{ alignItems: 'center', marginTop: 20 }}>
+          <Image
+            style={{ borderRadius: 12 }}
+            height={293}
+            width={293}
+            source={{ uri: 'https://source.unsplash.com/random/120x120/?fruit' }}
+          />
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={styles.eventTitle}>Rapat Anggota</Text>
+          <View style={styles.eventDate}>
+            <SmallCalendarIcon />
+            <Text style={styles.eventDateText}>
+              Kamis, 12 Oktober 2023
+            </Text>
+          </View>
+        </View>
+        <View style={{ marginTop: 27 }}>
+          <Text style={styles.descriptionTitle}>
+            Deskripsi Acara
+          </Text>
+          <Text style={styles.descriptionText}>
+            Rapat ini akan membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini akan
+            membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini aka
+            n membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini
+            akan membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini akan m
+            embahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini akan
+            membahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.pat ini akan memb
+            ahas tentang core componen react native.
+            Diharapkan telah menginstall vscode dan node js.
+          </Text>
+        </View>
+        <View style={{ marginVertical: 10 }}>
+          <Text style={styles.descriptionTitle}>Tempat Acara</Text>
+          <Text style={styles.descriptionText}>Google Meet</Text>
+        </View>
+      </ScrollView>
+      <View style={{ marginVertical: 10, paddingHorizontal: 35 }}>
+        <PrimaryButton title="Lihat Panitia" />
       </View>
-      <View style={styles.button}>
-         <PrimaryButton title="Presensi Sekarang" />
-      </View>
-    </ScrollView>
+      <NavbarBottom type="Admin" isActive="Poin" />
+    </View>
   );
 }
 
@@ -68,21 +90,32 @@ export default MemberDetailEvent;
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
     backgroundColor: 'white',
+    paddingHorizontal: 35,
   },
-  container: {
+  eventTitle: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 24,
+    marginTop: 11,
+  },
+  eventDate: {
+    flexDirection: 'row',
+    gap: 7,
     justifyContent: 'center',
-    alignItems: 'center',
   },
-  box: {
-    width: 293,
-    height: 296,
-    padding: 10,
-    borderRadius: 12,
-    backgroundColor: '#B31217',
+  eventDateText: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 12,
+    textAlign: 'center',
+    color: '#414141',
   },
-  button:{
-    paddingHorizontal: 36,
+  descriptionTitle: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 14,
+  },
+  descriptionText: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    marginTop: 4,
   },
 });
