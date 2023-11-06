@@ -2,18 +2,19 @@ import React, { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  ScrollView, StyleSheet, Text, View,
+  ScrollView, StyleSheet, Text, View, Dimensions,
 } from 'react-native';
 import {
-  MemberPointHistory, NavbarBottom, Separator, UserTab,
+  MemberPointHistory, NavbarBottom, Separator, UserTab, DashboardCounter,
 } from '../../components';
-import DashboardCounter from '../../components/DashboardCounter';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
 const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
+
+const windowWidth = Dimensions.get('window').width;
 
 function MemberHome() {
   const [fontsLoaded] = useFonts({
@@ -33,13 +34,35 @@ function MemberHome() {
   }
   return (
     <View style={styles.wrapper} onLayout={onLayoutRootView}>
-      <View style={{
-        backgroundColor: '#C13338', height: 200, marginTop: -100, borderRadius: 20,
-      }}
-      />
+      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
+        <View style={{
+          marginTop: -88,
+          width: windowWidth - (windowWidth / 2),
+          height: windowWidth - (windowWidth / 2),
+          backgroundColor: '#B81519',
+          borderRadius: 320,
+          transform: [
+            { scaleX: 3.5 },
+          ],
+        }}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
+        <View style={{
+          marginTop: -136,
+          width: windowWidth - (windowWidth / 2),
+          height: windowWidth - (windowWidth / 2),
+          backgroundColor: '#C13338',
+          borderRadius: 320,
+          transform: [
+            { scaleX: 3.5 },
+          ],
+        }}
+        />
+      </View>
       <View style={{
         paddingHorizontal: 35,
-        marginTop: 50,
+        marginTop: 64,
         position: 'absolute',
       }}
       >
@@ -79,7 +102,7 @@ function MemberHome() {
         <Separator height={8} />
         <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
       </ScrollView>
-      <NavbarBottom isActive="Home" type="Member" />
+      <NavbarBottom isActive="Home" type="Admin" />
     </View>
   );
 }
@@ -94,6 +117,6 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 35,
-    marginTop: 210,
+    marginTop: '80%',
   },
 });

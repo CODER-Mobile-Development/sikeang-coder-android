@@ -11,6 +11,8 @@ import PrimaryButton from './PrimaryButton';
 import UserInput from './UserInput';
 import ManualAttendanceCard from './ManualAttendanceCard';
 import Separator from './Separator';
+import DashboardCounter from './DashboardCounter';
+import DivisionMemberCounter from './DivisionMemberCounter';
 
 export {
   MemberListView,
@@ -26,4 +28,6 @@ export {
   UserInput,
   ManualAttendanceCard,
   Separator,
+  DashboardCounter,
+  DivisionMemberCounter,
 };
