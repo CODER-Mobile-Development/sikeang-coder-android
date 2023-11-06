@@ -10,6 +10,7 @@ import WelcomeWoman from './WelcomeWoman';
 import WelcomeMan from './WelcomeMan';
 import GoogleIcon from './GoogleIcon';
 import OrganizationLogoHorizontal from './OrganizationLogoHorizontal';
+import SmallCalendarIcon from './SmallCalendarIcon';
 
 export {
   PersonSearch,
@@ -24,4 +25,5 @@ export {
   WelcomeMan,
   GoogleIcon,
   OrganizationLogoHorizontal,
+  SmallCalendarIcon,
 };

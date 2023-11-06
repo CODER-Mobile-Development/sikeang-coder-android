@@ -13,6 +13,7 @@ import ManualAttendanceCard from './ManualAttendanceCard';
 import Separator from './Separator';
 import DashboardCounter from './DashboardCounter';
 import DivisionMemberCounter from './DivisionMemberCounter';
+import OutlineButton from './OutlineButton';
 
 export {
   MemberListView,
@@ -30,4 +31,5 @@ export {
   Separator,
   DashboardCounter,
   DivisionMemberCounter,
+  OutlineButton,
 };
