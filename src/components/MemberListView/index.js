@@ -7,12 +7,7 @@ function MemberListView({ name, email, photo }) {
   return (
     <View style={styles.item}>
       <View>
-        <Image
-          style={{
-            width: 51, height: 51, borderRadius: 26, marginRight: 10,
-          }}
-          source={{ uri: photo }}
-        />
+        <Image style={styles.photo} source={{ uri: photo }} />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.name} ellipsizeMode="tail" numberOfLines={2}>{name}</Text>
@@ -28,19 +23,22 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     borderWidth: 2,
     borderColor: '#E0E0E0',
     padding: 15,
   },
-  itemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+  photo: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    backgroundColor: '#D9D9D9',
+    marginRight: 10,
   },
   textContainer: {
+    width: '80%',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    width: '80%',
   },
   name: {
     color: '#FFFFFF',
