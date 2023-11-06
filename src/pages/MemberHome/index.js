@@ -34,31 +34,33 @@ function MemberHome() {
   }
   return (
     <View style={styles.wrapper} onLayout={onLayoutRootView}>
-      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
-        <View style={{
-          marginTop: -88,
-          width: windowWidth - (windowWidth / 2),
-          height: windowWidth - (windowWidth / 2),
-          backgroundColor: '#B81519',
-          borderRadius: 320,
-          transform: [
-            { scaleX: 3.5 },
-          ],
-        }}
-        />
-      </View>
-      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
-        <View style={{
-          marginTop: -136,
-          width: windowWidth - (windowWidth / 2),
-          height: windowWidth - (windowWidth / 2),
-          backgroundColor: '#C13338',
-          borderRadius: 320,
-          transform: [
-            { scaleX: 3.5 },
-          ],
-        }}
-        />
+      <View>
+        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
+          <View style={{
+            marginTop: -88,
+            width: windowWidth - (windowWidth / 2),
+            height: windowWidth - (windowWidth / 2),
+            backgroundColor: '#B81519',
+            borderRadius: 320,
+            transform: [
+              { scaleX: 3.5 },
+            ],
+          }}
+          />
+        </View>
+        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
+          <View style={{
+            marginTop: -136,
+            width: windowWidth - (windowWidth / 2),
+            height: windowWidth - (windowWidth / 2),
+            backgroundColor: '#C13338',
+            borderRadius: 320,
+            transform: [
+              { scaleX: 3.5 },
+            ],
+          }}
+          />
+        </View>
       </View>
       <View style={{
         paddingHorizontal: 35,
