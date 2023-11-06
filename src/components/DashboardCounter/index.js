@@ -2,18 +2,18 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 function DashboardCounter({
-  presencePoint, committeePoint, style,
+  presencePoint, committeePoint, style, rigthTitle, leftTitle,
 }) {
   return (
     <View style={{ ...styles.wrapper, ...style }}>
       <View style={styles.item}>
         <Text style={styles.pointSection}>{presencePoint}</Text>
-        <Text style={styles.pointTitle}>presensi</Text>
+        <Text style={styles.pointTitle}>{rigthTitle}</Text>
       </View>
       <View style={styles.divider} />
       <View style={styles.item}>
         <Text style={styles.pointSection}>{committeePoint}</Text>
-        <Text style={styles.pointTitle}>poin</Text>
+        <Text style={styles.pointTitle}>{leftTitle}</Text>
       </View>
     </View>
   );
