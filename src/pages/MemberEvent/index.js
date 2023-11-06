@@ -5,7 +5,7 @@ import {
   Dimensions, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import {
-  DashboardCounter, MemberPointHistory, NavbarBottom, UserTab,
+  EventListView, EventOption, NavbarBottom, UserTab,
 } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -16,7 +16,7 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function MemberHome() {
+function MemberEvent() {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -69,38 +69,44 @@ function MemberHome() {
       }}
       >
         <UserTab
-          style={{ marginBottom: 33 }}
+          style={{ marginBottom: 24 }}
           division="Mobile Development"
           imageUri="https://source.unsplash.com/random/120x120/?fruit"
           name="Irvan Surya Nugraha"
           points="100"
           type="Member"
         />
-        <DashboardCounter
-          style={{ marginBottom: 23 }}
-          presencePoint={10}
-          committeePoint={30}
-          leftTitle="presensi"
-          rigthTitle="kepanitiaan"
-        />
-        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Riwayat Poin</Text>
+        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>Tipe Event</Text>
+        <View style={styles.frameParent}>
+          <EventOption optionText="Divisi" />
+          <EventOption optionText="Umum" />
+        </View>
+        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginTop: 12 }}>Waktu Event</Text>
+        <View style={styles.frameParent}>
+          <EventOption optionText="Mendatang" />
+          <EventOption optionText="Berlangsung" />
+          <EventOption optionText="Selesai" />
+        </View>
+        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginTop: 12 }}>Daftar Event</Text>
       </View>
       <ScrollView style={styles.content}>
         <View style={{ gap: 5 }}>
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
+          <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
         </View>
       </ScrollView>
-      <NavbarBottom isActive="Home" type="Admin" />
+      <NavbarBottom isActive="Home" type="Member" />
     </View>
   );
 }
 
-export default MemberHome;
+export default MemberEvent;
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -110,6 +116,13 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 35,
-    marginTop: '80%',
+    marginTop: 320,
+  },
+  frameParent: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    overflow: 'hidden',
   },
 });

@@ -15,7 +15,7 @@ function EventOption({ optionText, onPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    paddingTop: 1,
     paddingLeft: 12,
     paddingRight: 12,
     backgroundColor: '#B81519',
@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: 4,
   },
   text: {
     color: '#F5F5F5',
     fontSize: 16,
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
     fontWeight: '600',
     alignSelf: 'center',
   },

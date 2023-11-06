@@ -8,6 +8,11 @@ import AdminAddDivision from './AdminAddDivision';
 import AdminEditEvent from './AdminEditEvent';
 import AdminAddAdmin from './AdminAddAdmin';
 import AdminEditAdmin from './AdminEditAdmin';
+import AdminManualAttendance from './AdminManualAttendance';
+import AdminAddCommittee from './AdminAddCommittee';
+import AdminAdminList from './AdminAdminList';
+import AdminHome from './AdminHome';
+import MemberEvent from './MemberEvent';
 import MemberDetailEvent from './MemberDetailEvent';
 import AdminDetailEvent from './AdminDetailEvent';
 import AdminPointDetailEvent from './AdminPointDetailEvent';
@@ -26,6 +31,11 @@ export {
   AdminEditEvent,
   AdminAddAdmin,
   AdminEditAdmin,
+  AdminManualAttendance,
+  AdminAddCommittee,
+  AdminAdminList,
+  AdminHome,
+  MemberEvent,
   AdminDetailEvent,
   AdminPointDetailEvent,
   AdminMemberList,

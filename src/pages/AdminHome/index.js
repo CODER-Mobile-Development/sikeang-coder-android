@@ -5,7 +5,7 @@ import {
   Dimensions, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import {
-  DashboardCounter, MemberPointHistory, NavbarBottom, UserTab,
+  DashboardCounter, DivisionMemberCounter, NavbarBottom, UserTab,
 } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -16,7 +16,7 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function MemberHome() {
+function AdminHome() {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -65,7 +65,7 @@ function MemberHome() {
       <View style={{
         paddingHorizontal: 35,
         marginTop: 64,
-        position: 'absolute',
+        justifyContent: 'center',
       }}
       >
         <UserTab
@@ -74,25 +74,24 @@ function MemberHome() {
           imageUri="https://source.unsplash.com/random/120x120/?fruit"
           name="Irvan Surya Nugraha"
           points="100"
-          type="Member"
+          type="Admin"
         />
         <DashboardCounter
           style={{ marginBottom: 23 }}
           presencePoint={10}
           committeePoint={30}
-          leftTitle="presensi"
-          rigthTitle="kepanitiaan"
+          rigthTitle="anggota"
+          leftTitle="divisi"
         />
-        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Riwayat Poin</Text>
+        <Text style={styles.titleList}>Daftar Divisi</Text>
       </View>
       <ScrollView style={styles.content}>
         <View style={{ gap: 5 }}>
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+          <DivisionMemberCounter memberCounter={20} divisonTitle="Divisi Mobile" />
+          <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
+          <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
+          <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
+          <DivisionMemberCounter memberCounter={31} divisonTitle="Playbox Season 100" />
         </View>
       </ScrollView>
       <NavbarBottom isActive="Home" type="Admin" />
@@ -100,7 +99,7 @@ function MemberHome() {
   );
 }
 
-export default MemberHome;
+export default AdminHome;
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -110,6 +109,9 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 35,
-    marginTop: '80%',
+  },
+  titleList: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 16,
   },
 });
