@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     alignSelf: 'flex-start',
     marginTop: 6,
+    paddingTop: 1,
   },
   buttonText: {
     color: 'black',
