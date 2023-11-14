@@ -16,7 +16,8 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function AdminHome() {
+function AdminHome({ route }) {
+  const { userData, userToken } = route.params;
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -70,10 +71,9 @@ function AdminHome() {
       >
         <UserTab
           style={{ marginBottom: 33 }}
-          division="Mobile Development"
-          imageUri="https://source.unsplash.com/random/120x120/?fruit"
-          name="Irvan Surya Nugraha"
-          points="100"
+          division={userData.division.divisionName}
+          imageUri={userData.profilePicture}
+          name={userData.userName}
           type="Admin"
         />
         <DashboardCounter

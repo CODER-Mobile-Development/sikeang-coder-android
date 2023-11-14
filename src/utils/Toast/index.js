@@ -6,6 +6,5 @@ export const showToast = (message, type) => {
     message,
     type,
     floating: true,
-    style: { marginTop: 30 },
   });
 };

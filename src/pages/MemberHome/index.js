@@ -16,7 +16,8 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function MemberHome() {
+function MemberHome({ route }) {
+  const { userData, userToken } = route.params;
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -70,9 +71,9 @@ function MemberHome() {
       >
         <UserTab
           style={{ marginBottom: 33 }}
-          division="Mobile Development"
-          imageUri="https://source.unsplash.com/random/120x120/?fruit"
-          name="Irvan Surya Nugraha"
+          division={userData.division.divisionName}
+          imageUri={userData.profilePicture}
+          name={userData.userName}
           points="100"
           type="Member"
         />
@@ -95,7 +96,7 @@ function MemberHome() {
           <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
         </View>
       </ScrollView>
-      <NavbarBottom isActive="Home" type="Admin" />
+      <NavbarBottom isActive="Home" type="Member" />
     </View>
   );
 }
