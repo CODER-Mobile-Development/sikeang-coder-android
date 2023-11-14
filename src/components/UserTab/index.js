@@ -9,23 +9,24 @@ function UserTab({
   return (
     <View style={{ ...styles.card, ...style }}>
       <View style={{ ...styles.contentContainer, justifyContent: type === 'Member' ? 'space-between' : 'flex-start' }}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', width: type === 'Member' ? '77%' : '100%' }}>
           <Image source={{ uri: imageUri }} style={styles.image} />
-          <View style={styles.textContainer}>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.division}>{division}</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.name} ellipsizeMode="tail" numberOfLines={1}>{name}</Text>
+            <Text style={styles.division} ellipsizeMode="tail" numberOfLines={1}>{division}</Text>
           </View>
         </View>
 
         {type === 'Member' && (
-        <View style={styles.divider} />
-        )}
-
-        {type === 'Member' && (
-        <View style={styles.pointsContainer}>
-          <Text style={styles.points}>{points}</Text>
-          <Text style={styles.pointsLabel}>poin</Text>
-        </View>
+        <>
+          <View>
+            <View style={styles.divider} />
+          </View>
+          <View style={{ ...styles.pointsContainer }}>
+            <Text style={styles.points}>{points}</Text>
+            <Text style={styles.pointsLabel}>poin</Text>
+          </View>
+        </>
         )}
       </View>
     </View>
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
   },
   contentContainer: {
-    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
@@ -59,10 +59,6 @@ const styles = StyleSheet.create({
     height: 42,
     borderRadius: 21,
     marginRight: 15,
-  },
-  textContainer: {
-    flexDirection: 'column',
-    display: 'flex',
   },
   name: {
     color: 'white',
@@ -82,7 +78,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   pointsContainer: {
-    width: '20%',
     flexDirection: 'column',
     alignItems: 'center',
   },

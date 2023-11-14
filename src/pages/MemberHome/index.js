@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -7,6 +7,7 @@ import {
 import {
   DashboardCounter, MemberPointHistory, NavbarBottom, UserTab,
 } from '../../components';
+import { API_HOST, CallAPI, showToast } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -16,13 +17,34 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function MemberHome({ route }) {
-  const { userData, userToken } = route.params;
+function MemberHome() {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
+  const [userTabData, setUserTabData] = useState({});
+  const [historyPointData, setHistoryPointData] = useState([]);
+  const [summaryPoint, setSummaryPoint] = useState({});
+
+  const getSummaryPointAPI = () => {
+    CallAPI({ url: `${API_HOST}/dashboard`, method: 'GET', data: null })
+      .then((r) => {
+        const {
+          user, historyPoint, totalPointCommittee, totalPointAttendance, totalPoint,
+        } = r;
+        setUserTabData(user);
+        setHistoryPointData(historyPoint);
+        setSummaryPoint({ totalPointCommittee, totalPointAttendance, totalPoint });
+      })
+      .catch((e) => {
+        showToast(`Error: ${e.message}`, 'danger');
+      });
+  };
+
+  useEffect(() => {
+    getSummaryPointAPI();
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -64,6 +86,7 @@ function MemberHome({ route }) {
         </View>
       </View>
       <View style={{
+        width: '100%',
         paddingHorizontal: 35,
         marginTop: 64,
         position: 'absolute',
@@ -71,16 +94,16 @@ function MemberHome({ route }) {
       >
         <UserTab
           style={{ marginBottom: 33 }}
-          division={userData.division.divisionName}
-          imageUri={userData.profilePicture}
-          name={userData.userName}
-          points="100"
+          division={`${userTabData.position} - ${userTabData.division}`}
+          imageUri={userTabData.profilePicture}
+          name={userTabData.name}
+          points={summaryPoint.totalPoint}
           type="Member"
         />
         <DashboardCounter
           style={{ marginBottom: 23 }}
-          presencePoint={10}
-          committeePoint={30}
+          presencePoint={summaryPoint.totalPointAttendance}
+          committeePoint={summaryPoint.totalPointCommittee}
           leftTitle="presensi"
           rigthTitle="kepanitiaan"
         />
@@ -88,12 +111,19 @@ function MemberHome({ route }) {
       </View>
       <ScrollView style={styles.content}>
         <View style={{ gap: 5 }}>
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
-          <MemberPointHistory pointEarned={10} eventDate="Kamis, 12 Oktober 2023" eventTitle="Rapat Anggota" />
+          {historyPointData.map((item) => (
+            <MemberPointHistory
+              key={item._id}
+              pointEarned={item.point}
+              eventDate={new Date(item.event.startDate).toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+              eventTitle={item.event.name}
+            />
+          ))}
         </View>
       </ScrollView>
       <NavbarBottom isActive="Home" type="Member" />
