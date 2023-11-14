@@ -14,6 +14,7 @@ import Separator from './Separator';
 import DashboardCounter from './DashboardCounter';
 import DivisionMemberCounter from './DivisionMemberCounter';
 import OutlineButton from './OutlineButton';
+import Loading from './Loading';
 
 export {
   MemberListView,
@@ -32,4 +33,5 @@ export {
   DashboardCounter,
   DivisionMemberCounter,
   OutlineButton,
+  Loading,
 };

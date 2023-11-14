@@ -10,7 +10,7 @@ function UserTab({
     <View style={{ ...styles.card, ...style }}>
       <View style={{ ...styles.contentContainer, justifyContent: type === 'Member' ? 'space-between' : 'flex-start' }}>
         <View style={{ flexDirection: 'row', width: type === 'Member' ? '77%' : '100%' }}>
-          <Image source={{ uri: imageUri }} style={styles.image} />
+          {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
           <View style={{ flex: 1 }}>
             <Text style={styles.name} ellipsizeMode="tail" numberOfLines={1}>{name}</Text>
             <Text style={styles.division} ellipsizeMode="tail" numberOfLines={1}>{division}</Text>
