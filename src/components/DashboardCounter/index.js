@@ -2,17 +2,17 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 function DashboardCounter({
-  presencePoint, committeePoint, style, rigthTitle, leftTitle,
+  leftCount, rightCount, style, rigthTitle, leftTitle,
 }) {
   return (
     <View style={{ ...styles.wrapper, ...style }}>
       <View style={styles.item}>
-        <Text style={styles.pointSection}>{presencePoint}</Text>
+        <Text style={styles.pointSection}>{leftCount}</Text>
         <Text style={styles.pointTitle}>{leftTitle}</Text>
       </View>
       <View style={styles.divider} />
       <View style={styles.item}>
-        <Text style={styles.pointSection}>{committeePoint}</Text>
+        <Text style={styles.pointSection}>{rightCount}</Text>
         <Text style={styles.pointTitle}>{rigthTitle}</Text>
       </View>
     </View>

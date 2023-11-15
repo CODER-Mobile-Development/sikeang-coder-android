@@ -106,8 +106,8 @@ function MemberHome() {
           />
           <DashboardCounter
             style={{ marginBottom: 23 }}
-            presencePoint={summaryPoint.totalPointAttendance}
-            committeePoint={summaryPoint.totalPointCommittee}
+            leftCount={summaryPoint.totalPointAttendance}
+            rightCount={summaryPoint.totalPointCommittee}
             leftTitle="presensi"
             rigthTitle="kepanitiaan"
           />

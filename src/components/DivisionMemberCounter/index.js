@@ -6,8 +6,8 @@ function DivisionMemberCounter({ divisonTitle, memberCounter }) {
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{divisonTitle}</Text>
-          <Text style={styles.memberCounter}>
+          <Text style={styles.title} ellipsizeMode="tail" numberOfLines={1}>{divisonTitle}</Text>
+          <Text style={styles.memberCounter} ellipsizeMode="tail" numberOfLines={1}>
             {memberCounter}
             {' '}
             Anggota
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderWidth: 2,
     borderColor: '#E0E0E0',
+    paddingHorizontal: 22,
   },
   itemLeft: {
     flexDirection: 'row',
@@ -35,7 +36,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   textContainer: {
-    flexDirection: 'column', alignItems: 'flex-start',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   title: {
     maxWidth: '100%',
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
     marginTop: 13,
-    marginLeft: 22,
   },
   memberCounter: {
     maxWidth: '100%',
@@ -51,7 +52,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: 14,
     marginBottom: 13,
-    marginLeft: 22,
   },
 });
 
