@@ -3,7 +3,7 @@ import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import {
-  AdminIcon, CalendarIcon, HomeIcon, StarIcon,
+  AdminIcon, CalendarIcon, HomeIcon, ScanQRIcon, StarIcon,
 } from '../../assets/svgs';
 
 function NavbarBottom({ type, isActive }) {
@@ -19,6 +19,12 @@ function NavbarBottom({ type, isActive }) {
           <TouchableOpacity><HomeIcon width={32} height={32} isActive={isActive === 'Home'} /></TouchableOpacity>
           <Text style={styles.menuTitle}>home</Text>
         </View>
+        {type === 'Member' && (
+        <View style={styles.menuSection}>
+          <TouchableOpacity><ScanQRIcon width={32} height={32} isActive={isActive === 'ScanQR'} /></TouchableOpacity>
+          <Text style={styles.menuTitle}>presensi</Text>
+        </View>
+        )}
         <View style={styles.menuSection}>
           <TouchableOpacity><CalendarIcon width={32} height={32} isActive={isActive === 'Event'} /></TouchableOpacity>
           <Text style={styles.menuTitle}>event</Text>

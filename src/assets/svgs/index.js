@@ -11,6 +11,7 @@ import WelcomeMan from './WelcomeMan';
 import GoogleIcon from './GoogleIcon';
 import OrganizationLogoHorizontal from './OrganizationLogoHorizontal';
 import SmallCalendarIcon from './SmallCalendarIcon';
+import ScanQRIcon from './ScanQRIcon';
 
 export {
   PersonSearch,
@@ -26,4 +27,5 @@ export {
   GoogleIcon,
   OrganizationLogoHorizontal,
   SmallCalendarIcon,
+  ScanQRIcon,
 };
