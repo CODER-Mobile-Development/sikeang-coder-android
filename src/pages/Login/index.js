@@ -5,10 +5,11 @@ import {
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { StatusBar } from 'expo-status-bar';
 import {
   GoogleIcon, OrganizationLogoHorizontal, WelcomeMan, WelcomeWoman,
 } from '../../assets/svgs';
-import { Separator } from '../../components';
+import { Loading, Separator } from '../../components';
 import {
   API_HOST, CallAPI, iosClientId, showToast, storeData, webClientId,
 } from '../../utils';
@@ -99,36 +100,44 @@ function Login({ navigation }) {
     return null;
   }
   return (
-    <View
-      style={styles.wrapper}
-      onLayout={onLayoutRootView}
-    >
-      <View>
-        <View style={styles.welcomeIcon}>
-          <WelcomeWoman width={70} height={261} />
-          <WelcomeMan width={116} height={278} />
+    <>
+      <StatusBar style="dark" />
+      <View
+        style={styles.wrapper}
+        onLayout={onLayoutRootView}
+      >
+        <View>
+          <View style={styles.welcomeIcon}>
+            <WelcomeWoman width={70} height={261} />
+            <WelcomeMan width={116} height={278} />
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <Text style={styles.welcomeText}>
+              Selamat Datang
+            </Text>
+            <Text style={styles.welcomeDescription}>
+              Selamat datang di pusat keaktifan. Bersiaplah untuk
+              memulai perjalanan Anda menuju keberhasilan!
+            </Text>
+          </View>
+          <Separator height={65} />
+          <TouchableOpacity
+            disabled={isLoading}
+            style={styles.buttonLogin}
+            onPress={() => signIn()}
+          >
+            <Text style={styles.buttonLoginText}>
+              Masuk dengan Google
+            </Text>
+            <GoogleIcon />
+          </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 20 }}>
-          <Text style={styles.welcomeText}>
-            Selamat Datang
-          </Text>
-          <Text style={styles.welcomeDescription}>
-            Selamat datang di pusat keaktifan. Bersiaplah untuk
-            memulai perjalanan Anda menuju keberhasilan!
-          </Text>
+        <View style={{ alignItems: 'center' }}>
+          <OrganizationLogoHorizontal width={182} height={20} />
         </View>
-        <Separator height={65} />
-        <TouchableOpacity disabled={isLoading} style={styles.buttonLogin} onPress={() => signIn()}>
-          <Text style={styles.buttonLoginText}>
-            Masuk dengan Google
-          </Text>
-          <GoogleIcon />
-        </TouchableOpacity>
       </View>
-      <View style={{ alignItems: 'center' }}>
-        <OrganizationLogoHorizontal width={182} height={20} />
-      </View>
-    </View>
+      {isLoading && <Loading />}
+    </>
   );
 }
 

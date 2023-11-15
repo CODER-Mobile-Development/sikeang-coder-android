@@ -1,9 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  Fragment, useCallback, useEffect, useState,
+} from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
   Dimensions, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import {
   DashboardCounter, Loading, MemberPointHistory, NavbarBottom, UserTab,
 } from '../../components';
@@ -60,6 +63,7 @@ function MemberHome() {
   }
   return (
     <>
+      <StatusBar style="light" />
       <View style={styles.wrapper} onLayout={onLayoutRootView}>
         <View>
           <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
