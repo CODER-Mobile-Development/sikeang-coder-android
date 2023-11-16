@@ -16,7 +16,7 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function MemberEvent() {
+function MemberEvent({ navigation }) {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -73,19 +73,23 @@ function MemberEvent() {
           division="Mobile Development"
           imageUri="https://source.unsplash.com/random/120x120/?fruit"
           name="Irvan Surya Nugraha"
-          points="100"
+          points="250"
           type="Member"
         />
         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>Tipe Event</Text>
         <View style={styles.frameParent}>
-          <EventOption optionText="Divisi" />
-          <EventOption optionText="Umum" />
+          <ScrollView style={{ flexDirection: 'row' }} horizontal>
+            <EventOption optionText="Divisi" />
+            <EventOption optionText="Umum" />
+          </ScrollView>
         </View>
         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginTop: 12 }}>Waktu Event</Text>
         <View style={styles.frameParent}>
-          <EventOption optionText="Mendatang" />
-          <EventOption optionText="Berlangsung" />
-          <EventOption optionText="Selesai" />
+          <ScrollView style={{ flexDirection: 'row' }} horizontal>
+            <EventOption optionText="Mendatang" />
+            <EventOption optionText="Berlangsung" />
+            <EventOption optionText="Selesai" />
+          </ScrollView>
         </View>
         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginTop: 12 }}>Daftar Event</Text>
       </View>
@@ -101,7 +105,7 @@ function MemberEvent() {
           <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
         </View>
       </ScrollView>
-      <NavbarBottom isActive="Home" type="Member" />
+      <NavbarBottom isActive="Event" type="Member" navigation={navigation} />
     </View>
   );
 }
@@ -119,9 +123,6 @@ const styles = StyleSheet.create({
     marginTop: 320,
   },
   frameParent: {
-    flex: 1,
-    width: '100%',
-    flexDirection: 'row',
     alignItems: 'flex-start',
     overflow: 'hidden',
   },

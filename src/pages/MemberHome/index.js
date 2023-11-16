@@ -20,7 +20,7 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function MemberHome() {
+function MemberHome({ navigation }) {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -134,7 +134,7 @@ function MemberHome() {
             ))}
           </View>
         </ScrollView>
-        <NavbarBottom isActive="Home" type="Member" />
+        <NavbarBottom isActive="Home" type="Member" navigation={navigation} />
       </View>
       {isLoadingAPI && <Loading />}
     </>

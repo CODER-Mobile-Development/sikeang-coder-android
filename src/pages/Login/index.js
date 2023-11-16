@@ -40,8 +40,8 @@ function Login({ navigation }) {
         await storeData('user-token', userToken);
         await storeData('user-data', userData);
         setIsLoading(false);
-        if (userData.position === 'admin') return navigation.navigate('AdminHome', { userData, userToken });
-        if (userData.position === 'member') return navigation.navigate('MemberHome', { userData, userToken });
+        if (userData.position === 'admin') return navigation.navigate('AdminTabScreen', { userData, userToken });
+        if (userData.position === 'member') return navigation.navigate('MemberTabScreen', { userData, userToken });
         return null;
       })
       .catch((e) => {

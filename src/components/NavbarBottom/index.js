@@ -6,7 +6,7 @@ import {
   AdminIcon, CalendarIcon, HomeIcon, ScanQRIcon, StarIcon,
 } from '../../assets/svgs';
 
-function NavbarBottom({ type, isActive }) {
+function NavbarBottom({ type, isActive, navigation }) {
   return (
     <View style={{
       overflow: 'hidden',
@@ -16,28 +16,38 @@ function NavbarBottom({ type, isActive }) {
     >
       <View style={{ ...styles.wrapper, justifyContent: type === 'Member' ? 'space-around' : 'space-between' }}>
         <View style={styles.menuSection}>
-          <TouchableOpacity><HomeIcon width={32} height={32} isActive={isActive === 'Home'} /></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate(type === 'Member' ? 'MemberHome' : 'AdminHome')}>
+            <HomeIcon width={32} height={32} isActive={isActive === 'Home'} />
+          </TouchableOpacity>
           <Text style={styles.menuTitle}>home</Text>
         </View>
         {type === 'Member' && (
         <View style={styles.menuSection}>
-          <TouchableOpacity><ScanQRIcon width={32} height={32} isActive={isActive === 'ScanQR'} /></TouchableOpacity>
+          <TouchableOpacity>
+            <ScanQRIcon width={32} height={32} isActive={isActive === 'ScanQR'} />
+          </TouchableOpacity>
           <Text style={styles.menuTitle}>presensi</Text>
         </View>
         )}
         <View style={styles.menuSection}>
-          <TouchableOpacity><CalendarIcon width={32} height={32} isActive={isActive === 'Event'} /></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('MemberEvent')}>
+            <CalendarIcon width={32} height={32} isActive={isActive === 'Event'} />
+          </TouchableOpacity>
           <Text style={styles.menuTitle}>event</Text>
         </View>
         {type === 'Admin' && (
           <View style={styles.menuSection}>
-            <TouchableOpacity><StarIcon width={32} height={32} isActive={isActive === 'Poin'} /></TouchableOpacity>
+            <TouchableOpacity>
+              <StarIcon width={32} height={32} isActive={isActive === 'Poin'} />
+            </TouchableOpacity>
             <Text style={styles.menuTitle}>poin</Text>
           </View>
         )}
         {type === 'Admin' && (
           <View style={styles.menuSection}>
-            <TouchableOpacity><AdminIcon width={32} height={32} isActive={isActive === 'Admin'} /></TouchableOpacity>
+            <TouchableOpacity>
+              <AdminIcon width={32} height={32} isActive={isActive === 'Admin'} />
+            </TouchableOpacity>
             <Text style={styles.menuTitle}>admin</Text>
           </View>
         )}
