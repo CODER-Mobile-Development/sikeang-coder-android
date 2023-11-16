@@ -12,8 +12,8 @@ function EventListView({
         <Image source={{ uri: imageUri }} style={styles.photo} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.name} ellipsizeMode="tail" numberOfLines={2}>{name}</Text>
+        <Text style={styles.date} ellipsizeMode="tail" numberOfLines={1}>{date}</Text>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText} onPress={onPress}>lihat detail</Text>
         </TouchableOpacity>
@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#E0E0E0',
     backgroundColor: '#3F5671',
-    height: 105,
     borderRadius: 12,
     paddingVertical: 12,
   },
   square: {
     marginRight: 15,
     marginLeft: 18,
+    justifyContent: 'center',
   },
   textContainer: {
     flexDirection: 'column',
