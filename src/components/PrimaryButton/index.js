@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-function PrimaryButton({ title }) {
+function PrimaryButton({ title, onPress }) {
   return (
-    <TouchableOpacity style={styles.wrapper}>
+    <TouchableOpacity style={styles.wrapper} onPress={onPress}>
       <Text style={styles.text}>
         {title}
       </Text>

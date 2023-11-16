@@ -4,10 +4,10 @@ import {
 } from 'react-native';
 import { BackButton } from '../../assets/svgs';
 
-function NavbarTop({ title }) {
+function NavbarTop({ title, onPress }) {
   return (
     <View style={styles.wrapper}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <BackButton height={24} width={24} />
       </TouchableOpacity>
       <View style={styles.wrapperTittle}>

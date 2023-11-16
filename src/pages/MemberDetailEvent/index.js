@@ -5,9 +5,11 @@ import {
   Image, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 
-import { NavbarBottom, NavbarTop, PrimaryButton } from '../../components';
+import { StatusBar } from 'expo-status-bar';
+import { NavbarBottom, NavbarTop } from '../../components';
 
 import { SmallCalendarIcon } from '../../assets/svgs';
+import { dateParsing } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -15,7 +17,10 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function MemberDetailEvent() {
+function MemberDetailEvent({ navigation, route }) {
+  const {
+    description, startDate, endDate, eventName, photoUrl, eventLocation,
+  } = route.params.event;
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -32,57 +37,58 @@ function MemberDetailEvent() {
     return null;
   }
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <NavbarTop title="Event" />
-      <ScrollView style={styles.wrapper} onLayout={onLayoutRootView}>
-        <View style={{ alignItems: 'center', marginTop: 20 }}>
-          <Image
-            style={{ borderRadius: 12 }}
-            height={293}
-            width={293}
-            source={{ uri: 'https://source.unsplash.com/random/120x120/?fruit' }}
-          />
-        </View>
-        <View style={{ alignItems: 'center' }}>
-          <Text style={styles.eventTitle}>Rapat Anggota</Text>
-          <View style={styles.eventDate}>
-            <SmallCalendarIcon />
-            <Text style={styles.eventDateText}>
-              Kamis, 12 Oktober 2023
+    <>
+      <StatusBar style="dark" />
+      <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 40 }}>
+        <NavbarTop title="Event" onPress={() => navigation.goBack()} />
+        <ScrollView style={styles.wrapper} onLayout={onLayoutRootView}>
+          <View style={{ alignItems: 'center', marginTop: 20 }}>
+            <Image
+              style={{ borderRadius: 12 }}
+              height={293}
+              width={293}
+              source={{ uri: photoUrl }}
+            />
+          </View>
+          <View style={{ alignItems: 'center' }}>
+            <Text style={styles.eventTitle}>{eventName}</Text>
+            <View style={styles.eventDate}>
+              <SmallCalendarIcon />
+              <Text style={styles.eventDateText}>
+                {dateParsing(startDate)}
+              </Text>
+            </View>
+          </View>
+          <View style={{ marginTop: 27 }}>
+            <Text style={styles.descriptionTitle}>
+              Tanggal Acara
+            </Text>
+            <Text style={styles.descriptionText}>
+              Tanggal mulai:
+              {' '}
+              {dateParsing(startDate)}
+              {'\n'}
+              Perkiraan selesai:
+              {' '}
+              {dateParsing(endDate)}
             </Text>
           </View>
-        </View>
-        <View style={{ marginTop: 27 }}>
-          <Text style={styles.descriptionTitle}>
-            Deskripsi Acara
-          </Text>
-          <Text style={styles.descriptionText}>
-            Rapat ini akan membahas tentang core componen react native.
-            Diharapkan telah menginstall vscode dan node js.pat ini akan
-            membahas tentang core componen react native.
-            Diharapkan telah menginstall vscode dan node js.pat ini aka
-            n membahas tentang core componen react native.
-            Diharapkan telah menginstall vscode dan node js.pat ini
-            akan membahas tentang core componen react native.
-            Diharapkan telah menginstall vscode dan node js.pat ini akan m
-            embahas tentang core componen react native.
-            Diharapkan telah menginstall vscode dan node js.pat ini akan
-            membahas tentang core componen react native.
-            Diharapkan telah menginstall vscode dan node js.pat ini akan memb
-            ahas tentang core componen react native.
-            Diharapkan telah menginstall vscode dan node js.
-          </Text>
-        </View>
-        <View style={{ marginVertical: 10 }}>
-          <Text style={styles.descriptionTitle}>Tempat Acara</Text>
-          <Text style={styles.descriptionText}>Google Meet</Text>
-        </View>
-      </ScrollView>
-      <View style={{ marginVertical: 10, paddingHorizontal: 35 }}>
-        <PrimaryButton title="Lihat Panitia" />
+          <View style={{ marginVertical: 10 }}>
+            <Text style={styles.descriptionTitle}>
+              Deskripsi Acara
+            </Text>
+            <Text style={styles.descriptionText}>
+              {description}
+            </Text>
+          </View>
+          <View style={{ marginVertical: 10 }}>
+            <Text style={styles.descriptionTitle}>Tempat Acara</Text>
+            <Text style={styles.descriptionText}>{eventLocation}</Text>
+          </View>
+        </ScrollView>
+        <NavbarBottom type="Admin" isActive="Poin" />
       </View>
-      <NavbarBottom type="Admin" isActive="Poin" />
-    </View>
+    </>
   );
 }
 
@@ -97,6 +103,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Bold',
     fontSize: 24,
     marginTop: 11,
+    textAlign: 'center',
   },
   eventDate: {
     flexDirection: 'row',

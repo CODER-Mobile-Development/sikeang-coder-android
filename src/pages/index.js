@@ -14,6 +14,7 @@ import AdminAdminList from './AdminAdminList';
 import AdminHome from './AdminHome';
 import MemberEvent from './MemberEvent';
 import MemberDetailEvent from './MemberDetailEvent';
+import MemberScanQR from './MemberScanQR';
 import AdminDetailEvent from './AdminDetailEvent';
 import AdminPointDetailEvent from './AdminPointDetailEvent';
 import AdminMemberList from './AdminMemberList';
@@ -24,6 +25,7 @@ export {
   MemberHome,
   MemberDetailEvent,
   MemberProfile,
+  MemberScanQR,
   AdminAddEvent,
   AdminAddMember,
   AdminEditMember,

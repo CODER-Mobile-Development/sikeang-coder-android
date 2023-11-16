@@ -17,7 +17,7 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function MemberEvent() {
+function MemberEvent({ navigation }) {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -193,6 +193,7 @@ function MemberEvent() {
                   key={event._id}
                   imageUri={event.photoUrl}
                   name={event.eventName}
+                  onPress={() => navigation.navigate('MemberDetailEvent', { event })}
                   date={new Date(event.startDate).toLocaleDateString('id-ID', {
                     weekday: 'long',
                     year: 'numeric',

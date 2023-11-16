@@ -14,8 +14,8 @@ function EventListView({
       <View style={styles.textContainer}>
         <Text style={styles.name} ellipsizeMode="tail" numberOfLines={2}>{name}</Text>
         <Text style={styles.date} ellipsizeMode="tail" numberOfLines={1}>{date}</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText} onPress={onPress}>lihat detail</Text>
+        <TouchableOpacity style={styles.button} onPress={onPress}>
+          <Text style={styles.buttonText}>lihat detail</Text>
         </TouchableOpacity>
       </View>
     </View>

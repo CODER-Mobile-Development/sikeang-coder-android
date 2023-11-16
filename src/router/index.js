@@ -2,9 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  AdminHome, Login, MemberEvent, MemberHome,
+  AdminHome, Login, MemberDetailEvent, MemberEvent, MemberHome, MemberScanQR,
 } from '../pages';
-import { CalendarIcon, HomeIcon } from '../assets/svgs';
+import { CalendarIcon, HomeIcon, ScanQRIcon } from '../assets/svgs';
 import { NavbarBottom } from '../components';
 
 const AdminTab = createBottomTabNavigator();
@@ -24,6 +24,25 @@ function AdminTabScreen() {
   );
 }
 
+const MemberEventStack = createNativeStackNavigator();
+
+function MemberEventStackScreen() {
+  return (
+    <MemberEventStack.Navigator>
+      <MemberEventStack.Screen
+        name="MemberEvent"
+        component={MemberEvent}
+        options={{ headerShown: false }}
+      />
+      <MemberEventStack.Screen
+        name="MemberDetailEvent"
+        component={MemberDetailEvent}
+        options={{ headerShown: false }}
+      />
+    </MemberEventStack.Navigator>
+  );
+}
+
 const MemberTab = createBottomTabNavigator();
 
 function MemberTabScreen() {
@@ -40,8 +59,18 @@ function MemberTabScreen() {
         }}
       />
       <MemberTab.Screen
-        name="MemberEvent"
-        component={MemberEvent}
+        name="ScanQR"
+        component={MemberScanQR}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'presensi',
+          tabBarIcon:
+              ({ isActive }) => (<ScanQRIcon width={32} height={32} isActive={isActive} />),
+        }}
+      />
+      <MemberTab.Screen
+        name="MemberEventStackScreen"
+        component={MemberEventStackScreen}
         options={{
           headerShown: false,
           tabBarLabel: 'event',
