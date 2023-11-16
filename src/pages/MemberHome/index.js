@@ -7,9 +7,7 @@ import {
   Dimensions, RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import {
-  DashboardCounter, Loading, MemberPointHistory, UserTab,
-} from '../../components';
+import { DashboardCounter, MemberPointHistory, UserTab } from '../../components';
 import { API_HOST, CallAPI, showToast } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -20,24 +18,22 @@ SplashScreen.preventAutoHideAsync();
 
 const windowWidth = Dimensions.get('window').width;
 
-function MemberHome({ navigation }) {
+function MemberHome() {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
   const [refreshing, setRefreshing] = useState(true);
-  const [isLoadingAPI, setIsLoadingAPI] = useState(true);
   const [userTabData, setUserTabData] = useState({});
   const [historyPointData, setHistoryPointData] = useState([]);
   const [summaryPoint, setSummaryPoint] = useState({});
 
   const getSummaryAPI = () => {
-    setIsLoadingAPI(true);
+    setRefreshing(true);
     CallAPI({ url: `${API_HOST}/dashboard`, method: 'GET', data: null })
       .then((r) => {
         setRefreshing(false);
-        setIsLoadingAPI(false);
         const {
           user, historyPoint, totalPointCommittee, totalPointAttendance, totalPoint,
         } = r;
@@ -46,7 +42,7 @@ function MemberHome({ navigation }) {
         setSummaryPoint({ totalPointCommittee, totalPointAttendance, totalPoint });
       })
       .catch((e) => {
-        setIsLoadingAPI(false);
+        setRefreshing(false);
         showToast(`Error: ${e.message}`, 'danger');
       });
   };
@@ -68,6 +64,7 @@ function MemberHome({ navigation }) {
     <>
       <StatusBar style="light" />
       <ScrollView
+        style={{ flex: 1, backgroundColor: 'white' }}
         refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={getSummaryAPI} />)}
       >
         <View style={styles.wrapper} onLayout={onLayoutRootView}>
@@ -88,7 +85,7 @@ function MemberHome({ navigation }) {
           <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
             <View style={{
               zIndex: 1,
-              marginTop: -238,
+              marginTop: -236,
               width: windowWidth - (windowWidth / 2),
               height: windowWidth - (windowWidth / 2),
               backgroundColor: '#C13338',
@@ -144,7 +141,6 @@ function MemberHome({ navigation }) {
           </View>
         </View>
       </ScrollView>
-      {isLoadingAPI && <Loading />}
     </>
   );
 }
