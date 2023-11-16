@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   AdminHome, Login, MemberEvent, MemberHome,
 } from '../pages';
+import { CalendarIcon, HomeIcon } from '../assets/svgs';
+import { NavbarBottom } from '../components';
 
 const AdminTab = createBottomTabNavigator();
 
@@ -26,13 +28,15 @@ const MemberTab = createBottomTabNavigator();
 
 function MemberTabScreen() {
   return (
-    <MemberTab.Navigator>
+    <MemberTab.Navigator tabBar={(props) => <NavbarBottom {...props} />}>
       <MemberTab.Screen
         name="MemberHome"
         component={MemberHome}
         options={{
           headerShown: false,
-          tabBarStyle: { display: 'none' },
+          tabBarLabel: 'home',
+          tabBarIcon:
+              ({ isActive }) => (<HomeIcon width={32} height={32} isActive={isActive} />),
         }}
       />
       <MemberTab.Screen
@@ -40,7 +44,9 @@ function MemberTabScreen() {
         component={MemberEvent}
         options={{
           headerShown: false,
-          tabBarStyle: { display: 'none' },
+          tabBarLabel: 'event',
+          tabBarIcon:
+              ({ isActive }) => (<CalendarIcon width={32} height={32} isActive={isActive} />),
         }}
       />
     </MemberTab.Navigator>

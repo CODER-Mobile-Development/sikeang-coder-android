@@ -2,56 +2,46 @@ import React from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import {
-  AdminIcon, CalendarIcon, HomeIcon, ScanQRIcon, StarIcon,
-} from '../../assets/svgs';
 
-function NavbarBottom({ type, isActive, navigation }) {
+function NavbarBottom({ state, descriptors, navigation }) {
   return (
-    <View style={{
-      overflow: 'hidden',
-      borderTopWidth: 2,
-      borderTopColor: '#F0F0F0',
-    }}
-    >
-      <View style={{ ...styles.wrapper, justifyContent: type === 'Member' ? 'space-around' : 'space-between' }}>
-        <View style={styles.menuSection}>
-          <TouchableOpacity onPress={() => navigation.navigate(type === 'Member' ? 'MemberHome' : 'AdminHome')}>
-            <HomeIcon width={32} height={32} isActive={isActive === 'Home'} />
-          </TouchableOpacity>
-          <Text style={styles.menuTitle}>home</Text>
-        </View>
-        {type === 'Member' && (
-        <View style={styles.menuSection}>
-          <TouchableOpacity>
-            <ScanQRIcon width={32} height={32} isActive={isActive === 'ScanQR'} />
-          </TouchableOpacity>
-          <Text style={styles.menuTitle}>presensi</Text>
-        </View>
-        )}
-        <View style={styles.menuSection}>
-          <TouchableOpacity onPress={() => navigation.navigate('MemberEvent')}>
-            <CalendarIcon width={32} height={32} isActive={isActive === 'Event'} />
-          </TouchableOpacity>
-          <Text style={styles.menuTitle}>event</Text>
-        </View>
-        {type === 'Admin' && (
-          <View style={styles.menuSection}>
-            <TouchableOpacity>
-              <StarIcon width={32} height={32} isActive={isActive === 'Poin'} />
+    <View style={styles.wrapper}>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const isActive = state.index === index;
+
+        return (
+          <View
+            key={route.key}
+            style={{
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <TouchableOpacity onPress={() => {
+              const event = navigation.emit({
+                type: 'tabPress',
+                target: route.key,
+              });
+
+              if (!isActive && !event.defaultPrevented) {
+                navigation.navigate(route.name);
+              }
+            }}
+            >
+              {options.tabBarIcon({ isActive })}
             </TouchableOpacity>
-            <Text style={styles.menuTitle}>poin</Text>
+            <Text style={{
+              textAlign: 'center',
+              fontFamily: 'Poppins-SemiBold',
+              fontSize: 12,
+            }}
+            >
+              {options.tabBarLabel}
+            </Text>
           </View>
-        )}
-        {type === 'Admin' && (
-          <View style={styles.menuSection}>
-            <TouchableOpacity>
-              <AdminIcon width={32} height={32} isActive={isActive === 'Admin'} />
-            </TouchableOpacity>
-            <Text style={styles.menuTitle}>admin</Text>
-          </View>
-        )}
-      </View>
+        );
+      })}
     </View>
   );
 }
@@ -64,14 +54,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 35,
     flexDirection: 'row',
-  },
-  menuSection: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  menuTitle: {
-    textAlign: 'center',
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 12,
+    justifyContent: 'space-around',
+    borderTopWidth: 2,
+    borderTopColor: '#F0F0F0',
   },
 });

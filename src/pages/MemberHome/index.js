@@ -4,11 +4,11 @@ import React, {
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  Dimensions, ScrollView, StyleSheet, Text, View,
+  Dimensions, RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import {
-  DashboardCounter, Loading, MemberPointHistory, NavbarBottom, UserTab,
+  DashboardCounter, Loading, MemberPointHistory, UserTab,
 } from '../../components';
 import { API_HOST, CallAPI, showToast } from '../../utils';
 
@@ -26,14 +26,17 @@ function MemberHome({ navigation }) {
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
+  const [refreshing, setRefreshing] = useState(true);
   const [isLoadingAPI, setIsLoadingAPI] = useState(true);
   const [userTabData, setUserTabData] = useState({});
   const [historyPointData, setHistoryPointData] = useState([]);
   const [summaryPoint, setSummaryPoint] = useState({});
 
-  const getSummaryPointAPI = () => {
+  const getSummaryAPI = () => {
+    setIsLoadingAPI(true);
     CallAPI({ url: `${API_HOST}/dashboard`, method: 'GET', data: null })
       .then((r) => {
+        setRefreshing(false);
         setIsLoadingAPI(false);
         const {
           user, historyPoint, totalPointCommittee, totalPointAttendance, totalPoint,
@@ -49,7 +52,7 @@ function MemberHome({ navigation }) {
   };
 
   useEffect(() => {
-    getSummaryPointAPI();
+    getSummaryAPI();
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
@@ -64,11 +67,14 @@ function MemberHome({ navigation }) {
   return (
     <>
       <StatusBar style="light" />
-      <View style={styles.wrapper} onLayout={onLayoutRootView}>
-        <View>
+      <ScrollView
+        refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={getSummaryAPI} />)}
+      >
+        <View style={styles.wrapper} onLayout={onLayoutRootView}>
           <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
             <View style={{
               marginTop: -88,
+              zIndex: 1,
               width: windowWidth - (windowWidth / 2),
               height: windowWidth - (windowWidth / 2),
               backgroundColor: '#B81519',
@@ -81,7 +87,8 @@ function MemberHome({ navigation }) {
           </View>
           <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
             <View style={{
-              marginTop: -136,
+              zIndex: 1,
+              marginTop: -238,
               width: windowWidth - (windowWidth / 2),
               height: windowWidth - (windowWidth / 2),
               backgroundColor: '#C13338',
@@ -92,50 +99,51 @@ function MemberHome({ navigation }) {
             }}
             />
           </View>
-        </View>
-        <View style={{
-          width: '100%',
-          paddingHorizontal: 35,
-          marginTop: 64,
-          position: 'absolute',
-        }}
-        >
-          <UserTab
-            style={{ marginBottom: 33 }}
-            division={`${userTabData.position} - ${userTabData.division}`}
-            imageUri={userTabData.profilePicture}
-            name={userTabData.name}
-            points={summaryPoint.totalPoint}
-            type="Member"
-          />
-          <DashboardCounter
-            style={{ marginBottom: 23 }}
-            leftCount={summaryPoint.totalPointAttendance}
-            rightCount={summaryPoint.totalPointCommittee}
-            leftTitle="presensi"
-            rigthTitle="kepanitiaan"
-          />
-          <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Riwayat Poin</Text>
-        </View>
-        <ScrollView style={styles.content}>
-          <View style={{ gap: 5 }}>
-            {historyPointData.map((item) => (
-              <MemberPointHistory
-                key={item._id}
-                pointEarned={item.point}
-                eventDate={new Date(item.event.startDate).toLocaleDateString('id-ID', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-                eventTitle={item.event.name}
-              />
-            ))}
+          <View style={{
+            width: '100%',
+            paddingHorizontal: 35,
+            marginTop: 64,
+            marginBottom: 33,
+            position: 'absolute',
+            zIndex: 2,
+          }}
+          >
+            <UserTab
+              style={{ marginBottom: 33 }}
+              division={`${userTabData.position} - ${userTabData.division}`}
+              imageUri={userTabData.profilePicture}
+              name={userTabData.name}
+              points={summaryPoint.totalPoint}
+              type="Member"
+            />
+            <DashboardCounter
+              style={{ marginBottom: 23 }}
+              leftCount={summaryPoint.totalPointAttendance}
+              rightCount={summaryPoint.totalPointCommittee}
+              leftTitle="presensi"
+              rigthTitle="kepanitiaan"
+            />
+            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Riwayat Poin</Text>
           </View>
-        </ScrollView>
-        <NavbarBottom isActive="Home" type="Member" navigation={navigation} />
-      </View>
+          <View style={styles.content}>
+            <View style={{ gap: 5 }}>
+              {historyPointData.map((item) => (
+                <MemberPointHistory
+                  key={item._id}
+                  pointEarned={item.point}
+                  eventDate={new Date(item.event.startDate).toLocaleDateString('id-ID', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                  eventTitle={item.event.name}
+                />
+              ))}
+            </View>
+          </View>
+        </View>
+      </ScrollView>
       {isLoadingAPI && <Loading />}
     </>
   );
@@ -146,11 +154,10 @@ export default MemberHome;
 const styles = StyleSheet.create({
   wrapper: {
     justifyContent: 'space-between',
-    backgroundColor: 'white',
     flex: 1,
   },
   content: {
     paddingHorizontal: 35,
-    marginTop: '80%',
+    marginTop: 205,
   },
 });

@@ -25,6 +25,8 @@
             }
         ],
         "react-hooks/exhaustive-deps": "off",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "react/no-unstable-nested-components": "off",
+        "react/jsx-props-no-spreading": "off"
     }
 }

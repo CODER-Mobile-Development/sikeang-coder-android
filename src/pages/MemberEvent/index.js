@@ -4,9 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import {
   Dimensions, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
-import {
-  EventListView, EventOption, NavbarBottom, UserTab,
-} from '../../components';
+import { EventListView, EventOption, UserTab } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -105,7 +103,6 @@ function MemberEvent({ navigation }) {
           <EventListView imageUri="https://source.unsplash.com/random/120x120/?fruit" name="Playbox" date="Kamis, 12 Oktober 2023" />
         </View>
       </ScrollView>
-      <NavbarBottom isActive="Event" type="Member" navigation={navigation} />
     </View>
   );
 }
