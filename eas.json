@@ -11,7 +11,18 @@
         "buildType": "apk"
       }
     },
-    "production": {}
+    "production": {
+      "channel": "production",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://sikeang-local.irvansn.com",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "610945419281-a8gf72bh1igcpol91ckke9qrvckeovfu.apps.googleusercontent.com",
+        "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "610945419281-7jl9arf02ma4v5b0jt63m8tp0tucomo5.apps.googleusercontent.com"
+      }
+    }
   },
   "submit": {
     "production": {}

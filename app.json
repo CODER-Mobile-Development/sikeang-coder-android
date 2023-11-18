@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "sikeang-coder-android",
-    "slug": "sikeang-coder-android",
+    "name": "Sistem Keaktifan Anggota - CODER",
+    "slug": "sikeang",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
@@ -16,17 +16,23 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.irvansn.sikeangcoderandroid"
+      "bundleIdentifier": "com.coderitts.sikeang"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.irvansn.sikeangcoderandroid"
+      "package": "com.coderitts.sikeang"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c4020a0f-7cce-4477-ba22-92f3f28a09c7"
+      }
+    },
+    "owner": "coderitts"
   }
 }

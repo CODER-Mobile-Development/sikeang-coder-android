@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getData } from '../Storage';
 
-export const API_HOST = 'http://irvans-macbook-pro.local:3203';
+export const API_HOST = process.env.EXPO_PUBLIC_API_URL;
 
 export const CallAPI = async ({
   url, method, data,
