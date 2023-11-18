@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
@@ -11,7 +11,7 @@ import {
 } from '../../assets/svgs';
 import { Loading, Separator } from '../../components';
 import {
-  API_HOST, CallAPI, iosClientId, showToast, storeData, webClientId,
+  API_HOST, CallAPI, getData, showToast, storeData,
 } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -28,11 +28,11 @@ function Login({ navigation }) {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const authenticationAPI = (idToken) => {
+  const authenticationAPI = (code) => {
     CallAPI({
       url: `${API_HOST}/auth/google`,
       method: 'POST',
-      data: { idToken },
+      data: { code },
     })
       .then(async (r) => {
         const { userToken, userData } = r;
@@ -40,8 +40,8 @@ function Login({ navigation }) {
         await storeData('user-token', userToken);
         await storeData('user-data', userData);
         setIsLoading(false);
-        if (userData.position === 'admin') return navigation.navigate('AdminTabScreen', { userData, userToken });
-        if (userData.position === 'member') return navigation.navigate('MemberTabScreen', { userData, userToken });
+        if (userData.position === 'admin') return navigation.replace('AdminTabScreen', { userData, userToken });
+        if (userData.position === 'member') return navigation.replace('MemberTabScreen', { userData, userToken });
         return null;
       })
       .catch((e) => {
@@ -54,8 +54,8 @@ function Login({ navigation }) {
     setIsLoading(true);
     try {
       await GoogleSignin.hasPlayServices();
-      const { idToken } = await GoogleSignin.signIn();
-      authenticationAPI(idToken);
+      const { serverAuthCode } = await GoogleSignin.signIn();
+      authenticationAPI(serverAuthCode);
     } catch (error) {
       const errorString = error.toString();
       setIsLoading(false);
@@ -79,20 +79,21 @@ function Login({ navigation }) {
     }
   };
 
-  useEffect(() => {
-    GoogleSignin.configure({
-      scopes: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'],
-      webClientId,
-      iosClientId,
-      offlineAccess: true,
-      forceCodeForRefreshToken: true,
-      profileImageSize: 240,
-    });
-  }, []);
+  const checkUserSignedIn = async () => {
+    const userToken = await getData('user-token');
+    const userData = await getData('user-data');
+
+    if (userData && userToken) {
+      if (userData.position === 'admin') navigation.replace('AdminTabScreen');
+      if (userData.position === 'member') navigation.replace('MemberTabScreen');
+    } else {
+      await SplashScreen.hideAsync();
+    }
+  };
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
-      await SplashScreen.hideAsync();
+      await checkUserSignedIn();
     }
   }, [fontsLoaded]);
 
