@@ -1,20 +1,20 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  Dimensions, RefreshControl, ScrollView, StyleSheet, Text, View,
+  RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import {
+  API_HOST, CallAPI, dateParsing, showToast,
+} from '../../utils';
 import { DashboardCounter, MemberPointHistory, UserTab } from '../../components';
-import { API_HOST, CallAPI, showToast } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
 const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
-
-const windowWidth = Dimensions.get('window').width;
 
 function MemberHome() {
   const [fontsLoaded] = useFonts({
@@ -23,9 +23,11 @@ function MemberHome() {
     'Poppins-Bold': poppinsBold,
   });
   const [refreshing, setRefreshing] = useState(true);
-  const [userTabData, setUserTabData] = useState({});
+  const [userTabData, setUserTabData] = useState({
+    position: '', division: '', profilePicture: '', name: '', totalPoint: 0,
+  });
   const [historyPointData, setHistoryPointData] = useState([]);
-  const [summaryPoint, setSummaryPoint] = useState({});
+  const [summaryPoint, setSummaryPoint] = useState({ totalPointAttendance: 0, totalPointCommittee: 0 });
 
   const getSummaryAPI = () => {
     setRefreshing(true);
@@ -56,88 +58,61 @@ function MemberHome() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
-    <>
+    <View style={styles.wrapper} onLayout={onLayoutRootView}>
       <StatusBar style="light" />
       <ScrollView
-        style={{ flex: 1, backgroundColor: 'white' }}
         refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={getSummaryAPI} />)}
       >
-        <View style={styles.wrapper} onLayout={onLayoutRootView}>
-          <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
-            <View style={{
-              marginTop: -88,
-              zIndex: 1,
-              width: windowWidth - (windowWidth / 2),
-              height: windowWidth - (windowWidth / 2),
-              backgroundColor: '#B81519',
-              borderRadius: 320,
-              transform: [
-                { scaleX: 3.5 },
-              ],
-            }}
-            />
-          </View>
-          <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
-            <View style={{
-              zIndex: 1,
-              marginTop: -236,
-              width: windowWidth - (windowWidth / 2),
-              height: windowWidth - (windowWidth / 2),
-              backgroundColor: '#C13338',
-              borderRadius: 320,
-              transform: [
-                { scaleX: 3.5 },
-              ],
-            }}
-            />
-          </View>
+        <View style={styles.decorationWrapper}>
           <View style={{
-            width: '100%',
-            paddingHorizontal: 35,
-            marginTop: 64,
-            marginBottom: 33,
-            position: 'absolute',
-            zIndex: 2,
+            marginTop: 70,
+            backgroundColor: '#B81519',
+            ...styles.decorationCircle,
           }}
-          >
-            <UserTab
-              style={{ marginBottom: 33 }}
-              division={`${userTabData.position} - ${userTabData.division}`}
-              imageUri={userTabData.profilePicture}
-              name={userTabData.name}
-              points={summaryPoint.totalPoint}
-              type="Member"
-            />
-            <DashboardCounter
-              style={{ marginBottom: 23 }}
-              leftCount={summaryPoint.totalPointAttendance}
-              rightCount={summaryPoint.totalPointCommittee}
-              leftTitle="presensi"
-              rigthTitle="kepanitiaan"
-            />
-            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, marginBottom: 11 }}>Riwayat Poin</Text>
-          </View>
-          <View style={styles.content}>
-            <View style={{ gap: 5 }}>
-              {historyPointData.map((item) => (
-                <MemberPointHistory
-                  key={item._id}
-                  pointEarned={item.point}
-                  eventDate={new Date(item.event.startDate).toLocaleDateString('id-ID', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                  eventTitle={item.event.name}
-                />
-              ))}
-            </View>
+          />
+          <View style={{
+            marginTop: -240,
+            backgroundColor: '#C13338',
+            ...styles.decorationCircle,
+          }}
+          />
+        </View>
+        <View style={styles.contentWrapper}>
+          <UserTab
+            division={`${userTabData.position} - ${userTabData.division}`}
+            imageUri={userTabData.profilePicture}
+            name={userTabData.name}
+            points={summaryPoint.totalPoint}
+            type="Member"
+          />
+          <DashboardCounter
+            style={{ marginTop: 30 }}
+            leftCount={summaryPoint.totalPointAttendance}
+            rightCount={summaryPoint.totalPointCommittee}
+            leftTitle="presensi"
+            rigthTitle="kepanitiaan"
+          />
+          <Text style={styles.contentItemTitle}>Riwayat Poin</Text>
+          <View style={{ gap: 5, marginTop: 5 }}>
+            {historyPointData.length < 1 && (
+            <Text style={styles.textZeroData}>
+              Data tidak ditemukan!
+            </Text>
+            )}
+            {historyPointData.map((item) => (
+              <MemberPointHistory
+                key={item._id}
+                pointEarned={item.point}
+                eventDate={dateParsing(item.event.startDate)}
+                eventTitle={item.event.name}
+              />
+            ))}
           </View>
         </View>
       </ScrollView>
-    </>
+    </View>
   );
 }
 
@@ -145,11 +120,37 @@ export default MemberHome;
 
 const styles = StyleSheet.create({
   wrapper: {
-    justifyContent: 'space-between',
     flex: 1,
+    backgroundColor: 'white',
   },
-  content: {
+  decorationWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -140,
+  },
+  decorationCircle: {
+    width: 150,
+    height: 200,
+    borderRadius: 320,
+    transform: [
+      { scaleX: 3.5 },
+    ],
+  },
+  contentWrapper: {
+    marginTop: -15,
+    marginBottom: 30,
     paddingHorizontal: 35,
-    marginTop: 205,
+  },
+  contentItemTitle: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 16,
+    marginTop: 30,
+  },
+  textZeroData: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 16,
+    marginTop: 100,
   },
 });

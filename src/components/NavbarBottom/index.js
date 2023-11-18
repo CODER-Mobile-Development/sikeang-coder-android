@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 35,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     borderTopWidth: 2,
     borderTopColor: '#F0F0F0',
   },
