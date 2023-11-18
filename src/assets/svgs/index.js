@@ -12,6 +12,7 @@ import GoogleIcon from './GoogleIcon';
 import OrganizationLogoHorizontal from './OrganizationLogoHorizontal';
 import SmallCalendarIcon from './SmallCalendarIcon';
 import ScanQRIcon from './ScanQRIcon';
+import PersonIcon from './PersonIcon';
 import CameraFlip from './CameraFlip';
 import CameraFlashIcon from './CameraFlashIcon';
 
@@ -30,6 +31,7 @@ export {
   OrganizationLogoHorizontal,
   SmallCalendarIcon,
   ScanQRIcon,
+  PersonIcon,
   CameraFlip,
   CameraFlashIcon,
 };

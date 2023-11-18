@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Image, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavbarTop, PrimaryButton } from '../../components';
+import { getData, removeItem } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -12,15 +13,38 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function MemberProfile() {
+function MemberProfile({ navigation }) {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
+  const [userData, setUserData] = useState({
+    profilePicture: '',
+    userName: '',
+    email: '',
+    studyProgram: '',
+    division: {
+      divisionName: '',
+      position: '',
+    },
+  });
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
+  const handleUserSignOut = () => {
+    removeItem('user-token')
+      .then(() => removeItem('user-data')
+        // .then(() => GoogleSignin.signOut()
+        .then(() => navigation.replace('Login')));
+  };
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
+      setUserData(await getData('user-data'));
+      console.log(await getData('user-token'));
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
@@ -33,13 +57,15 @@ function MemberProfile() {
       <NavbarTop title="Profile" />
       <View style={styles.wrapper}>
         <View style={styles.profileWrapper}>
+          {userData.profilePicture !== '' && (
           <Image
-            source={{ uri: 'https://source.unsplash.com/random/120x120/?fruit' }}
+            source={{ uri: userData.profilePicture }}
             width={40}
             height={40}
             style={{ borderRadius: 20, marginRight: 10 }}
           />
-          <Text style={{ fontSize: 15, fontFamily: 'Poppins-Bold' }}>Irvan Surya Nugraha</Text>
+          )}
+          <Text style={{ fontSize: 15, fontFamily: 'Poppins-Bold' }}>{userData.userName}</Text>
         </View>
         <ScrollView style={styles.content}>
 
@@ -48,7 +74,7 @@ function MemberProfile() {
               <Text style={styles.titleText}>Alamat Email</Text>
             </View>
             <View style={{ width: '70%' }}>
-              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>irvan.surya.21@student.if.ittelkom-sby.ac.id</Text>
+              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>{userData.email}</Text>
             </View>
           </View>
 
@@ -57,7 +83,7 @@ function MemberProfile() {
               <Text style={styles.titleText}>Program Studi</Text>
             </View>
             <View style={{ width: '70%' }}>
-              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>INFORMATIKA</Text>
+              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>{userData.studyProgram}</Text>
             </View>
           </View>
 
@@ -66,7 +92,7 @@ function MemberProfile() {
               <Text style={styles.titleText}>Nama Divisi</Text>
             </View>
             <View style={{ width: '70%' }}>
-              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>Mobile Development</Text>
+              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>{userData.division.divisionName}</Text>
             </View>
           </View>
 
@@ -75,13 +101,13 @@ function MemberProfile() {
               <Text style={styles.titleText}>Jabatan Divisi</Text>
             </View>
             <View style={{ width: '70%' }}>
-              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>Anggota</Text>
+              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>{userData.division.position === 'admin' ? 'BPH' : 'Anggota'}</Text>
             </View>
           </View>
 
         </ScrollView>
         <View style={styles.logoutWrapper}>
-          <PrimaryButton title="Logout" />
+          <PrimaryButton title="Logout" onPress={handleUserSignOut} />
           <Text style={styles.versionText}>Versi 1.0.0</Text>
         </View>
       </View>

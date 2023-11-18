@@ -2,9 +2,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  AdminHome, Login, MemberDetailEvent, MemberEvent, MemberHome, MemberScanQR,
+  AdminHome, Login, MemberDetailEvent, MemberEvent, MemberHome, MemberProfile, MemberScanQR,
 } from '../pages';
-import { CalendarIcon, HomeIcon, ScanQRIcon } from '../assets/svgs';
+import {
+  CalendarIcon, HomeIcon, PersonIcon, ScanQRIcon,
+} from '../assets/svgs';
 import { NavbarBottom } from '../components';
 
 const AdminTab = createBottomTabNavigator();
@@ -77,6 +79,16 @@ function MemberTabScreen() {
           tabBarLabel: 'event',
           tabBarIcon:
               ({ isActive }) => (<CalendarIcon width={32} height={32} isActive={isActive} />),
+        }}
+      />
+      <MemberTab.Screen
+        name="MemberProfile"
+        component={MemberProfile}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'profile',
+          tabBarIcon:
+              ({ isActive }) => (<PersonIcon width={32} height={32} isActive={isActive} />),
         }}
       />
     </MemberTab.Navigator>
