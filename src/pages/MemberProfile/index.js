@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Image, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
+import { useIsFocused } from '@react-navigation/native';
 import { NavbarTop, PrimaryButton } from '../../components';
 import { getData, removeItem } from '../../utils';
 
@@ -14,6 +16,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function MemberProfile({ navigation }) {
+  const isFocused = useIsFocused();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -30,10 +33,6 @@ function MemberProfile({ navigation }) {
     },
   });
 
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
-
   const handleUserSignOut = () => {
     removeItem('user-token')
       .then(() => removeItem('user-data')
@@ -44,7 +43,6 @@ function MemberProfile({ navigation }) {
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       setUserData(await getData('user-data'));
-      console.log(await getData('user-token'));
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
@@ -54,7 +52,8 @@ function MemberProfile({ navigation }) {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavbarTop title="Profile" />
+      {isFocused && <StatusBar style="dark" />}
+      <NavbarTop title="Profil Pengguna" noButton />
       <View style={styles.wrapper}>
         <View style={styles.profileWrapper}>
           {userData.profilePicture !== '' && (

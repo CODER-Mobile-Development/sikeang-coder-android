@@ -64,7 +64,6 @@ function MemberTabScreen() {
         name="MemberScanQR"
         component={MemberScanQR}
         options={{
-          unmountOnBlur: true,
           headerShown: false,
           tabBarLabel: 'presensi',
           tabBarIcon:

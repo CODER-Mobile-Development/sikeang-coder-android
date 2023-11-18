@@ -7,6 +7,7 @@ import { useFonts } from 'expo-font';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import { useIsFocused } from '@react-navigation/native';
 import { CameraFlashIcon, CameraFlip } from '../../assets/svgs';
 import { showToast } from '../../utils';
 
@@ -17,6 +18,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function MemberScanQR() {
+  const isFocused = useIsFocused();
   const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -28,11 +30,13 @@ function MemberScanQR() {
   const [flash, setFlash] = useState(FlashMode.off);
 
   useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasCameraPermission(status === 'granted');
-    })();
-  }, []);
+    if (isFocused) {
+      (async () => {
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        setHasCameraPermission(status === 'granted');
+      })();
+    }
+  }, [isFocused]);
 
   const onQRCodeScanned = ({ data }) => {
     showToast(`QR Scanned: ${data}`, 'info');
@@ -82,6 +86,7 @@ function MemberScanQR() {
       style={styles.cameraWrapper}
     >
       <StatusBar style="light" />
+      {isFocused && (
       <Camera
         style={{ flex: 1 }}
         ratio="16:9"
@@ -120,6 +125,7 @@ function MemberScanQR() {
           </TouchableOpacity>
         </View>
       </Camera>
+      )}
     </View>
   );
 }

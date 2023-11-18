@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
 import {
-  StyleSheet, Text, TouchableOpacity, View,
+  Platform, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function NavbarBottom({ state, descriptors, navigation }) {
+  const insets = useSafeAreaInsets();
   if (state) {
     return (
-      <View style={styles.wrapper}>
+      <View style={{ ...styles.wrapper, paddingBottom: Platform.OS === 'ios' ? insets.bottom : insets.bottom + 10 }}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const isActive = state.index === index;
@@ -54,7 +56,7 @@ export default NavbarBottom;
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingVertical: 15,
+    paddingTop: 15,
     backgroundColor: 'white',
     paddingHorizontal: 35,
     flexDirection: 'row',

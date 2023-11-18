@@ -39,7 +39,7 @@ function MemberDetailEvent({ navigation, route }) {
   return (
     <>
       <StatusBar style="dark" />
-      <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 40 }}>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <NavbarTop title="Event" onPress={() => navigation.goBack()} />
         <ScrollView style={styles.wrapper} onLayout={onLayoutRootView}>
           <View style={{ alignItems: 'center', marginTop: 20 }}>

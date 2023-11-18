@@ -4,6 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import {
   Dimensions, RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import {
   EventListView, EventOption, Loading, UserTab,
 } from '../../components';
@@ -91,6 +92,7 @@ function MemberEvent({ navigation }) {
   }
   return (
     <>
+      <StatusBar style="light" />
       <ScrollView
         style={{ flex: 1, backgroundColor: 'white' }}
         refreshControl={
