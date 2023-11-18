@@ -12,6 +12,8 @@ import GoogleIcon from './GoogleIcon';
 import OrganizationLogoHorizontal from './OrganizationLogoHorizontal';
 import SmallCalendarIcon from './SmallCalendarIcon';
 import ScanQRIcon from './ScanQRIcon';
+import CameraFlip from './CameraFlip';
+import CameraFlashIcon from './CameraFlashIcon';
 
 export {
   PersonSearch,
@@ -28,4 +30,6 @@ export {
   OrganizationLogoHorizontal,
   SmallCalendarIcon,
   ScanQRIcon,
+  CameraFlip,
+  CameraFlashIcon,
 };

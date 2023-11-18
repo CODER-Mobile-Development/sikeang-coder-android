@@ -59,9 +59,10 @@ function MemberTabScreen() {
         }}
       />
       <MemberTab.Screen
-        name="ScanQR"
+        name="MemberScanQR"
         component={MemberScanQR}
         options={{
+          unmountOnBlur: true,
           headerShown: false,
           tabBarLabel: 'presensi',
           tabBarIcon:
@@ -90,17 +91,17 @@ function Router() {
       <MainStack.Screen
         name="Login"
         component={Login}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
       <MainStack.Screen
         name="AdminTabScreen"
         component={AdminTabScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
       <MainStack.Screen
         name="MemberTabScreen"
         component={MemberTabScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
     </MainStack.Navigator>
   );
