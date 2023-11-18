@@ -9,7 +9,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useIsFocused } from '@react-navigation/native';
 import { CameraFlashIcon, CameraFlip } from '../../assets/svgs';
-import { showToast } from '../../utils';
+import { API_HOST, CallAPI, showToast } from '../../utils';
+import { Loading } from '../../components';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -17,17 +18,22 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function MemberScanQR() {
+function MemberScanQR({ navigation }) {
   const isFocused = useIsFocused();
   const insets = useSafeAreaInsets();
+
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
+
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [type, setType] = useState(CameraType.back);
   const [flash, setFlash] = useState(FlashMode.off);
+
+  const [isLoadingCallAPI, setIsLoadingCallAPI] = useState(false);
+  const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
     if (isFocused) {
@@ -39,7 +45,25 @@ function MemberScanQR() {
   }, [isFocused]);
 
   const onQRCodeScanned = ({ data }) => {
-    showToast(`QR Scanned: ${data}`, 'info');
+    setIsLoadingCallAPI(true);
+    setScanned(true);
+    CallAPI({ url: `${API_HOST}/point-transaction/attendance`, method: 'POST', data: { token: data } })
+      .then(() => {
+        showToast('Berhasil melakukan presensi!', 'success', insets.top);
+        setIsLoadingCallAPI(false);
+        setTimeout(() => {
+          navigation.navigate('MemberHome');
+          setScanned(false);
+        }, 50);
+      })
+      .catch((e) => {
+        showToast(e.toString(), 'danger', insets.top);
+        setIsLoadingCallAPI(false);
+        setTimeout(() => {
+          navigation.navigate('MemberHome');
+          setScanned(false);
+        }, 1000);
+      });
   };
 
   const onLayoutRootView = useCallback(async () => {
@@ -92,7 +116,7 @@ function MemberScanQR() {
         ratio="16:9"
         type={type}
         flashMode={flash}
-        onBarCodeScanned={onQRCodeScanned}
+        onBarCodeScanned={scanned ? null : onQRCodeScanned}
       >
         <View
           style={{ ...styles.cameraOptionsWrapper, paddingTop: insets.top + 10 }}
@@ -126,6 +150,7 @@ function MemberScanQR() {
         </View>
       </Camera>
       )}
+      {isLoadingCallAPI && <Loading />}
     </View>
   );
 }
