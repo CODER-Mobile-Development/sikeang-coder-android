@@ -1,6 +1,4 @@
-import React, {
-  Fragment, useCallback, useEffect, useState,
-} from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -32,7 +30,7 @@ function MemberHome() {
   const getSummaryAPI = () => {
     setRefreshing(true);
     CallAPI({ url: `${API_HOST}/dashboard`, method: 'GET', data: null })
-      .then((r) => {
+      .then(async (r) => {
         setRefreshing(false);
         const {
           user, historyPoint, totalPointCommittee, totalPointAttendance, totalPoint,
@@ -40,20 +38,18 @@ function MemberHome() {
         setUserTabData(user);
         setHistoryPointData(historyPoint);
         setSummaryPoint({ totalPointCommittee, totalPointAttendance, totalPoint });
+        await SplashScreen.hideAsync();
       })
-      .catch((e) => {
+      .catch(async (e) => {
         setRefreshing(false);
         showToast(`Error: ${e.message}`, 'danger');
+        await SplashScreen.hideAsync();
       });
   };
 
-  useEffect(() => {
-    getSummaryAPI();
-  }, []);
-
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
-      await SplashScreen.hideAsync();
+      await getSummaryAPI();
     }
   }, [fontsLoaded]);
 
