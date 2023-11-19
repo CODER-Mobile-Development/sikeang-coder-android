@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  Dimensions, ScrollView, StyleSheet, Text, View,
+  RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
-import {
-  DashboardCounter, DivisionMemberCounter, Loading, NavbarBottom, UserTab,
-} from '../../components';
+import { StatusBar } from 'expo-status-bar';
+import { DashboardCounter, DivisionMemberCounter, UserTab } from '../../components';
 import { API_HOST, CallAPI, showToast } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -15,43 +14,42 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-const windowWidth = Dimensions.get('window').width;
-
 function AdminHome() {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
-  const [isLoadingAPI, setIsLoadingAPI] = useState(true);
-  const [userTabData, setUserTabData] = useState({});
+  const [refreshing, setRefreshing] = useState(true);
+  const [userTabData, setUserTabData] = useState({
+    position: '', division: '', profilePicture: '', name: '', totalPoint: 0,
+  });
   const [totalSummaryDivision, setTotalSummaryDivision] = useState({});
   const [summaryDivisionData, setSummaryDivisionData] = useState([]);
 
-  const getSummaryDivision = () => {
+  const getSummaryDivision = async () => {
+    setRefreshing(true);
     CallAPI({ url: `${API_HOST}/dashboard`, method: 'GET', data: null })
-      .then((r) => {
+      .then(async (r) => {
         const {
           user, totalMembers, totalDivisions, summaryDivision,
         } = r;
-        setIsLoadingAPI(false);
+        setRefreshing(false);
         setUserTabData(user);
         setTotalSummaryDivision({ totalMembers, totalDivisions });
         setSummaryDivisionData(summaryDivision);
+        await SplashScreen.hideAsync();
       })
-      .catch((e) => {
-        setIsLoadingAPI(false);
+      .catch(async (e) => {
+        setRefreshing(false);
         showToast(`Error: ${e.message}`, 'danger');
+        await SplashScreen.hideAsync();
       });
   };
 
-  useEffect(() => {
-    getSummaryDivision();
-  }, []);
-
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
-      await SplashScreen.hideAsync();
+      await getSummaryDivision();
     }
   }, [fontsLoaded]);
 
@@ -59,61 +57,46 @@ function AdminHome() {
     return null;
   }
   return (
-    <>
-
-      <View style={styles.wrapper} onLayout={onLayoutRootView}>
-        <View>
-          <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
-            <View style={{
-              marginTop: -88,
-              width: windowWidth - (windowWidth / 2),
-              height: windowWidth - (windowWidth / 2),
-              backgroundColor: '#B81519',
-              borderRadius: 320,
-              transform: [
-                { scaleX: 3.5 },
-              ],
-            }}
-            />
-          </View>
-          <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
-            <View style={{
-              marginTop: -136,
-              width: windowWidth - (windowWidth / 2),
-              height: windowWidth - (windowWidth / 2),
-              backgroundColor: '#C13338',
-              borderRadius: 320,
-              transform: [
-                { scaleX: 3.5 },
-              ],
-            }}
-            />
-          </View>
+    <View style={styles.wrapper} onLayout={onLayoutRootView}>
+      <StatusBar style="light" />
+      <ScrollView
+        refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={getSummaryDivision} />)}
+      >
+        <View style={styles.decorationWrapper}>
+          <View style={{
+            marginTop: 70,
+            backgroundColor: '#B81519',
+            ...styles.decorationCircle,
+          }}
+          />
+          <View style={{
+            marginTop: -240,
+            backgroundColor: '#C13338',
+            ...styles.decorationCircle,
+          }}
+          />
         </View>
-        <View style={{
-          paddingHorizontal: 35,
-          marginTop: 64,
-          justifyContent: 'center',
-        }}
-        >
+        <View style={styles.contentWrapper}>
           <UserTab
-            style={{ marginBottom: 33 }}
             division={`${userTabData.position} - ${userTabData.division}`}
             imageUri={userTabData.profilePicture}
             name={userTabData.name}
             type="Admin"
           />
           <DashboardCounter
-            style={{ marginBottom: 23 }}
+            style={{ marginTop: 30 }}
             rightCount={totalSummaryDivision.totalMembers}
             leftCount={totalSummaryDivision.totalDivisions}
             rigthTitle="anggota"
             leftTitle="divisi"
           />
-          <Text style={styles.titleList}>Daftar Divisi</Text>
-        </View>
-        <ScrollView style={styles.content}>
-          <View style={{ gap: 5 }}>
+          <Text style={styles.contentItemTitle}>Daftar Divisi</Text>
+          <View style={{ gap: 5, marginTop: 5 }}>
+            {summaryDivisionData.length < 1 && (
+              <Text style={styles.textZeroData}>
+                Data tidak ditemukan!
+              </Text>
+            )}
             {summaryDivisionData.map((item) => (
               <DivisionMemberCounter
                 key={item.divisionId}
@@ -122,11 +105,9 @@ function AdminHome() {
               />
             ))}
           </View>
-        </ScrollView>
-        <NavbarBottom isActive="Home" type="Admin" />
-      </View>
-      {isLoadingAPI && <Loading />}
-    </>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -134,15 +115,37 @@ export default AdminHome;
 
 const styles = StyleSheet.create({
   wrapper: {
-    justifyContent: 'space-between',
-    backgroundColor: 'white',
     flex: 1,
+    backgroundColor: 'white',
   },
-  content: {
+  decorationWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -140,
+  },
+  decorationCircle: {
+    width: 150,
+    height: 200,
+    borderRadius: 320,
+    transform: [
+      { scaleX: 3.5 },
+    ],
+  },
+  contentWrapper: {
+    marginTop: -15,
+    marginBottom: 30,
     paddingHorizontal: 35,
   },
-  titleList: {
+  contentItemTitle: {
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
+    marginTop: 30,
+  },
+  textZeroData: {
+    textAlign: 'center',
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 16,
+    marginTop: 100,
   },
 });
