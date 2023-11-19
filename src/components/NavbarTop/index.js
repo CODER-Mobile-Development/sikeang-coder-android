@@ -3,14 +3,17 @@ import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import { BackButton } from '../../assets/svgs';
 
-function NavbarTop({ title, onPress, noButton }) {
+function NavbarTop({ title, noButton }) {
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+
   return (
     <View style={{ ...styles.wrapper, paddingTop: insets.top + 10 }}>
       {!noButton && (
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <BackButton height={24} width={24} />
       </TouchableOpacity>
       )}

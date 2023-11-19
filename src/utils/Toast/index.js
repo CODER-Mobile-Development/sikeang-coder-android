@@ -6,6 +6,10 @@ export const showToast = (message, type, marginTop) => {
     message,
     type,
     floating: true,
-    style: { marginTop: marginTop || 0 },
+    style: {
+      marginTop: marginTop || 0,
+      fontFamily: 'Poppins-SemiBold',
+      fontSize: 12,
+    },
   });
 };
