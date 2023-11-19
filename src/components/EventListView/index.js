@@ -29,11 +29,10 @@ const styles = StyleSheet.create({
     borderColor: '#E0E0E0',
     backgroundColor: '#3F5671',
     borderRadius: 12,
-    paddingVertical: 12,
+    padding: 15,
   },
   square: {
     marginRight: 15,
-    marginLeft: 18,
     justifyContent: 'center',
   },
   textContainer: {
@@ -48,14 +47,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
   },
   name: {
-    maxWidth: '100%',
     color: '#FFFFFF',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
     marginTop: -6,
   },
   date: {
-    maxWidth: '100%',
     color: '#FFFFFF',
     fontFamily: 'Poppins-Medium',
     fontWeight: '500',

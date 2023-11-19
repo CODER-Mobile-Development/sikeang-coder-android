@@ -1,14 +1,40 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import {
-  Platform, StyleSheet, Text, TouchableOpacity, View,
+  Keyboard, Platform, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function NavbarBottom({ state, descriptors, navigation }) {
   const insets = useSafeAreaInsets();
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      },
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  });
   if (state) {
     return (
-      <View style={{ ...styles.wrapper, paddingBottom: Platform.OS === 'ios' ? insets.bottom : insets.bottom + 10 }}>
+      <View style={{
+        ...styles.wrapper,
+        display: keyboardVisible ? 'none' : 'flex',
+        paddingBottom: Platform.OS === 'ios' ? insets.bottom : insets.bottom + 10,
+      }}
+      >
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const isActive = state.index === index;

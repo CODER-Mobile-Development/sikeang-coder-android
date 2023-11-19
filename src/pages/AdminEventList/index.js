@@ -1,12 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  Dimensions, ScrollView, StyleSheet, Text, View,
+  RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import {
-  EventListView, NavbarBottom, SearchBar, Separator, UserTab,
+  EventListView, NavbarBottom, SearchBar, UserTab,
 } from '../../components';
+import {
+  API_HOST, CallAPI, dateParsing, showToast,
+} from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -14,14 +18,31 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-const windowWidth = Dimensions.get('window').width;
-
-function AdminEventList() {
+function AdminEventList({ navigation }) {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
+  const [eventListData, setEventListData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const getAllEventData = () => {
+    setRefreshing(true);
+    CallAPI({ url: `${API_HOST}/event?query=all`, method: 'GET', data: null })
+      .then((r) => {
+        setRefreshing(false);
+        setEventListData(r.events);
+      })
+      .catch((e) => {
+        setRefreshing(false);
+        showToast(`Error: ${e.message}`, 'danger');
+      });
+  };
+
+  useEffect(() => {
+    getAllEventData();
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -34,66 +55,49 @@ function AdminEventList() {
   }
   return (
     <View style={styles.wrapper} onLayout={onLayoutRootView}>
-      <View>
-        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
-          <View style={{
-            marginTop: -88,
-            width: windowWidth - (windowWidth / 2),
-            height: windowWidth - (windowWidth / 2),
-            backgroundColor: '#B81519',
-            borderRadius: 320,
-            transform: [
-              { scaleX: 3.5 },
-            ],
-          }}
-          />
-        </View>
-        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
-          <View style={{
-            marginTop: -136,
-            width: windowWidth - (windowWidth / 2),
-            height: windowWidth - (windowWidth / 2),
-            backgroundColor: '#C13338',
-            borderRadius: 320,
-            transform: [
-              { scaleX: 3.5 },
-            ],
-          }}
-          />
-        </View>
-      </View>
-      <View style={{
-        paddingHorizontal: 35,
-        marginTop: 64,
-        justifyContent: 'center',
-      }}
+      <StatusBar style="light" />
+      <ScrollView
+        refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={getAllEventData} />)}
       >
-        <UserTab
-          style={{ marginBottom: 33 }}
-          division="Mobile Development"
-          imageUri="https://source.unsplash.com/random/120x120/?fruit"
-          name="Irvan Surya Nugraha"
-          points="100"
-          type="Admin"
-        />
-        <SearchBar placeholder="cari nama acara" />
-        <Separator height={30} />
-        <Text style={styles.titleList}>Daftar Acara</Text>
-      </View>
-      <ScrollView style={styles.content}>
-        <View style={{ gap: 5 }}>
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
-          <EventListView name="Rapat Anggota" imageUri="https://source.unsplash.com/random/120x120/?fruit" date="Kamis, 12 Oktober 2023" />
+        <View style={styles.decorationWrapper}>
+          <View style={{
+            marginTop: 70,
+            backgroundColor: '#B81519',
+            ...styles.decorationCircle,
+          }}
+          />
+          <View style={{
+            marginTop: -240,
+            backgroundColor: '#C13338',
+            ...styles.decorationCircle,
+          }}
+          />
+        </View>
+        <View style={styles.contentWrapper}>
+          <UserTab
+            style={{ marginBottom: 33 }}
+            division="Mobile Development"
+            imageUri="https://source.unsplash.com/random/120x120/?fruit"
+            name="Irvan Surya Nugraha"
+            points="100"
+            type="Admin"
+          />
+          <SearchBar placeholder="cari nama acara" />
+          <Text style={styles.contentItemTitle}>Daftar Acara</Text>
+          <View style={{ gap: 5 }}>
+            {eventListData.map((item) => (
+              <EventListView
+                key={item._id}
+                name={item.eventName}
+                imageUri={item.photoUrl}
+                date={dateParsing(item.startDate)}
+                onPress={() => navigation.navigate(
+                  'AdminDetailEvent',
+                  { event: item },
+                )}
+              />
+            ))}
+          </View>
         </View>
       </ScrollView>
       <NavbarBottom isActive="Home" type="Admin" />
@@ -105,15 +109,31 @@ export default AdminEventList;
 
 const styles = StyleSheet.create({
   wrapper: {
-    justifyContent: 'space-between',
-    backgroundColor: 'white',
     flex: 1,
+    backgroundColor: 'white',
   },
-  content: {
+  decorationWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -140,
+  },
+  decorationCircle: {
+    width: 150,
+    height: 200,
+    borderRadius: 320,
+    transform: [
+      { scaleX: 3.5 },
+    ],
+  },
+  contentWrapper: {
+    marginTop: -15,
+    marginBottom: 30,
     paddingHorizontal: 35,
   },
-  titleList: {
+  contentItemTitle: {
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
+    marginTop: 30,
   },
 });
