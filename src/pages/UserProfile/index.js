@@ -15,7 +15,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function MemberProfile({ navigation }) {
+function UserProfile({ navigation }) {
   const isFocused = useIsFocused();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -29,8 +29,8 @@ function MemberProfile({ navigation }) {
     studyProgram: '',
     division: {
       divisionName: '',
-      position: '',
     },
+    position: '',
   });
 
   const handleUserSignOut = () => {
@@ -100,7 +100,7 @@ function MemberProfile({ navigation }) {
               <Text style={styles.titleText}>Jabatan Divisi</Text>
             </View>
             <View style={{ width: '70%' }}>
-              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>{userData.division.position === 'admin' ? 'BPH' : 'Anggota'}</Text>
+              <Text style={styles.valueText} ellipsizeMode="tail" numberOfLines={2}>{userData.position === 'admin' ? 'BPH' : 'Anggota'}</Text>
             </View>
           </View>
 
@@ -115,7 +115,7 @@ function MemberProfile({ navigation }) {
   );
 }
 
-export default MemberProfile;
+export default UserProfile;
 
 const styles = StyleSheet.create({
   wrapper: {

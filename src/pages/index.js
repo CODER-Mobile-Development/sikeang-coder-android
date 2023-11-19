@@ -1,6 +1,6 @@
 import Login from './Login';
 import MemberHome from './MemberHome';
-import MemberProfile from './MemberProfile';
+import UserProfile from './UserProfile';
 import AdminAddEvent from './AdminAddEvent';
 import AdminAddMember from './AdminAddMember';
 import AdminEditMember from './AdminEditMember';
@@ -24,7 +24,7 @@ export {
   Login,
   MemberHome,
   MemberDetailEvent,
-  MemberProfile,
+  UserProfile,
   MemberScanQR,
   AdminAddEvent,
   AdminAddMember,

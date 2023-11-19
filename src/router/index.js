@@ -2,24 +2,67 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  AdminHome, Login, MemberDetailEvent, MemberEvent, MemberHome, MemberProfile, MemberScanQR,
+  AdminAdminList,
+  AdminHome,
+  Login,
+  MemberDetailEvent,
+  MemberEvent,
+  MemberHome,
+  MemberScanQR,
+  UserProfile,
 } from '../pages';
 import {
-  CalendarIcon, HomeIcon, PersonIcon, ScanQRIcon,
+  AdminIcon, CalendarIcon, HomeIcon, PersonIcon, ScanQRIcon,
 } from '../assets/svgs';
 import { NavbarBottom } from '../components';
+import AdminEventList from '../pages/AdminEventList';
 
 const AdminTab = createBottomTabNavigator();
 
 function AdminTabScreen() {
   return (
-    <AdminTab.Navigator>
+    <AdminTab.Navigator
+      tabBar={(props) => <NavbarBottom {...props} />}
+      screenOptions={{ tabBarHideOnKeyboard: true }}
+    >
       <AdminTab.Screen
         name="AdminHome"
         component={AdminHome}
         options={{
           headerShown: false,
-          tabBarStyle: { display: 'none' },
+          tabBarLabel: 'home',
+          tabBarIcon:
+              ({ isActive }) => (<HomeIcon width={32} height={32} isActive={isActive} />),
+        }}
+      />
+      <AdminTab.Screen
+        name="AdminEvent"
+        component={AdminEventList}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'event',
+          tabBarIcon:
+              ({ isActive }) => (<CalendarIcon width={32} height={32} isActive={isActive} />),
+        }}
+      />
+      <AdminTab.Screen
+        name="AdminAdminList"
+        component={AdminAdminList}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'admin',
+          tabBarIcon:
+              ({ isActive }) => (<AdminIcon width={32} height={32} isActive={isActive} />),
+        }}
+      />
+      <AdminTab.Screen
+        name="AdminProfile"
+        component={UserProfile}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'profile',
+          tabBarIcon:
+                ({ isActive }) => (<PersonIcon width={32} height={32} isActive={isActive} />),
         }}
       />
     </AdminTab.Navigator>
@@ -82,7 +125,7 @@ function MemberTabScreen() {
       />
       <MemberTab.Screen
         name="MemberProfile"
-        component={MemberProfile}
+        component={UserProfile}
         options={{
           headerShown: false,
           tabBarLabel: 'profile',
