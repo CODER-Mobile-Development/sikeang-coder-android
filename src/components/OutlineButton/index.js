@@ -1,9 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-function OutlineButton({ title, color }) {
+function OutlineButton({
+  title, color, onPress, onPressIn, onLongPress,
+}) {
   return (
-    <TouchableOpacity style={{ ...styles.wrapper, borderWidth: 2, borderColor: color }}>
+    <TouchableOpacity
+      onLongPress={onLongPress}
+      onPressIn={onPressIn}
+      onPress={onPress}
+      style={{ ...styles.wrapper, borderWidth: 2, borderColor: color }}
+      delayLongPress={3000}
+    >
       <Text style={{ ...styles.text, color }}>
         {title}
       </Text>
@@ -21,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   text: {
-    marginTop: 4,
+    marginTop: 2,
     textAlign: 'center',
     fontFamily: 'Poppins-Bold',
     fontSize: 20,
