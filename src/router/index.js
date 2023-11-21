@@ -3,7 +3,11 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   AdminAdminList,
+  AdminAttendanceList,
+  AdminDetailEvent,
+  AdminEditEvent,
   AdminHome,
+  AdminManualAttendance,
   Login,
   MemberDetailEvent,
   MemberEvent,
@@ -16,6 +20,40 @@ import {
 } from '../assets/svgs';
 import { NavbarBottom } from '../components';
 import AdminEventList from '../pages/AdminEventList';
+
+const AdminEventStack = createNativeStackNavigator();
+
+function AdminEventStackScreen() {
+  return (
+    <AdminEventStack.Navigator>
+      <AdminEventStack.Screen
+        name="AdminEventList"
+        component={AdminEventList}
+        options={{ headerShown: false }}
+      />
+      <AdminEventStack.Screen
+        name="AdminDetailEvent"
+        component={AdminDetailEvent}
+        options={{ headerShown: false }}
+      />
+      <AdminEventStack.Screen
+        name="AdminAttendanceList"
+        component={AdminAttendanceList}
+        options={{ headerShown: false }}
+      />
+      <AdminEventStack.Screen
+        name="AdminEditEvent"
+        component={AdminEditEvent}
+        options={{ headerShown: false }}
+      />
+      <AdminEventStack.Screen
+        name="AdminManualAttendance"
+        component={AdminManualAttendance}
+        options={{ headerShown: false }}
+      />
+    </AdminEventStack.Navigator>
+  );
+}
 
 const AdminTab = createBottomTabNavigator();
 
@@ -37,7 +75,7 @@ function AdminTabScreen() {
       />
       <AdminTab.Screen
         name="AdminEvent"
-        component={AdminEventList}
+        component={AdminEventStackScreen}
         options={{
           headerShown: false,
           tabBarLabel: 'event',

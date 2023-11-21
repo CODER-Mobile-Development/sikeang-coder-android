@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { useIsFocused } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import {
   MemberListView, NavbarBottom, NavbarTop, PrimaryButton,
 } from '../../components';
@@ -13,6 +15,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function AdminAdminList() {
+  const isFocused = useIsFocused();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -29,7 +32,8 @@ function AdminAdminList() {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavbarTop title="Data Admin" />
+      {isFocused && <StatusBar style="dark" />}
+      <NavbarTop title="Data Admin" noButton />
       <View style={styles.wrapper}>
         <ScrollView style={styles.content}>
           <View style={{ gap: 10, paddingVertical: 20 }}>

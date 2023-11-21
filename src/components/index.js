@@ -15,6 +15,7 @@ import DashboardCounter from './DashboardCounter';
 import DivisionMemberCounter from './DivisionMemberCounter';
 import OutlineButton from './OutlineButton';
 import Loading from './Loading';
+import DropdownInput from './DropdownInput';
 
 export {
   MemberListView,
@@ -34,4 +35,5 @@ export {
   DivisionMemberCounter,
   OutlineButton,
   Loading,
+  DropdownInput,
 };

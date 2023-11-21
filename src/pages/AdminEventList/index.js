@@ -5,6 +5,7 @@ import {
   RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useIsFocused } from '@react-navigation/native';
 import {
   EventListView, NavbarBottom, SearchBar, UserTab,
 } from '../../components';
@@ -19,6 +20,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function AdminEventList({ navigation }) {
+  const isFocused = useIsFocused();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -41,8 +43,10 @@ function AdminEventList({ navigation }) {
   };
 
   useEffect(() => {
-    getAllEventData();
-  }, []);
+    if (isFocused) {
+      getAllEventData();
+    }
+  }, [isFocused]);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -55,7 +59,7 @@ function AdminEventList({ navigation }) {
   }
   return (
     <View style={styles.wrapper} onLayout={onLayoutRootView}>
-      <StatusBar style="light" />
+      <StatusBar style="light" backgroundColor="#C13338" />
       <ScrollView
         refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={getAllEventData} />)}
       >

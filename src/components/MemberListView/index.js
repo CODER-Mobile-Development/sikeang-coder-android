@@ -6,7 +6,7 @@ import {
 function MemberListView({ name, email, photo }) {
   return (
     <View style={styles.item}>
-      <View>
+      <View style={{ marginRight: 10 }}>
         <Image style={styles.photo} source={{ uri: photo }} />
       </View>
       <View style={styles.textContainer}>
@@ -32,8 +32,6 @@ const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 26,
-    backgroundColor: '#D9D9D9',
-    marginRight: 10,
   },
   textContainer: {
     width: '80%',

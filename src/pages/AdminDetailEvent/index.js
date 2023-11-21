@@ -5,6 +5,7 @@ import {
   Image, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 import {
   NavbarBottom, NavbarTop, OutlineButton, PrimaryButton,
 } from '../../components';
@@ -20,7 +21,12 @@ SplashScreen.preventAutoHideAsync();
 function AdminPointDetailEvent({ route, navigation }) {
   const insets = useSafeAreaInsets();
   const {
-    description, startDate, endDate, eventName, photoUrl, eventLocation, eventType,
+    description,
+    startDate,
+    endDate,
+    eventName,
+    photoUrl,
+    eventLocation,
   } = route.params.event;
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -39,6 +45,7 @@ function AdminPointDetailEvent({ route, navigation }) {
   }
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <StatusBar style="dark" />
       <NavbarTop title="Event" />
       <ScrollView style={styles.wrapper} onLayout={onLayoutRootView}>
         <View style={{ alignItems: 'center', marginTop: 20 }}>
@@ -96,14 +103,7 @@ function AdminPointDetailEvent({ route, navigation }) {
             <OutlineButton
               title="Ubah Data"
               color="#B31217"
-              onPress={() => navigation.navigate('AdminEditEvent', {
-                eventName,
-                startDate,
-                endDate,
-                description,
-                photoUrl,
-                eventType,
-              })}
+              onPress={() => navigation.navigate('AdminEditEvent', { event: route.params.event })}
             />
             <OutlineButton
               title="Hapus Data"
@@ -114,9 +114,6 @@ function AdminPointDetailEvent({ route, navigation }) {
           </View>
         </View>
       </ScrollView>
-      {/* <View style={{ marginVertical: 10, paddingHorizontal: 35, gap: 7 }}> */}
-      {/*  */}
-      {/* </View> */}
       <NavbarBottom type="Admin" isActive="Poin" />
     </View>
   );
@@ -133,6 +130,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Bold',
     fontSize: 24,
     marginTop: 11,
+    textAlign: 'center',
   },
   eventDate: {
     flexDirection: 'row',

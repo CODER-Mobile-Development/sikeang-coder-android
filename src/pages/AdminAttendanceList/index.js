@@ -14,7 +14,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminAttendanceList() {
+function AdminAttendanceList({ navigation }) {
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -54,7 +54,7 @@ function AdminAttendanceList() {
           </View>
         </ScrollView>
         <View style={{ paddingHorizontal: 35, marginVertical: 10 }}>
-          <PrimaryButton title="Presensi Manual" />
+          <PrimaryButton title="Presensi Manual" onPress={() => navigation.navigate('AdminManualAttendance')} />
         </View>
       </View>
       <NavbarBottom type="Admin" isActive="Event" />
