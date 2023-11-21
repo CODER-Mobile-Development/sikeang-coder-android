@@ -10,7 +10,7 @@ import {
   EventListView, NavbarBottom, SearchBar, UserTab,
 } from '../../components';
 import {
-  API_HOST, CallAPI, dateParsing, showToast,
+  API_HOST, CallAPI, dateParsing, getData, showToast,
 } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -28,6 +28,12 @@ function AdminEventList({ navigation }) {
   });
   const [eventListData, setEventListData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [userTabData, setUserTabData] = useState({
+    userName: '',
+    division: '',
+    profilePicture: '',
+    position: '',
+  });
 
   const getAllEventData = () => {
     setRefreshing(true);
@@ -50,6 +56,10 @@ function AdminEventList({ navigation }) {
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
+      const { userName, division, profilePicture } = await getData('user-data');
+      setUserTabData({
+        userName, division: division.divisionName, profilePicture, position: 'BPH',
+      });
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
@@ -59,7 +69,7 @@ function AdminEventList({ navigation }) {
   }
   return (
     <View style={styles.wrapper} onLayout={onLayoutRootView}>
-      <StatusBar style="light" backgroundColor="#C13338" />
+      <StatusBar style="light" />
       <ScrollView
         refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={getAllEventData} />)}
       >
@@ -80,10 +90,9 @@ function AdminEventList({ navigation }) {
         <View style={styles.contentWrapper}>
           <UserTab
             style={{ marginBottom: 33 }}
-            division="Mobile Development"
-            imageUri="https://source.unsplash.com/random/120x120/?fruit"
-            name="Irvan Surya Nugraha"
-            points="100"
+            division={`${userTabData.position} - ${userTabData.division}`}
+            imageUri={userTabData.profilePicture}
+            name={userTabData.userName}
             type="Admin"
           />
           <SearchBar placeholder="cari nama acara" />

@@ -10,7 +10,7 @@ import {
   NavbarBottom, NavbarTop, OutlineButton, PrimaryButton,
 } from '../../components';
 import { SmallCalendarIcon } from '../../assets/svgs';
-import { dateParsing, showToast } from '../../utils';
+import { dateParsing, dateTimeParsing, showToast } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -65,18 +65,18 @@ function AdminPointDetailEvent({ route, navigation }) {
             </Text>
           </View>
         </View>
-        <View style={{ marginTop: 27 }}>
+        <View style={{ marginTop: 30 }}>
           <Text style={styles.descriptionTitle}>
             Tanggal Acara
           </Text>
           <Text style={styles.descriptionText}>
             Tanggal mulai:
             {' '}
-            {dateParsing(startDate)}
+            {dateTimeParsing(startDate)}
             {'\n'}
             Perkiraan selesai:
             {' '}
-            {dateParsing(endDate)}
+            {dateTimeParsing(endDate)}
           </Text>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -87,7 +87,7 @@ function AdminPointDetailEvent({ route, navigation }) {
             {description}
           </Text>
         </View>
-        <View style={{ marginVertical: 10 }}>
+        <View style={{ marginTop: 10, marginBottom: 30 }}>
           <Text style={styles.descriptionTitle}>Tempat Acara</Text>
           <Text style={styles.descriptionText}>{eventLocation}</Text>
         </View>
