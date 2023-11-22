@@ -7,6 +7,7 @@ import {
   AdminAttendanceList,
   AdminDetailEvent,
   AdminEditEvent,
+  AdminEventList,
   AdminHome,
   AdminManualAttendance,
   Login,
@@ -20,7 +21,6 @@ import {
   AdminIcon, CalendarIcon, HomeIcon, PersonIcon, ScanQRIcon,
 } from '../assets/svgs';
 import { NavbarBottom } from '../components';
-import AdminEventList from '../pages/AdminEventList';
 
 const AdminEventStack = createNativeStackNavigator();
 

@@ -7,7 +7,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { useIsFocused } from '@react-navigation/native';
 import {
-  EventListView, NavbarBottom, SearchBar, UserTab,
+  EventListView, NavbarBottom, PrimaryButton, SearchBar, UserTab,
 } from '../../components';
 import {
   API_HOST, CallAPI, dateParsing, getData, showToast,
@@ -113,6 +113,9 @@ function AdminEventList({ navigation }) {
           </View>
         </View>
       </ScrollView>
+      <View style={{ paddingVertical: 10, paddingHorizontal: 35 }}>
+        <PrimaryButton onPress={() => navigation.navigate('AdminAddEvent')} title="Buat Acara Baru" />
+      </View>
       <NavbarBottom isActive="Home" type="Admin" />
     </View>
   );
