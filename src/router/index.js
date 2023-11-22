@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
+  AdminAddEvent,
   AdminAdminList,
   AdminAttendanceList,
   AdminDetailEvent,
@@ -39,6 +40,11 @@ function AdminEventStackScreen() {
       <AdminEventStack.Screen
         name="AdminAttendanceList"
         component={AdminAttendanceList}
+        options={{ headerShown: false }}
+      />
+      <AdminEventStack.Screen
+        name="AdminAddEvent"
+        component={AdminAddEvent}
         options={{ headerShown: false }}
       />
       <AdminEventStack.Screen
