@@ -1,11 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
   RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { DashboardCounter, DivisionMemberCounter, UserTab } from '../../components';
+import { useIsFocused } from '@react-navigation/native';
+import {
+  DashboardCounter, DivisionMemberCounter, PrimaryButton, UserTab,
+} from '../../components';
 import { API_HOST, CallAPI, showToast } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
@@ -14,7 +17,8 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminHome() {
+function AdminHome({ navigation, route }) {
+  const isFocus = useIsFocused();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -46,6 +50,12 @@ function AdminHome() {
         await SplashScreen.hideAsync();
       });
   };
+
+  useEffect(() => {
+    if (route.params?.refresh) {
+      getSummaryDivision();
+    }
+  }, [isFocus]);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -107,6 +117,9 @@ function AdminHome() {
           </View>
         </View>
       </ScrollView>
+      <View style={{ paddingVertical: 10, paddingHorizontal: 35 }}>
+        <PrimaryButton onPress={() => navigation.navigate('AdminAddDivision')} title="Buat Acara Baru" />
+      </View>
     </View>
   );
 }
