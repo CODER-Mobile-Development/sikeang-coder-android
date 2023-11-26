@@ -10,7 +10,9 @@ import {
   NavbarBottom, NavbarTop, OutlineButton, PrimaryButton,
 } from '../../components';
 import { SmallCalendarIcon } from '../../assets/svgs';
-import { dateParsing, dateTimeParsing, showToast } from '../../utils';
+import {
+  API_HOST, CallAPI, dateParsing, dateTimeParsing, showToast,
+} from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -27,12 +29,24 @@ function AdminPointDetailEvent({ route, navigation }) {
     eventName,
     photoUrl,
     eventLocation,
+    _id,
   } = route.params.event;
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
+
+  const onDelete = () => {
+    CallAPI({ url: `${API_HOST}/event/${_id}`, method: 'DELETE', data: null })
+      .then(() => {
+        showToast('Berhasil menghapus data Acara!', 'success', insets.top);
+        navigation.navigate('AdminEventList');
+      })
+      .catch((e) => {
+        showToast(e.message, 'danger', insets.top);
+      });
+  };
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -109,7 +123,7 @@ function AdminPointDetailEvent({ route, navigation }) {
               title="Hapus Data"
               color="#8E8E8E"
               onPressIn={() => showToast('Tekan dan tahan 3 detik untuk menghapus data!', 'info', insets.top)}
-              onLongPress={() => showToast('Berhasil menghapus data!', 'success', insets.top)}
+              onLongPress={onDelete}
             />
           </View>
         </View>
@@ -150,6 +164,5 @@ const styles = StyleSheet.create({
   descriptionText: {
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
-    marginTop: 4,
   },
 });
