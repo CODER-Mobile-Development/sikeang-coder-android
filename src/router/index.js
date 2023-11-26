@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
+  AdminAddAdmin,
   AdminAddDivision,
   AdminAddEvent,
   AdminAdminList,
@@ -81,6 +82,25 @@ function AdminHomeStackScreen() {
   );
 }
 
+const AdminAdminStack = createNativeStackNavigator();
+
+function AdminAdminStackScreen() {
+  return (
+    <AdminAdminStack.Navigator>
+      <AdminAdminStack.Screen
+        name="AdminAdminList"
+        component={AdminAdminList}
+        options={{ headerShown: false }}
+      />
+      <AdminAdminStack.Screen
+        name="AdminAddAdmin"
+        component={AdminAddAdmin}
+        options={{ headerShown: false }}
+      />
+    </AdminAdminStack.Navigator>
+  );
+}
+
 const AdminTab = createBottomTabNavigator();
 
 function AdminTabScreen() {
@@ -110,8 +130,8 @@ function AdminTabScreen() {
         }}
       />
       <AdminTab.Screen
-        name="AdminAdminList"
-        component={AdminAdminList}
+        name="AdminAdmin"
+        component={AdminAdminStackScreen}
         options={{
           headerShown: false,
           tabBarLabel: 'admin',

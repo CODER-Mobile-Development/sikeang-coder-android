@@ -21,10 +21,13 @@ export const CallAPI = async ({
         resolve({ statusCode: r.status, ...r.data.data });
       })
       .catch((e) => {
+        const error = new Error();
         if (!e.response) {
-          reject(new Error('Terjadi kesalahan dari sisi server!'));
+          error.message = 'Terjadi kesalahan dari sisi server!';
+          reject(error);
         } else {
-          reject(new Error(e.response.data.message));
+          error.message = e.response.data.message;
+          reject(error);
         }
       });
   });
