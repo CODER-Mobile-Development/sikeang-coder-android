@@ -118,7 +118,7 @@ function AdminHome({ navigation, route }) {
         </View>
       </ScrollView>
       <View style={{ paddingVertical: 10, paddingHorizontal: 35 }}>
-        <PrimaryButton onPress={() => navigation.navigate('AdminAddDivision')} title="Buat Acara Baru" />
+        <PrimaryButton onPress={() => navigation.navigate('AdminAddDivision')} title="Buat Divisi Baru" />
       </View>
     </View>
   );

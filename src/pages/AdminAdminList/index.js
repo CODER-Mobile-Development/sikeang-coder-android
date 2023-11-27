@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   RefreshControl, ScrollView, StyleSheet, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useIsFocused } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { useIsFocused } from '@react-navigation/native';
 import {
   MemberListView, NavbarBottom, NavbarTop, PrimaryButton,
 } from '../../components';
@@ -17,7 +17,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminAdminList({ navigation }) {
+function AdminAdminList({ navigation, route }) {
   const isFocused = useIsFocused();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -41,9 +41,18 @@ function AdminAdminList({ navigation }) {
       });
   };
 
+  useEffect(() => {
+    if (route.params?.refresh) {
+      getAdminUser();
+    }
+  }, [route]);
+
+  useEffect(() => {
+    getAdminUser();
+  }, []);
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
-      getAdminUser();
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
@@ -66,6 +75,7 @@ function AdminAdminList({ navigation }) {
                 photo={item.profilePicture}
                 name={item.userName}
                 email={item.email}
+                division={item.division.divisionName}
               />
             ))}
           </View>
@@ -90,9 +100,5 @@ const styles = StyleSheet.create({
   Tagline: {
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  content: {
-    paddingHorizontal: 35,
-    // paddingTop: 20,
   },
 });
