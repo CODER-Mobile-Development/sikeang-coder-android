@@ -15,6 +15,7 @@ import {
 import {
   API_HOST, CallAPI, dateTimeParsing, showToast,
 } from '../../utils';
+import { requestPreSignedURLUpload, uploadPhoto } from '../../utils/UploadImage';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -45,7 +46,6 @@ function AdminEditEvent({ route, navigation }) {
     { id: 'division', value: 'Divisi' },
   ]);
   const [loadingScreen, setLoadingScreen] = useState(false);
-  const [divisionData, setDivisionData] = useState([]);
   const [datePicker, setDatePicker] = useState({ type: '', isOpen: false });
   const [timePicker, setTimePicker] = useState({ type: '', isOpen: false });
   const [startDateTimePicker, setStartDateTimePicker] = useState(new Date(startDate));
@@ -58,11 +58,14 @@ function AdminEditEvent({ route, navigation }) {
     onDropdown: false,
     data: eventTypeOption.current.filter((item) => item.id === eventType)[0],
   });
+
+  const [divisionData, setDivisionData] = useState([]);
   const [newEventDivision, setNewEventDivision] = useState({
     state: 'initial',
     onDropdown: false,
     data: { id: eventDivision, value: '' },
   });
+
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
@@ -79,7 +82,7 @@ function AdminEditEvent({ route, navigation }) {
     }
   };
 
-  const createEventData = (data) => {
+  const editEventData = (data) => {
     CallAPI({ url: `${API_HOST}/event?id=${_id}`, method: 'PUT', data })
       .then((r) => {
         const { eventName: updatedEventName } = r;
@@ -97,76 +100,44 @@ function AdminEditEvent({ route, navigation }) {
       });
   };
 
-  const uploadPhoto = (url, photoURI) => {
-    try {
-      fetch(image.uri)
-        .then((fetchImage) => fetchImage.blob()
-          .then((imageBlob) => {
-            const imageData = new File([imageBlob], imageBlob._data.name);
-            fetch(url, {
-              method: 'PUT',
-              body: imageData,
-              headers: {
-                'Content-Type': imageBlob._data.type,
-              },
-            })
-              .then((r) => {
-                if (r.ok) {
-                  createEventData({
-                    eventName: newEventName,
-                    startDate: startDateTimePicker,
-                    endDate: endDateTimePicker,
-                    description: newDescription,
-                    photoUrl: photoURI,
-                    eventType: newEventType.data.id,
-                    eventDivision: newEventDivision.data.id,
-                    eventLocation: newEventLocation,
-                  });
-                } else {
-                  setLoadingScreen(false);
-                  showToast(
-                    'Gagal upload foto!',
-                    'danger',
-                    insets.top,
-                  );
-                }
-              });
-          }));
-    } catch (e) {
+  const onSubmit = async () => {
+    setLoadingScreen(true);
+    const errorFields = [];
+    if (!newEventName) errorFields.push('• Nama Acara wajib diisi!');
+    if (!newDescription) errorFields.push('• Deskripsi wajib diisi!');
+
+    if (errorFields.length > 0) {
       setLoadingScreen(false);
-      showToast(
-        e.toString(),
+      return showToast(
+        `Error:\n${errorFields.join('\n')}`,
         'danger',
         insets.top,
       );
     }
-  };
 
-  const requestPreSignedURLUpload = (imageFormat) => {
-    CallAPI({ url: `${API_HOST}/event/upload-request?fileFormat=${imageFormat}` })
-      .then((r) => {
-        const { url, photoURI } = r;
-        uploadPhoto(url, photoURI);
-      })
-      .catch(() => {
-        setLoadingScreen(false);
-        showToast(
-          'Gagal request upload foto, silahkan coba beberapa saat lagi!',
-          'danger',
-          insets.top,
-        );
-      });
-  };
-
-  const onSubmit = () => {
-    setLoadingScreen(true);
     if (image) {
-      const imageFormat = image.uri.split('/').pop().split('.').pop();
+      try {
+        const imageExtension = image.uri.split('/').pop().split('.').pop();
+        const { url, photoURI } = await requestPreSignedURLUpload(imageExtension);
+        const { imageURI } = await uploadPhoto(image, url, photoURI);
 
-      return requestPreSignedURLUpload(imageFormat);
+        return editEventData({
+          eventName: newEventName,
+          startDate: startDateTimePicker,
+          endDate: endDateTimePicker,
+          description: newDescription,
+          photoUrl: imageURI,
+          eventType: newEventType.data.id,
+          eventDivision: newEventDivision.data.id,
+          eventLocation: newEventLocation,
+        });
+      } catch (e) {
+        setLoadingScreen(false);
+        return showToast(e.message, 'danger', insets.top);
+      }
     }
 
-    return createEventData({
+    return editEventData({
       eventName: newEventName,
       startDate: startDateTimePicker,
       endDate: endDateTimePicker,
@@ -361,7 +332,6 @@ function AdminEditEvent({ route, navigation }) {
               type="Dropdown"
               label="Acara Divisi"
               dropdownInitialId={eventDivision}
-              initialValue={{ id: '65536181849ddeb78412fad0', value: 'Comp. Programming' }}
               data={divisionData}
               dropdownState
               onDropdown={(val) => setNewEventDivision({
@@ -386,7 +356,7 @@ function AdminEditEvent({ route, navigation }) {
         </ScrollView>
       </View>
       <NavbarBottom type="Admin" isActive="Event" />
-      {(loadingScreen) && <Loading />}
+      {loadingScreen && <Loading />}
     </View>
   );
 }
