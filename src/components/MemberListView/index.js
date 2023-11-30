@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 function MemberListView({
-  name, email, photo, division,
+  name, email, photo, studyProgram,
 }) {
   return (
     <View style={styles.item}>
@@ -14,7 +14,7 @@ function MemberListView({
       <View style={styles.textContainer}>
         <Text style={styles.name} ellipsizeMode="tail" numberOfLines={2}>{name}</Text>
         <Text style={styles.email} ellipsizeMode="tail" numberOfLines={2}>{email}</Text>
-        <Text style={styles.email} ellipsizeMode="tail" numberOfLines={2}>{division}</Text>
+        <Text style={styles.email} ellipsizeMode="tail" numberOfLines={2}>{studyProgram}</Text>
       </View>
     </View>
   );
