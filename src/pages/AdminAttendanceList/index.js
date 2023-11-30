@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   Loading, MemberListView, NavbarBottom, NavbarTop, PrimaryButton, SearchBar,
 } from '../../components';
@@ -17,6 +18,7 @@ SplashScreen.preventAutoHideAsync();
 
 function AdminAttendanceList({ route, navigation }) {
   const { eventId } = route.params;
+  const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -38,7 +40,11 @@ function AdminAttendanceList({ route, navigation }) {
         setLoadingScreen(false);
       })
       .catch(() => {
-        showToast('Gagal mendapatkan data presensi, silahkan coba beberapa saat lagi!', 'danger', insets.top);
+        showToast(
+          'Gagal mendapatkan data presensi, silahkan coba beberapa saat lagi!',
+          'danger',
+          insets.top,
+        );
         setLoadingScreen(false);
       });
   };
