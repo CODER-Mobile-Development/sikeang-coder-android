@@ -8,13 +8,31 @@ function MemberListView({
 }) {
   return (
     <View style={styles.item}>
-      <View style={{ marginRight: 10 }}>
+      <View style={{ marginRight: 15 }}>
         <Image style={styles.photo} source={{ uri: photo }} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.name} ellipsizeMode="tail" numberOfLines={2}>{name}</Text>
-        <Text style={styles.email} ellipsizeMode="tail" numberOfLines={2}>{email}</Text>
-        <Text style={styles.email} ellipsizeMode="tail" numberOfLines={2}>{studyProgram}</Text>
+        <Text
+          style={styles.textSemiBold}
+          ellipsizeMode="tail"
+          numberOfLines={2}
+        >
+          {name}
+        </Text>
+        <Text
+          style={styles.textMedium}
+          ellipsizeMode="tail"
+          numberOfLines={2}
+        >
+          {email}
+        </Text>
+        <Text
+          style={styles.textMedium}
+          ellipsizeMode="tail"
+          numberOfLines={2}
+        >
+          {studyProgram}
+        </Text>
       </View>
     </View>
   );
@@ -41,12 +59,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
-  name: {
+  textSemiBold: {
     color: '#FFFFFF',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
   },
-  email: {
+  textMedium: {
     color: '#FFFFFF',
     fontFamily: 'Poppins-Medium',
     fontSize: 14,

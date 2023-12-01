@@ -5,6 +5,7 @@ import {
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
 import {
   Loading, MemberListView, NavbarBottom, NavbarTop, PrimaryButton, SearchBar,
 } from '../../components';
@@ -18,6 +19,7 @@ SplashScreen.preventAutoHideAsync();
 
 function AdminAttendanceList({ route, navigation }) {
   const { eventId } = route.params;
+  const isFocus = useIsFocused();
   const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -50,8 +52,10 @@ function AdminAttendanceList({ route, navigation }) {
   };
 
   useEffect(() => {
-    getUsersAttendingAPI();
-  }, []);
+    if (isFocus) {
+      getUsersAttendingAPI();
+    }
+  }, [isFocus]);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -81,6 +85,7 @@ function AdminAttendanceList({ route, navigation }) {
             )}
             {usersData.map((item) => (
               <MemberListView
+                key={item._id}
                 name={item.userName}
                 email={item.email}
                 photo={item.profilePicture}
