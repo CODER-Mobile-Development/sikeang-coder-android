@@ -34,9 +34,11 @@ function DropdownInput({
   }, [selectedDropdownItem]);
   return (
     <View>
+      {label && (
       <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 16 }}>
         {label}
       </Text>
+      )}
       <TouchableOpacity
         style={{
           ...styles.dropdownButton,
