@@ -30,7 +30,7 @@ function AdminManualAttendance({ route }) {
   const getUsersStatusAPI = () => {
     setLoadingScreen(true);
     CallAPI({
-      url: `${API_HOST}/point-transaction/attendance-status?eventId=${eventId}&status=all`,
+      url: `${API_HOST}/point-transaction/status?type=attendance&eventId=${eventId}&status=all`,
       method: 'GET',
       data: null,
     })
