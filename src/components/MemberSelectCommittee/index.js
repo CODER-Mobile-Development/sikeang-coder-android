@@ -1,10 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { API_HOST, CallAPI, showToast } from '../../utils';
 
-function MemberSelectCommittee({ name, email, imageUri }) {
-  const [isSelected, setIsSelected] = useState(false);
+function MemberSelectCommittee({
+  name, email, imageUri, studyProgram, status, eventId, userId, setLoadingScreen,
+}) {
+  const insets = useSafeAreaInsets();
+  const [selectedState, setSelectedState] = useState({
+    state: 'initial',
+    active: status,
+  });
+
+  const addCommitteePointTransactionAPI = (data) => {
+    setLoadingScreen(true);
+    CallAPI({
+      url: `${API_HOST}/point-transaction`,
+      method: 'POST',
+      data,
+    })
+      .then(() => {
+        showToast(
+          data.status
+            ? `Berhasil menambahkan panitia ${name}!`
+            : `Berhasil menghapus panitia ${name}!`,
+          'success',
+          insets.top,
+        );
+        setLoadingScreen(false);
+      })
+      .catch(() => {
+        setSelectedState({
+          state: 'error',
+          active: !data.status,
+        });
+        showToast(
+          'Gagal mengubah status panitia!',
+          'danger',
+          insets.top,
+        );
+        setLoadingScreen(false);
+      });
+  };
+
+  useEffect(() => {
+    if (selectedState.state === 'onChangeData') {
+      addCommitteePointTransactionAPI({
+        activities: 'committee',
+        userId,
+        eventId,
+        status: selectedState.active,
+      });
+    }
+  }, [selectedState]);
 
   return (
     <View style={styles.item}>
@@ -12,13 +62,18 @@ function MemberSelectCommittee({ name, email, imageUri }) {
         <Image source={{ uri: imageUri }} style={styles.photo} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.name} ellipsizeMode="tail" numberOfLines={2}>{name}</Text>
-        <Text style={styles.email} ellipsizeMode="tail" numberOfLines={2}>{email}</Text>
+        <Text style={styles.textSemiBold} ellipsizeMode="tail" numberOfLines={2}>{name}</Text>
+        <Text style={styles.textMedium} ellipsizeMode="tail" numberOfLines={2}>{email}</Text>
+        <Text style={styles.textMedium} ellipsizeMode="tail" numberOfLines={2}>{studyProgram}</Text>
       </View>
       <View>
-        <TouchableOpacity onPress={() => setIsSelected(!isSelected)}>
+        <TouchableOpacity onPress={() => setSelectedState({
+          state: 'onChangeData',
+          active: !selectedState.active,
+        })}
+        >
           <View style={styles.radioOuterCircle}>
-            {isSelected && (<View style={styles.radioInnerCircle} />)}
+            {selectedState.active && <View style={styles.radioInnerCircle} />}
           </View>
         </TouchableOpacity>
       </View>
@@ -64,12 +119,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
     marginRight: 10,
   },
-  name: {
+  textSemiBold: {
     color: '#FFFFFF',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
   },
-  email: {
+  textMedium: {
     color: '#FFFFFF',
     fontFamily: 'Poppins-Medium',
     fontSize: 14,

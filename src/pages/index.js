@@ -20,6 +20,7 @@ import AdminPointDetailEvent from './AdminPointDetailEvent';
 import AdminMemberList from './AdminMemberList';
 import AdminAttendanceList from './AdminAttendanceList';
 import AdminEventList from './AdminEventList';
+import AdminCommitteeList from './AdminCommitteeList';
 
 export {
   Login,
@@ -44,4 +45,5 @@ export {
   AdminPointDetailEvent,
   AdminMemberList,
   AdminAttendanceList,
+  AdminCommitteeList,
 };
