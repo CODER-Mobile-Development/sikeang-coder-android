@@ -95,7 +95,7 @@ function AdminAttendanceList({ route, navigation }) {
           </View>
         </ScrollView>
         <View style={{ paddingHorizontal: 35, marginVertical: 10 }}>
-          <PrimaryButton title="Presensi Manual" onPress={() => navigation.navigate('AdminManualAttendance', { eventId })} />
+          <PrimaryButton title="Ubah Presensi" onPress={() => navigation.navigate('AdminManualAttendance', { eventId })} />
         </View>
       </View>
       {loadingScreen && <Loading />}

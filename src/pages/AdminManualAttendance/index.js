@@ -64,14 +64,14 @@ function AdminManualAttendance({ route }) {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavbarTop title="Presensi Manual" />
+      <NavbarTop title="Ubah Presensi" />
       <View style={styles.wrapper}>
         <View style={{ paddingHorizontal: 35 }}>
           <View style={{ paddingVertical: 20 }}>
             <SearchBar placeholder="cari nama anggota" />
           </View>
           <Text style={styles.titleText}>
-            Daftar Peserta
+            Daftar Anggota
           </Text>
         </View>
         <ScrollView style={styles.content}>

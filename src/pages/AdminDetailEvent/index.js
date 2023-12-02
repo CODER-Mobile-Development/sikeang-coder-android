@@ -115,7 +115,7 @@ function AdminPointDetailEvent({ route, navigation }) {
           />
           <PrimaryButton
             title="Lihat Data Panitia"
-            onPress={() => navigation.navigate('AdminAddCommittee', { eventId: _id })}
+            onPress={() => navigation.navigate('AdminCommitteeList', { eventId: _id })}
           />
           <View style={{ flexDirection: 'row', gap: 7 }}>
             <OutlineButton

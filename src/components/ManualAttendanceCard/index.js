@@ -23,7 +23,7 @@ function ManualAttendanceCard({
   const addManualAttendanceTransactionAPI = (data) => {
     setLoadingScreen(true);
     CallAPI({
-      url: `${API_HOST}/point-transaction/manual-attendance`,
+      url: `${API_HOST}/point-transaction`,
       method: 'POST',
       data,
     })
@@ -48,9 +48,10 @@ function ManualAttendanceCard({
   useEffect(() => {
     if (attendanceStatusDropdown.state === 'onChangeData') {
       addManualAttendanceTransactionAPI({
+        activities: 'attendance',
         userId,
         eventId,
-        isAttending: attendanceStatusDropdown.data.id,
+        status: attendanceStatusDropdown.data.id,
       });
     }
   }, [attendanceStatusDropdown]);
