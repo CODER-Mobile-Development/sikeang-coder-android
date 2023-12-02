@@ -3,10 +3,12 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   AdminAddAdmin,
+  AdminAddCommittee,
   AdminAddDivision,
   AdminAddEvent,
   AdminAdminList,
   AdminAttendanceList,
+  AdminCommitteeList,
   AdminDetailEvent,
   AdminEditEvent,
   AdminEventList,
@@ -57,6 +59,16 @@ function AdminEventStackScreen() {
       <AdminEventStack.Screen
         name="AdminManualAttendance"
         component={AdminManualAttendance}
+        options={{ headerShown: false }}
+      />
+      <AdminEventStack.Screen
+        name="AdminCommitteeList"
+        component={AdminCommitteeList}
+        options={{ headerShown: false }}
+      />
+      <AdminEventStack.Screen
+        name="AdminAddCommittee"
+        component={AdminAddCommittee}
         options={{ headerShown: false }}
       />
     </AdminEventStack.Navigator>
