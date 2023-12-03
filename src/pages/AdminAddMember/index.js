@@ -1,10 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
-  NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
+  Loading, NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
 } from '../../components';
+import { API_HOST, CallAPI, showToast } from '../../utils';
 
 const poppinsMedium = require('../../assets/fonts/Poppins-Medium.ttf');
 const poppinsSemiBold = require('../../assets/fonts/Poppins-SemiBold.ttf');
@@ -12,12 +14,44 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminAddMember() {
+function AdminAddMember({ route, navigation }) {
+  const { divisionId } = route.params;
+  const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
+  const [loadingScreen, setLoadingScreen] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [studyProgram, setStudyProgram] = useState('');
+
+  const createMemberUserAPI = (data) => {
+    setLoadingScreen(true);
+    CallAPI({ url: `${API_HOST}/user/member`, method: 'POST', data })
+      .then(() => {
+        setLoadingScreen(false);
+        navigation.goBack();
+      })
+      .catch(() => {
+        showToast(
+          'Gagal membuat data user, silahkan coba beberapa saat lagi!',
+          'danger',
+          insets.top,
+        );
+        setLoadingScreen(false);
+      });
+  };
+
+  const onSubmit = () => {
+    createMemberUserAPI({
+      userName,
+      email,
+      studyProgram,
+      divisionId,
+    });
+  };
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -30,24 +64,36 @@ function AdminAddMember() {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavbarTop title="Tambah Anggota" />
+      <NavbarTop title="Data Anggota" />
       <View style={styles.wrapper}>
         <ScrollView style={styles.content}>
-          <UserInput type="Basic" label="Nama Lengkap" />
+          <UserInput
+            type="Basic"
+            label="Nama Lengkap"
+            value={userName}
+            onChange={(val) => setUserName(val)}
+          />
           <Separator height={14} />
-          <UserInput type="Basic" label="Alamat Email" />
+          <UserInput
+            type="Basic"
+            label="Alamat Email"
+            value={email}
+            onChange={(val) => setEmail(val)}
+          />
           <Separator height={14} />
-          <UserInput type="Basic" label="Program Studi" />
-          <Separator height={14} />
-          <UserInput type="Dropdown" label="Nama Divisi" />
-          <Separator height={14} />
-          <UserInput type="Dropdown" label="Jabatan Devisi" />
+          <UserInput
+            type="Basic"
+            label="Program Studi"
+            value={studyProgram}
+            onChange={(val) => setStudyProgram(val)}
+          />
           <Separator height={40} />
-          <PrimaryButton title="Simpan Perubahan" />
+          <PrimaryButton title="Simpan Perubahan" onPress={onSubmit} />
           <Separator height={40} />
         </ScrollView>
       </View>
       <NavbarBottom type="Admin" />
+      {loadingScreen && <Loading />}
     </View>
   );
 }

@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  ScrollView, StyleSheet, Text, View,
+  ScrollView, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
 import {
   Loading,
   MemberListView,
@@ -22,8 +23,9 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminMemberList({ route }) {
+function AdminMemberList({ route, navigation }) {
   const { divisionId } = route.params;
+  const isFocus = useIsFocused();
   const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -48,8 +50,10 @@ function AdminMemberList({ route }) {
   };
 
   useEffect(() => {
-    getMembersDivision();
-  }, []);
+    if (isFocus) {
+      getMembersDivision();
+    }
+  }, [isFocus]);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -83,7 +87,7 @@ function AdminMemberList({ route }) {
           </View>
         </ScrollView>
         <View style={{ paddingHorizontal: 35, marginVertical: 10, gap: 7 }}>
-          <PrimaryButton title="Tambah Anggota" />
+          <PrimaryButton title="Tambah Anggota" onPress={() => navigation.navigate('AdminAddMember', { divisionId })} />
           <View style={{ flexDirection: 'row', gap: 7 }}>
             <OutlineButton
               title="Ubah Divisi"
