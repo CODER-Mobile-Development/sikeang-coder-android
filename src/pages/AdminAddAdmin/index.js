@@ -57,7 +57,6 @@ function AdminAddAdmin({ navigation }) {
   };
 
   const createUserAdminAPI = (data) => {
-    console.log(data);
     setLoadingScreen(true);
     CallAPI({ url: `${API_HOST}/user/admin`, method: 'POST', data })
       .then(() => {

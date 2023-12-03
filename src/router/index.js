@@ -12,6 +12,7 @@ import {
   AdminCommitteeList,
   AdminDetailEvent,
   AdminEditEvent,
+  AdminEditMember,
   AdminEventList,
   AdminHome,
   AdminManualAttendance,
@@ -95,6 +96,11 @@ function AdminHomeStackScreen() {
       <AdminHomeStack.Screen
         name="AdminAddMember"
         component={AdminAddMember}
+        options={{ headerShown: false }}
+      />
+      <AdminHomeStack.Screen
+        name="AdminEditMember"
+        component={AdminEditMember}
         options={{ headerShown: false }}
       />
       <AdminHomeStack.Screen

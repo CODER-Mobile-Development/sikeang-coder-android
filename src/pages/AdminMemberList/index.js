@@ -77,12 +77,17 @@ function AdminMemberList({ route, navigation }) {
         <ScrollView style={styles.content}>
           <View style={{ gap: 10, paddingBottom: 20 }}>
             {usersData.map((item) => (
-              <MemberListView
-                name={item.userName}
-                email={item.email}
-                photo={item.profilePicture}
-                studyProgram={item.studyProgram}
-              />
+              <TouchableOpacity
+                key={item._id}
+                onPress={() => navigation.navigate('AdminEditMember', { user: item })}
+              >
+                <MemberListView
+                  name={item.userName}
+                  email={item.email}
+                  photo={item.profilePicture}
+                  studyProgram={item.studyProgram}
+                />
+              </TouchableOpacity>
             ))}
           </View>
         </ScrollView>

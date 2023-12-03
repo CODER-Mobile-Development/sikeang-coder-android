@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
-  Loading, NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
+  DropdownInput, Loading, NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
 } from '../../components';
 import { API_HOST, CallAPI, showToast } from '../../utils';
 
@@ -27,6 +27,35 @@ function AdminAddMember({ route, navigation }) {
   const [email, setEmail] = useState('');
   const [studyProgram, setStudyProgram] = useState('');
 
+  const [divisionData, setDivisionData] = useState([]);
+  const [division, setDivision] = useState({
+    state: 'initial',
+    onDropdown: false,
+    data: { id: divisionId, value: '' },
+  });
+
+  const getAllDivisionData = () => {
+    setLoadingScreen(true);
+    CallAPI({ url: `${API_HOST}/division`, method: 'GET', data: null })
+      .then((r) => {
+        const { divisions } = r;
+
+        setDivisionData(divisions.map((item) => ({
+          id: item._id,
+          value: item.divisionName,
+        })));
+        setLoadingScreen(false);
+      })
+      .catch(() => {
+        showToast('Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!', 'danger', insets.top);
+        setLoadingScreen(false);
+      });
+  };
+
+  useEffect(() => {
+    getAllDivisionData();
+  }, []);
+
   const createMemberUserAPI = (data) => {
     setLoadingScreen(true);
     CallAPI({ url: `${API_HOST}/user/member`, method: 'POST', data })
@@ -36,7 +65,7 @@ function AdminAddMember({ route, navigation }) {
       })
       .catch(() => {
         showToast(
-          'Gagal membuat data user, silahkan coba beberapa saat lagi!',
+          'Gagal membuat data anggota, silahkan coba beberapa saat lagi!',
           'danger',
           insets.top,
         );
@@ -64,7 +93,7 @@ function AdminAddMember({ route, navigation }) {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavbarTop title="Data Anggota" />
+      <NavbarTop title="Tambah Anggota" />
       <View style={styles.wrapper}>
         <ScrollView style={styles.content}>
           <UserInput
@@ -87,6 +116,26 @@ function AdminAddMember({ route, navigation }) {
             value={studyProgram}
             onChange={(val) => setStudyProgram(val)}
           />
+          <Separator height={14} />
+          {divisionData.length !== 0 && (
+          <DropdownInput
+            type="Dropdown"
+            label="Acara Divisi"
+            dropdownInitialId={division.data.id}
+            data={divisionData}
+            dropdownState
+            onDropdown={(val) => setDivision({
+              state: 'onDropdown',
+              onDropdown: val,
+              data: division.data,
+            })}
+            onChange={(val) => setDivision({
+              state: 'onChangeData',
+              onDropdown: false,
+              data: val,
+            })}
+          />
+          )}
           <Separator height={40} />
           <PrimaryButton title="Simpan Perubahan" onPress={onSubmit} />
           <Separator height={40} />
