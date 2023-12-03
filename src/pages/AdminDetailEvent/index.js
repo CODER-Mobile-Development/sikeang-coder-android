@@ -109,23 +109,29 @@ function AdminPointDetailEvent({ route, navigation }) {
           <PrimaryButton
             title="Buka Presensi"
           />
-          <PrimaryButton
-            title="Lihat Data Presensi"
-            onPress={() => navigation.navigate('AdminAttendanceList', { eventId: _id })}
-          />
-          <PrimaryButton
-            title="Lihat Data Panitia"
-            onPress={() => navigation.navigate('AdminCommitteeList', { eventId: _id })}
-          />
+          <View style={{ flexDirection: 'row', gap: 7 }}>
+            <PrimaryButton
+              title="Data Presensi"
+              onPress={() => navigation.navigate('AdminAttendanceList', { eventId: _id })}
+              style={{ flex: 1 }}
+            />
+            <PrimaryButton
+              title="Data Panitia"
+              onPress={() => navigation.navigate('AdminCommitteeList', { eventId: _id })}
+              style={{ flex: 1 }}
+            />
+          </View>
           <View style={{ flexDirection: 'row', gap: 7 }}>
             <OutlineButton
               title="Ubah Data"
-              color="#B31217"
+              buttonStyle={{ borderWidth: 2, borderColor: '#8E8E8E', flex: 1 }}
+              textStyle={{ color: '#8E8E8E' }}
               onPress={() => navigation.navigate('AdminEditEvent', { event: route.params.event })}
             />
             <OutlineButton
               title="Hapus Data"
-              color="#8E8E8E"
+              buttonStyle={{ borderWidth: 2, borderColor: '#8E8E8E', flex: 1 }}
+              textStyle={{ color: '#8E8E8E' }}
               onPressIn={() => showToast('Tekan dan tahan 3 detik untuk menghapus data!', 'info', insets.top)}
               onLongPress={onDelete}
             />
