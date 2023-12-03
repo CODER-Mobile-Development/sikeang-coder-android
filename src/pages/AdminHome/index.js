@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  RefreshControl, ScrollView, StyleSheet, Text, View,
+  RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useIsFocused } from '@react-navigation/native';
@@ -108,11 +108,15 @@ function AdminHome({ navigation, route }) {
               </Text>
             )}
             {summaryDivisionData.map((item) => (
-              <DivisionMemberCounter
+              <TouchableOpacity
                 key={item.divisionId}
-                memberCounter={item.membersCount}
-                divisonTitle={item.divisionName}
-              />
+                onPress={() => navigation.navigate('AdminMemberList', { divisionId: item.divisionId })}
+              >
+                <DivisionMemberCounter
+                  memberCounter={item.membersCount}
+                  divisonTitle={item.divisionName}
+                />
+              </TouchableOpacity>
             ))}
           </View>
         </View>
