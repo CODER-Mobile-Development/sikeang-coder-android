@@ -24,7 +24,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function AdminMemberList({ route, navigation }) {
-  const { divisionId } = route.params;
+  const { divisionId, divisionName } = route.params;
   const isFocus = useIsFocused();
   const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
@@ -45,7 +45,11 @@ function AdminMemberList({ route, navigation }) {
       })
       .catch((e) => {
         setLoadingScreen(false);
-        showToast(`Error: ${e.message}`, 'danger');
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
       });
   };
 
@@ -54,6 +58,27 @@ function AdminMemberList({ route, navigation }) {
       getMembersDivision();
     }
   }, [isFocus]);
+
+  const deleteDataDivision = () => {
+    setLoadingScreen(true);
+    CallAPI({ url: `${API_HOST}/division/${divisionId}`, method: 'DELETE', data: null })
+      .then(() => {
+        setLoadingScreen(false);
+        navigation.goBack();
+      })
+      .catch((e) => {
+        setLoadingScreen(false);
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
+      });
+  };
+
+  const onDelete = () => {
+    deleteDataDivision();
+  };
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -92,23 +117,22 @@ function AdminMemberList({ route, navigation }) {
           </View>
         </ScrollView>
         <View style={{ paddingHorizontal: 35, marginVertical: 10, gap: 7 }}>
-          <PrimaryButton title="Tambah Anggota" onPress={() => navigation.navigate('AdminAddMember', { divisionId })} />
           <View style={{ flexDirection: 'row', gap: 7 }}>
             <OutlineButton
               title="Ubah Divisi"
               buttonStyle={{ borderWidth: 2, borderColor: '#8E8E8E', flex: 1 }}
               textStyle={{ color: '#8E8E8E' }}
-              onPressIn={() => showToast('Tekan dan tahan 3 detik untuk menghapus data divisi!', 'info', insets.top)}
-              onLongPress={() => console.log('')}
+              onPress={() => navigation.navigate('AdminEditDivision', { divisionId, divisionName })}
             />
             <OutlineButton
               title="Hapus Divisi"
               buttonStyle={{ borderWidth: 2, borderColor: '#8E8E8E', flex: 1 }}
               textStyle={{ color: '#8E8E8E' }}
               onPressIn={() => showToast('Tekan dan tahan 3 detik untuk menghapus data divisi!', 'info', insets.top)}
-              onLongPress={() => console.log('')}
+              onLongPress={onDelete}
             />
           </View>
+          <PrimaryButton title="Tambah Anggota" onPress={() => navigation.navigate('AdminAddMember', { divisionId })} />
         </View>
       </View>
       {loadingScreen && <Loading />}

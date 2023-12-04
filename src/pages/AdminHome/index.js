@@ -110,7 +110,7 @@ function AdminHome({ navigation, route }) {
             {summaryDivisionData.map((item) => (
               <TouchableOpacity
                 key={item.divisionId}
-                onPress={() => navigation.navigate('AdminMemberList', { divisionId: item.divisionId })}
+                onPress={() => navigation.navigate('AdminMemberList', { divisionId: item.divisionId, divisionName: item.divisionName })}
               >
                 <DivisionMemberCounter
                   memberCounter={item.membersCount}
