@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
-  NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
+  Loading, NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
 } from '../../components';
 import { API_HOST, CallAPI, showToast } from '../../utils';
 
@@ -21,11 +21,14 @@ function AdminAddEvent({ navigation }) {
     'Poppins-SemiBold': poppinsSemiBold,
     'Poppins-Bold': poppinsBold,
   });
+  const [loadingScreen, setLoadingScreen] = useState(false);
   const [divisionName, setDivisionName] = useState('');
 
   const addDivision = (data) => {
+    setLoadingScreen(true);
     CallAPI({ url: `${API_HOST}/division`, method: 'POST', data })
       .then(() => {
+        setLoadingScreen(false);
         navigation.navigate('AdminHomeScreen', { refresh: true });
         showToast(
           'Berhasil membuat data Divisi baru!',
@@ -34,6 +37,7 @@ function AdminAddEvent({ navigation }) {
         );
       })
       .catch((e) => {
+        setLoadingScreen(false);
         showToast(`Error: ${e.message}`, 'danger');
       });
   };
@@ -78,6 +82,7 @@ function AdminAddEvent({ navigation }) {
           <Separator height={40} />
         </ScrollView>
       </View>
+      {loadingScreen && <Loading />}
       <NavbarBottom type="Admin" />
     </View>
   );
