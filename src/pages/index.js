@@ -21,6 +21,7 @@ import AdminMemberList from './AdminMemberList';
 import AdminAttendanceList from './AdminAttendanceList';
 import AdminEventList from './AdminEventList';
 import AdminCommitteeList from './AdminCommitteeList';
+import AdminEditDivision from './AdminEditDivision';
 
 export {
   Login,
@@ -46,4 +47,5 @@ export {
   AdminMemberList,
   AdminAttendanceList,
   AdminCommitteeList,
+  AdminEditDivision,
 };

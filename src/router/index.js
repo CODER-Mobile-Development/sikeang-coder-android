@@ -11,6 +11,7 @@ import {
   AdminAttendanceList,
   AdminCommitteeList,
   AdminDetailEvent,
+  AdminEditDivision,
   AdminEditEvent,
   AdminEditMember,
   AdminEventList,
@@ -106,6 +107,11 @@ function AdminHomeStackScreen() {
       <AdminHomeStack.Screen
         name="AdminAddDivision"
         component={AdminAddDivision}
+        options={{ headerShown: false }}
+      />
+      <AdminHomeStack.Screen
+        name="AdminEditDivision"
+        component={AdminEditDivision}
         options={{ headerShown: false }}
       />
     </AdminHomeStack.Navigator>
