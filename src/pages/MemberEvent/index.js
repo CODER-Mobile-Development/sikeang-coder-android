@@ -5,6 +5,7 @@ import {
   RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   EventListView, EventOption, Loading, UserTab,
 } from '../../components';
@@ -17,6 +18,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function MemberEvent({ navigation }) {
+  const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -53,7 +55,11 @@ function MemberEvent({ navigation }) {
       .catch((e) => {
         setRefreshing(false);
         setIsLoadingOnChange(false);
-        showToast(`Error: ${e.message}`, 'danger');
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
       });
   };
 
@@ -65,7 +71,11 @@ function MemberEvent({ navigation }) {
       .catch((e) => {
         setRefreshing(false);
         setIsLoadingOnChange(false);
-        showToast(`Error: ${e.message}`, 'danger');
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
       });
   };
 

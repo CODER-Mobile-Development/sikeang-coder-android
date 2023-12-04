@@ -51,7 +51,11 @@ function AdminAddAdmin({ navigation }) {
         setLoadingScreen(false);
       })
       .catch(() => {
-        showToast('Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!', 'danger', insets.top);
+        showToast(
+          'Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!',
+          'danger',
+          insets.top,
+        );
         setLoadingScreen(false);
       });
   };
@@ -62,9 +66,13 @@ function AdminAddAdmin({ navigation }) {
       .then(() => {
         setLoadingScreen(false);
         navigation.navigate('AdminAdminList', { refresh: true });
-        showToast('Berhasil membuat data User Admin baru!', 'success', insets.top);
+        showToast(
+          'Berhasil membuat data User Admin baru!',
+          'success',
+          insets.top,
+        );
       })
-      .catch((e) => {
+      .catch(() => {
         setLoadingScreen(false);
         showToast(
           'Gagal membuat data User Admin, silahkan coba lagi',

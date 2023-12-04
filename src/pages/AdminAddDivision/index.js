@@ -38,7 +38,11 @@ function AdminAddEvent({ navigation }) {
       })
       .catch((e) => {
         setLoadingScreen(false);
-        showToast(`Error: ${e.message}`, 'danger');
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
       });
   };
 

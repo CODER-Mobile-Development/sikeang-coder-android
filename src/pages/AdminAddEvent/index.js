@@ -77,7 +77,11 @@ function AdminAddEvent({ navigation }) {
       .then(() => {
         setLoadingScreen(false);
         navigation.navigate('AdminEventList');
-        showToast('Berhasil membuat data Acara baru!', 'success', insets.top);
+        showToast(
+          'Berhasil membuat data Acara baru!',
+          'success',
+          insets.top,
+        );
       })
       .catch(() => {
         setLoadingScreen(false);
@@ -122,7 +126,11 @@ function AdminAddEvent({ navigation }) {
       });
     } catch (e) {
       setLoadingScreen(false);
-      return showToast(e.message, 'danger', insets.top);
+      return showToast(
+        e.message,
+        'danger',
+        insets.top,
+      );
     }
   };
 
@@ -144,7 +152,11 @@ function AdminAddEvent({ navigation }) {
         setLoadingScreen(false);
       })
       .catch(() => {
-        showToast('Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!', 'danger', insets.top);
+        showToast(
+          'Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!',
+          'danger',
+          insets.top,
+        );
         setLoadingScreen(false);
       });
   };

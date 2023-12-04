@@ -5,6 +5,7 @@ import {
   RefreshControl, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   API_HOST, CallAPI, dateParsing, showToast,
 } from '../../utils';
@@ -17,6 +18,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function MemberHome() {
+  const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -44,7 +46,11 @@ function MemberHome() {
       })
       .catch(async (e) => {
         setRefreshing(false);
-        showToast(`Error: ${e.message}`, 'danger');
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
         await SplashScreen.hideAsync();
       });
   };

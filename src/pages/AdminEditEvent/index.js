@@ -96,7 +96,11 @@ function AdminEditEvent({ route, navigation }) {
       })
       .catch(() => {
         setLoadingScreen(false);
-        showToast('Gagal mengubah data Acara, silahkan coba lagi!', 'danger', insets.top);
+        showToast(
+          'Gagal mengubah data Acara, silahkan coba lagi!',
+          'danger',
+          insets.top,
+        );
       });
   };
 
@@ -133,7 +137,11 @@ function AdminEditEvent({ route, navigation }) {
         });
       } catch (e) {
         setLoadingScreen(false);
-        return showToast(e.message, 'danger', insets.top);
+        return showToast(
+          e.message,
+          'danger',
+          insets.top,
+        );
       }
     }
 
@@ -161,7 +169,11 @@ function AdminEditEvent({ route, navigation }) {
         setLoadingScreen(false);
       })
       .catch(() => {
-        showToast('Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!', 'danger', insets.top);
+        showToast(
+          'Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!',
+          'danger',
+          insets.top,
+        );
         setLoadingScreen(false);
       });
   };

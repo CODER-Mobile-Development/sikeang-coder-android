@@ -47,7 +47,11 @@ function AdminAddMember({ route, navigation }) {
         setLoadingScreen(false);
       })
       .catch(() => {
-        showToast('Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!', 'danger', insets.top);
+        showToast(
+          'Gagal mendapatkan data divisi, silahkan coba beberapa saat lagi!',
+          'danger',
+          insets.top,
+        );
         setLoadingScreen(false);
       });
   };

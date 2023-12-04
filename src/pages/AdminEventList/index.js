@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useIsFocused } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   EventListView, NavbarBottom, PrimaryButton, SearchBar, UserTab,
 } from '../../components';
@@ -20,6 +21,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function AdminEventList({ navigation }) {
+  const insets = useSafeAreaInsets();
   const isFocused = useIsFocused();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -44,7 +46,11 @@ function AdminEventList({ navigation }) {
       })
       .catch((e) => {
         setRefreshing(false);
-        showToast(`Error: ${e.message}`, 'danger');
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
       });
   };
 

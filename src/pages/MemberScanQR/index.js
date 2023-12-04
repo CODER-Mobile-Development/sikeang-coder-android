@@ -49,7 +49,11 @@ function MemberScanQR({ navigation }) {
     setScanned(true);
     CallAPI({ url: `${API_HOST}/point-transaction/attendance`, method: 'POST', data: { token: data } })
       .then(() => {
-        showToast('Berhasil melakukan presensi!', 'success', insets.top);
+        showToast(
+          'Berhasil melakukan presensi!',
+          'success',
+          insets.top,
+        );
         setIsLoadingCallAPI(false);
         setTimeout(() => {
           navigation.navigate('MemberHome');
@@ -57,7 +61,11 @@ function MemberScanQR({ navigation }) {
         }, 50);
       })
       .catch((e) => {
-        showToast(e.toString(), 'danger', insets.top);
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
         setIsLoadingCallAPI(false);
         setTimeout(() => {
           navigation.navigate('MemberHome');

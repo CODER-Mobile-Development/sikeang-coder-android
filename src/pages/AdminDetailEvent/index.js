@@ -40,11 +40,19 @@ function AdminPointDetailEvent({ route, navigation }) {
   const onDelete = () => {
     CallAPI({ url: `${API_HOST}/event/${_id}`, method: 'DELETE', data: null })
       .then(() => {
-        showToast('Berhasil menghapus data Acara!', 'success', insets.top);
+        showToast(
+          'Berhasil menghapus data Acara!',
+          'success',
+          insets.top,
+        );
         navigation.navigate('AdminEventList');
       })
       .catch((e) => {
-        showToast(e.message, 'danger', insets.top);
+        showToast(
+          e.message,
+          'danger',
+          insets.top,
+        );
       });
   };
 
@@ -132,7 +140,11 @@ function AdminPointDetailEvent({ route, navigation }) {
               title="Hapus Data"
               buttonStyle={{ borderWidth: 2, borderColor: '#8E8E8E', flex: 1 }}
               textStyle={{ color: '#8E8E8E' }}
-              onPressIn={() => showToast('Tekan dan tahan 3 detik untuk menghapus data!', 'info', insets.top)}
+              onPressIn={() => showToast(
+                'Tekan dan tahan 3 detik untuk menghapus data!',
+                'info',
+                insets.top,
+              )}
               onLongPress={onDelete}
             />
           </View>

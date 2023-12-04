@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useIsFocused } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   DashboardCounter, DivisionMemberCounter, PrimaryButton, UserTab,
 } from '../../components';
@@ -19,6 +20,7 @@ SplashScreen.preventAutoHideAsync();
 
 function AdminHome({ navigation, route }) {
   const isFocus = useIsFocused();
+  const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -46,7 +48,11 @@ function AdminHome({ navigation, route }) {
       })
       .catch(async (e) => {
         setRefreshing(false);
-        showToast(`Error: ${e.message}`, 'danger');
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
         await SplashScreen.hideAsync();
       });
   };
