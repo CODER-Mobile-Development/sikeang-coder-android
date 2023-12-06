@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   GoogleIcon, OrganizationLogoHorizontal, WelcomeMan, WelcomeWoman,
 } from '../../assets/svgs';
@@ -21,6 +22,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 SplashScreen.preventAutoHideAsync();
 
 function Login({ navigation }) {
+  const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
     'Poppins-SemiBold': poppinsSemiBold,
@@ -46,7 +48,11 @@ function Login({ navigation }) {
       })
       .catch((e) => {
         setIsLoading(false);
-        showToast(`Error: ${e.message}`, 'danger');
+        showToast(
+          `Error: ${e.message}`,
+          'danger',
+          insets.top,
+        );
       });
   };
 
@@ -126,6 +132,7 @@ function Login({ navigation }) {
             disabled={isLoading}
             style={styles.buttonLogin}
             onPress={() => signIn()}
+            // onPress={handleDevelopmentLogin}
           >
             <Text style={styles.buttonLoginText}>
               Masuk dengan Google

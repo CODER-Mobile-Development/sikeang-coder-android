@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import FlashMessage from 'react-native-flash-message';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Router from './src/router';
 import { iosClientId, webClientId } from './src/utils';
@@ -17,9 +18,11 @@ export default function App() {
     });
   }, []);
   return (
-    <NavigationContainer>
-      <Router />
-      <FlashMessage position="top" />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Router />
+        <FlashMessage position="top" />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
