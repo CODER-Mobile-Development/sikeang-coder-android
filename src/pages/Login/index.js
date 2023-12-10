@@ -47,12 +47,23 @@ function Login({ navigation }) {
         return null;
       })
       .catch((e) => {
-        setIsLoading(false);
-        showToast(
-          `Error: ${e.message}`,
-          'danger',
-          insets.top,
-        );
+        GoogleSignin.signOut()
+          .then(() => {
+            setIsLoading(false);
+            showToast(
+              `Error: ${e.message}`,
+              'danger',
+              insets.top,
+            );
+          })
+          .catch(() => {
+            setIsLoading(false);
+            showToast(
+              'Error: Gagal menghapus cache Google, silahkan hapus data aplikasi!',
+              'danger',
+              insets.top,
+            );
+          });
       });
   };
 

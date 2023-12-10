@@ -36,7 +36,7 @@ function MemberHome({ route }) {
   const getSummaryAPI = () => {
     setRefreshing(true);
     CallAPI({ url: `${API_HOST}/dashboard`, method: 'GET', data: null })
-      .then(async (r) => {
+      .then((r) => {
         setRefreshing(false);
         const {
           user, historyPoint, totalPointCommittee, totalPointAttendance, totalPoint,
@@ -44,16 +44,14 @@ function MemberHome({ route }) {
         setUserTabData(user);
         setHistoryPointData(historyPoint);
         setSummaryPoint({ totalPointCommittee, totalPointAttendance, totalPoint });
-        await SplashScreen.hideAsync();
       })
-      .catch(async (e) => {
+      .catch((e) => {
         setRefreshing(false);
         showToast(
           `Error: ${e.message}`,
           'danger',
           insets.top,
         );
-        await SplashScreen.hideAsync();
       });
   };
 
@@ -63,9 +61,13 @@ function MemberHome({ route }) {
     }
   }, [route]);
 
+  useEffect(() => {
+    getSummaryAPI();
+  }, []);
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
-      await getSummaryAPI();
+      await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
