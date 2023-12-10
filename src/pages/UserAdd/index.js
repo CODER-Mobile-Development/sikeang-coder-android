@@ -4,14 +4,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
-  DropdownInput,
-  Loading,
-  NavbarBottom,
-  NavbarTop,
-  OutlineButton,
-  PrimaryButton,
-  Separator,
-  UserInput,
+  DropdownInput, Loading, NavbarBottom, NavbarTop, PrimaryButton, Separator, UserInput,
 } from '../../components';
 import { API_HOST, CallAPI, showToast } from '../../utils';
 
@@ -21,10 +14,8 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminEditMember({ route, navigation }) {
-  const {
-    userName, email, studyProgram, _id, division,
-  } = route.params.user;
+function UserAdd({ route, navigation }) {
+  const { type, divisionId } = route.params;
   const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -32,15 +23,15 @@ function AdminEditMember({ route, navigation }) {
     'Poppins-Bold': poppinsBold,
   });
   const [loadingScreen, setLoadingScreen] = useState(false);
-  const [newUserName, setNewUserName] = useState(userName);
-  const [newEmail, setNewEmail] = useState(email);
-  const [newStudyProgram, setNewStudyProgram] = useState(studyProgram);
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [studyProgram, setStudyProgram] = useState('');
 
   const [divisionData, setDivisionData] = useState([]);
-  const [newDivision, setNewDivision] = useState({
+  const [division, setDivision] = useState({
     state: 'initial',
     onDropdown: false,
-    data: { id: division._id, value: '' },
+    data: { id: divisionId, value: '' },
   });
 
   const getAllDivisionData = () => {
@@ -49,9 +40,9 @@ function AdminEditMember({ route, navigation }) {
       .then((r) => {
         const { divisions } = r;
 
-        setDivisionData(divisions.map((data) => ({
-          id: data._id,
-          value: data.divisionName,
+        setDivisionData(divisions.map((item) => ({
+          id: item._id,
+          value: item.divisionName,
         })));
         setLoadingScreen(false);
       })
@@ -66,19 +57,21 @@ function AdminEditMember({ route, navigation }) {
   };
 
   useEffect(() => {
-    getAllDivisionData();
+    if (type === 'member') {
+      getAllDivisionData();
+    }
   }, []);
 
-  const updateMemberUserAPI = (data) => {
+  const createMemberUserAPI = (data) => {
     setLoadingScreen(true);
-    CallAPI({ url: `${API_HOST}/user/member/${_id}`, method: 'PUT', data })
+    CallAPI({ url: `${API_HOST}/user/${type}`, method: 'POST', data })
       .then(() => {
         setLoadingScreen(false);
         navigation.goBack();
       })
       .catch(() => {
         showToast(
-          'Gagal membuat data user, silahkan coba beberapa saat lagi!',
+          'Gagal membuat data anggota, silahkan coba beberapa saat lagi!',
           'danger',
           insets.top,
         );
@@ -87,33 +80,12 @@ function AdminEditMember({ route, navigation }) {
   };
 
   const onSubmit = () => {
-    updateMemberUserAPI({
-      userName: newUserName,
-      email: newEmail,
-      studyProgram: newStudyProgram,
-      divisionId: newDivision.data.id,
+    createMemberUserAPI({
+      userName,
+      email,
+      studyProgram,
+      divisionId,
     });
-  };
-
-  const deleteMemberUserAPI = () => {
-    setLoadingScreen(true);
-    CallAPI({ url: `${API_HOST}/user/member/${_id}`, method: 'DELETE', data: null })
-      .then(() => {
-        setLoadingScreen(false);
-        navigation.goBack();
-      })
-      .catch(() => {
-        showToast(
-          'Gagal membuat data user, silahkan coba beberapa saat lagi!',
-          'danger',
-          insets.top,
-        );
-        setLoadingScreen(false);
-      });
-  };
-
-  const onDelete = () => {
-    deleteMemberUserAPI();
   };
 
   const onLayoutRootView = useCallback(async () => {
@@ -127,62 +99,52 @@ function AdminEditMember({ route, navigation }) {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavbarTop title="Ubah Anggota" />
+      <NavbarTop title={`Tambah ${type === 'admin' ? 'Admin' : 'Anggota'}`} />
       <View style={styles.wrapper}>
         <ScrollView style={styles.content}>
           <UserInput
             type="Basic"
             label="Nama Lengkap"
-            value={newUserName}
-            onChange={(val) => setNewUserName(val)}
+            value={userName}
+            onChange={(val) => setUserName(val)}
           />
           <Separator height={14} />
           <UserInput
             type="Basic"
             label="Alamat Email"
-            value={newEmail}
-            onChange={(val) => setNewEmail(val)}
+            value={email}
+            onChange={(val) => setEmail(val)}
           />
           <Separator height={14} />
           <UserInput
             type="Basic"
             label="Program Studi"
-            value={newStudyProgram}
-            onChange={(val) => setNewStudyProgram(val)}
+            value={studyProgram}
+            onChange={(val) => setStudyProgram(val)}
           />
-          <Separator height={14} />
           {divisionData.length !== 0 && (
-          <DropdownInput
-            type="Dropdown"
-            label="Acara Divisi"
-            dropdownInitialId={newDivision.data.id}
-            data={divisionData}
-            dropdownState
-            onDropdown={(val) => setNewDivision({
-              state: 'onDropdown',
-              onDropdown: val,
-              data: newDivision.data,
-            })}
-            onChange={(val) => setNewDivision({
-              state: 'onChangeData',
-              onDropdown: false,
-              data: val,
-            })}
-          />
+          <>
+            <Separator height={14} />
+            <DropdownInput
+              type="Dropdown"
+              label="Acara Divisi"
+              dropdownInitialId={division.data.id}
+              data={divisionData}
+              dropdownState
+              onDropdown={(val) => setDivision({
+                state: 'onDropdown',
+                onDropdown: val,
+                data: division.data,
+              })}
+              onChange={(val) => setDivision({
+                state: 'onChangeData',
+                onDropdown: false,
+                data: val,
+              })}
+            />
+          </>
           )}
-          <Separator height={30} />
-          <OutlineButton
-            title="Hapus Anggota"
-            buttonStyle={{ borderWidth: 2, borderColor: '#8E8E8E', flex: 1 }}
-            textStyle={{ color: '#8E8E8E' }}
-            onPressIn={() => showToast(
-              'Tekan dan tahan 3 detik untuk menghapus data anggota!',
-              'info',
-              insets.top,
-            )}
-            onLongPress={onDelete}
-          />
-          <Separator height={7} />
+          <Separator height={40} />
           <PrimaryButton title="Simpan Perubahan" onPress={onSubmit} />
           <Separator height={40} />
         </ScrollView>
@@ -193,7 +155,7 @@ function AdminEditMember({ route, navigation }) {
   );
 }
 
-export default AdminEditMember;
+export default UserAdd;
 
 const styles = StyleSheet.create({
   wrapper: {

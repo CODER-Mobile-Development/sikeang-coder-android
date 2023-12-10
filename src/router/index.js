@@ -2,18 +2,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  AdminAddAdmin,
   AdminAddCommittee,
   AdminAddDivision,
   AdminAddEvent,
-  AdminAddMember,
   AdminAdminList,
   AdminAttendanceList,
   AdminCommitteeList,
   AdminDetailEvent,
   AdminEditDivision,
   AdminEditEvent,
-  AdminEditMember,
   AdminEventList,
   AdminHome,
   AdminManualAttendance,
@@ -24,6 +21,8 @@ import {
   MemberEvent,
   MemberHome,
   MemberScanQR,
+  UserAdd,
+  UserEdit,
   UserProfile,
 } from '../pages';
 import {
@@ -101,13 +100,13 @@ function AdminHomeStackScreen() {
         options={{ headerShown: false }}
       />
       <AdminHomeStack.Screen
-        name="AdminAddMember"
-        component={AdminAddMember}
+        name="UserAddMember"
+        component={UserAdd}
         options={{ headerShown: false }}
       />
       <AdminHomeStack.Screen
-        name="AdminEditMember"
-        component={AdminEditMember}
+        name="UserEditMember"
+        component={UserEdit}
         options={{ headerShown: false }}
       />
       <AdminHomeStack.Screen
@@ -135,8 +134,13 @@ function AdminAdminStackScreen() {
         options={{ headerShown: false }}
       />
       <AdminAdminStack.Screen
-        name="AdminAddAdmin"
-        component={AdminAddAdmin}
+        name="UserAddAdmin"
+        component={UserAdd}
+        options={{ headerShown: false }}
+      />
+      <AdminAdminStack.Screen
+        name="UserEditAdmin"
+        component={UserEdit}
         options={{ headerShown: false }}
       />
     </AdminAdminStack.Navigator>

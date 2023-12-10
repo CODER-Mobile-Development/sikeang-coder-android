@@ -104,7 +104,7 @@ function AdminMemberList({ route, navigation }) {
             {usersData.map((item) => (
               <TouchableOpacity
                 key={item._id}
-                onPress={() => navigation.navigate('AdminEditMember', { user: item })}
+                onPress={() => navigation.navigate('UserEditMember', { type: 'member', user: item })}
               >
                 <MemberListView
                   name={item.userName}
@@ -132,7 +132,7 @@ function AdminMemberList({ route, navigation }) {
               onLongPress={onDelete}
             />
           </View>
-          <PrimaryButton title="Tambah Anggota" onPress={() => navigation.navigate('AdminAddMember', { divisionId })} />
+          <PrimaryButton title="Tambah Anggota" onPress={() => navigation.navigate('UserAddMember', { type: 'member', divisionId })} />
         </View>
       </View>
       {loadingScreen && <Loading />}

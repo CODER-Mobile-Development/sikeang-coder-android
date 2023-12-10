@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  RefreshControl, ScrollView, StyleSheet, View,
+  RefreshControl, ScrollView, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -18,7 +18,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function AdminAdminList({ navigation, route }) {
+function AdminAdminList({ navigation }) {
   const insets = useSafeAreaInsets();
   const isFocused = useIsFocused();
   const [fontsLoaded] = useFonts({
@@ -48,10 +48,10 @@ function AdminAdminList({ navigation, route }) {
   };
 
   useEffect(() => {
-    if (route.params?.refresh) {
+    if (isFocused) {
       getAdminUser();
     }
-  }, [route]);
+  }, [isFocused]);
 
   useEffect(() => {
     getAdminUser();
@@ -76,18 +76,22 @@ function AdminAdminList({ navigation, route }) {
         >
           <View style={{ gap: 10, paddingVertical: 20, paddingHorizontal: 35 }}>
             {userData.map((item) => (
-              <MemberListView
+              <TouchableOpacity
                 key={item._id}
-                photo={item.profilePicture}
-                name={item.userName}
-                email={item.email}
-                division={item.division.divisionName}
-              />
+                onPress={() => navigation.navigate('UserEditAdmin', { type: 'admin', user: item })}
+              >
+                <MemberListView
+                  photo={item.profilePicture}
+                  name={item.userName}
+                  email={item.email}
+                  studyProgram={item.studyProgram}
+                />
+              </TouchableOpacity>
             ))}
           </View>
         </ScrollView>
         <View style={{ paddingHorizontal: 35, marginVertical: 10 }}>
-          <PrimaryButton title="Tambah Admin" onPress={() => navigation.navigate('AdminAddAdmin')} />
+          <PrimaryButton title="Tambah Admin" onPress={() => navigation.navigate('UserAddAdmin', { type: 'admin' })} />
         </View>
       </View>
       <NavbarBottom type="Admin" isActive="Event" />

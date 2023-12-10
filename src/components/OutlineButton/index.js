@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   text: {
-    marginTop: 2,
     textAlign: 'center',
     fontFamily: 'Poppins-Bold',
     fontSize: 20,

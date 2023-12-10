@@ -2,11 +2,10 @@ import Login from './Login';
 import MemberHome from './MemberHome';
 import UserProfile from './UserProfile';
 import AdminAddEvent from './AdminAddEvent';
-import AdminAddMember from './AdminAddMember';
-import AdminEditMember from './AdminEditMember';
+import UserAdd from './UserAdd';
+import UserEdit from './UserEdit';
 import AdminAddDivision from './AdminAddDivision';
 import AdminEditEvent from './AdminEditEvent';
-import AdminAddAdmin from './AdminAddAdmin';
 import AdminEditAdmin from './AdminEditAdmin';
 import AdminManualAttendance from './AdminManualAttendance';
 import AdminAddCommittee from './AdminAddCommittee';
@@ -31,12 +30,11 @@ export {
   UserProfile,
   MemberScanQR,
   AdminAddEvent,
-  AdminAddMember,
-  AdminEditMember,
+  UserAdd,
+  UserEdit,
   AdminAddDivision,
   AdminEventList,
   AdminEditEvent,
-  AdminAddAdmin,
   AdminEditAdmin,
   AdminManualAttendance,
   AdminAddCommittee,
