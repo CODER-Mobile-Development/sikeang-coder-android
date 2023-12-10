@@ -66,10 +66,10 @@ function AdminPointDetailEvent({ route, navigation }) {
     return null;
   }
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View onLayout={onLayoutRootView} style={{ flex: 1, backgroundColor: 'white' }}>
       <StatusBar style="dark" />
       <NavbarTop title="Event" />
-      <ScrollView style={styles.wrapper} onLayout={onLayoutRootView}>
+      <ScrollView style={styles.wrapper}>
         <View style={{ alignItems: 'center', marginTop: 20 }}>
           <Image
             style={{ borderRadius: 12 }}
@@ -115,20 +115,22 @@ function AdminPointDetailEvent({ route, navigation }) {
         </View>
         <View style={{ gap: 7, marginBottom: 30 }}>
           <PrimaryButton
-            title="Buka Presensi"
+            title="Buka QR Presensi"
+            onPress={() => navigation.navigate('AdminPresenceQR', {
+              eventId: _id,
+              eventName,
+            })}
           />
-          <View style={{ flexDirection: 'row', gap: 7 }}>
-            <PrimaryButton
-              title="Data Presensi"
-              onPress={() => navigation.navigate('AdminAttendanceList', { eventId: _id })}
-              style={{ flex: 1 }}
-            />
-            <PrimaryButton
-              title="Data Panitia"
-              onPress={() => navigation.navigate('AdminCommitteeList', { eventId: _id })}
-              style={{ flex: 1 }}
-            />
-          </View>
+          <PrimaryButton
+            title="Data Presensi"
+            onPress={() => navigation.navigate('AdminAttendanceList', { eventId: _id })}
+            style={{ flex: 1 }}
+          />
+          <PrimaryButton
+            title="Data Panitia"
+            onPress={() => navigation.navigate('AdminCommitteeList', { eventId: _id })}
+            style={{ flex: 1 }}
+          />
           <View style={{ flexDirection: 'row', gap: 7 }}>
             <OutlineButton
               title="Ubah Data"

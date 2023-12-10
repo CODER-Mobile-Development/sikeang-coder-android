@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useIsFocused } from '@react-navigation/native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { NavbarTop, PrimaryButton } from '../../components';
 import { getData, removeItem } from '../../utils';
 
@@ -36,7 +37,7 @@ function UserProfile({ navigation }) {
   const handleUserSignOut = () => {
     removeItem('user-token')
       .then(() => removeItem('user-data')
-        // .then(() => GoogleSignin.signOut()
+        .then(() => GoogleSignin.signOut())
         .then(() => navigation.replace('Login')));
   };
 

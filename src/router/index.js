@@ -18,6 +18,7 @@ import {
   AdminHome,
   AdminManualAttendance,
   AdminMemberList,
+  AdminPresenceQR,
   Login,
   MemberDetailEvent,
   MemberEvent,
@@ -73,6 +74,11 @@ function AdminEventStackScreen() {
       <AdminEventStack.Screen
         name="AdminAddCommittee"
         component={AdminAddCommittee}
+        options={{ headerShown: false }}
+      />
+      <AdminEventStack.Screen
+        name="AdminPresenceQR"
+        component={AdminPresenceQR}
         options={{ headerShown: false }}
       />
     </AdminEventStack.Navigator>

@@ -22,6 +22,7 @@ import AdminAttendanceList from './AdminAttendanceList';
 import AdminEventList from './AdminEventList';
 import AdminCommitteeList from './AdminCommitteeList';
 import AdminEditDivision from './AdminEditDivision';
+import AdminPresenceQR from './AdminPresenceQR';
 
 export {
   Login,
@@ -48,4 +49,5 @@ export {
   AdminAttendanceList,
   AdminCommitteeList,
   AdminEditDivision,
+  AdminPresenceQR,
 };

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -17,7 +17,7 @@ const poppinsBold = require('../../assets/fonts/Poppins-Bold.ttf');
 
 SplashScreen.preventAutoHideAsync();
 
-function MemberHome() {
+function MemberHome({ route }) {
   const insets = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     'Poppins-Medium': poppinsMedium,
@@ -29,7 +29,9 @@ function MemberHome() {
     position: '', division: '', profilePicture: '', name: '', totalPoint: 0,
   });
   const [historyPointData, setHistoryPointData] = useState([]);
-  const [summaryPoint, setSummaryPoint] = useState({ totalPointAttendance: 0, totalPointCommittee: 0 });
+  const [summaryPoint, setSummaryPoint] = useState(
+    { totalPointAttendance: 0, totalPointCommittee: 0 },
+  );
 
   const getSummaryAPI = () => {
     setRefreshing(true);
@@ -54,6 +56,12 @@ function MemberHome() {
         await SplashScreen.hideAsync();
       });
   };
+
+  useEffect(() => {
+    if (route.params?.refresh) {
+      getSummaryAPI();
+    }
+  }, [route]);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
