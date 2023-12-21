@@ -76,32 +76,37 @@ function AdminEventList({ navigation }) {
   return (
     <View style={styles.wrapper} onLayout={onLayoutRootView}>
       <StatusBar style="light" />
+      <View style={styles.decorationWrapper}>
+        <View style={{
+          marginTop: 50,
+          backgroundColor: '#B81519',
+          ...styles.decorationCircle,
+        }}
+        />
+        <View style={{
+          marginTop: -230,
+          zIndex: 999,
+          backgroundColor: '#C13338',
+          ...styles.decorationCircle,
+        }}
+        />
+      </View>
+      <View style={{
+        zIndex: 9999, marginTop: 60, paddingHorizontal: 35, backgroundColor: 'transparent',
+      }}
+      >
+        <UserTab
+          division={`${userTabData.position} - ${userTabData.division}`}
+          imageUri={userTabData.profilePicture}
+          name={userTabData.userName}
+          type="Admin"
+        />
+      </View>
       <ScrollView
         refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={getAllEventData} />)}
       >
-        <View style={styles.decorationWrapper}>
-          <View style={{
-            marginTop: 70,
-            backgroundColor: '#B81519',
-            ...styles.decorationCircle,
-          }}
-          />
-          <View style={{
-            marginTop: -240,
-            backgroundColor: '#C13338',
-            ...styles.decorationCircle,
-          }}
-          />
-        </View>
         <View style={styles.contentWrapper}>
-          <UserTab
-            style={{ marginBottom: 33 }}
-            division={`${userTabData.position} - ${userTabData.division}`}
-            imageUri={userTabData.profilePicture}
-            name={userTabData.userName}
-            type="Admin"
-          />
-          <SearchBar placeholder="cari nama acara" />
+          <SearchBar style={{ marginTop: 45 }} placeholder="cari nama acara" />
           <Text style={styles.contentItemTitle}>Daftar Acara</Text>
           <View style={{ gap: 5 }}>
             {eventListData.map((item) => (
@@ -135,7 +140,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   decorationWrapper: {
-    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    zIndex: 999,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: -140,

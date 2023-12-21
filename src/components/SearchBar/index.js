@@ -2,20 +2,20 @@ import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { PersonSearch } from '../../assets/svgs';
 
-function SearchBar({ placeholder }) {
+function SearchBar({ placeholder, style }) {
   return (
-    <View style={style.wrapper}>
-      <View style={style.Icon}>
+    <View style={{ ...styles.wrapper, ...style }}>
+      <View style={styles.Icon}>
         <PersonSearch height={24} width={24} />
       </View>
-      <TextInput placeholder={placeholder} style={style.text} />
+      <TextInput placeholder={placeholder} style={styles.text} />
     </View>
   );
 }
 
 export default SearchBar;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   wrapper: {
     borderColor: '#6A6A6A',
     flexDirection: 'row',

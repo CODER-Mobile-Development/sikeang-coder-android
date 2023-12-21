@@ -78,19 +78,19 @@ function Login({ navigation }) {
       setIsLoading(false);
       switch (error.code) {
         case statusCodes.SIGN_IN_CANCELLED:
-          showToast('Sign-in di batalkan! klik ulang tombol.', 'warning');
+          showToast('Sign-in di batalkan! klik ulang tombol.', 'warning', insets.top);
           break;
         case statusCodes.IN_PROGRESS:
-          showToast('Sedang proses autentikasi!', 'warning');
+          showToast('Sedang proses autentikasi!', 'warning', insets.top);
           break;
         case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-          showToast('Google play service tidak tersedia atau terlalu jadul!', 'danger');
+          showToast('Google play service tidak tersedia atau terlalu jadul!', 'danger', insets.top);
           break;
         default:
           if (errorString.includes('NETWORK_ERROR')) {
-            showToast('Tidak ada koneksi internet!', 'danger');
+            showToast('Tidak ada koneksi internet!', 'danger', insets.top);
           } else {
-            showToast(`Terjadi Error. ${errorString}`, 'danger');
+            showToast(`Terjadi Error. ${errorString}`, 'danger', insets.top);
           }
       }
     }

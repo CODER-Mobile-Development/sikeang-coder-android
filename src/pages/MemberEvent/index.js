@@ -103,34 +103,40 @@ function MemberEvent({ navigation }) {
   return (
     <View style={styles.wrapper} onLayout={onLayoutRootView}>
       <StatusBar style="light" />
+      <View style={styles.decorationWrapper}>
+        <View style={{
+          marginTop: 50,
+          backgroundColor: '#B81519',
+          ...styles.decorationCircle,
+        }}
+        />
+        <View style={{
+          marginTop: -230,
+          zIndex: 999,
+          backgroundColor: '#C13338',
+          ...styles.decorationCircle,
+        }}
+        />
+      </View>
+      <View style={{
+        zIndex: 9999, marginTop: 60, paddingHorizontal: 35, backgroundColor: 'transparent',
+      }}
+      >
+        <UserTab
+          division={`${userTabData.position} - ${userTabData.division}`}
+          imageUri={userTabData.profilePicture}
+          name={userTabData.name}
+          points={userTabData.totalPoint}
+          type="Member"
+        />
+      </View>
       <ScrollView
         refreshControl={
         (<RefreshControl refreshing={refreshing} onRefresh={handlePageOnRefresh} />)
       }
       >
-        <View style={styles.decorationWrapper}>
-          <View style={{
-            marginTop: 70,
-            backgroundColor: '#B81519',
-            ...styles.decorationCircle,
-          }}
-          />
-          <View style={{
-            marginTop: -240,
-            backgroundColor: '#C13338',
-            ...styles.decorationCircle,
-          }}
-          />
-        </View>
         <View style={styles.contentWrapper}>
-          <UserTab
-            division={`${userTabData.position} - ${userTabData.division}`}
-            imageUri={userTabData.profilePicture}
-            name={userTabData.name}
-            points={userTabData.totalPoint}
-            type="Member"
-          />
-          <Text style={{ ...styles.eventOptionsTitle, marginTop: 30 }}>
+          <Text style={{ ...styles.eventOptionsTitle, marginTop: 45 }}>
             Tipe Event
           </Text>
           <View style={styles.frameParent}>
@@ -208,7 +214,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   decorationWrapper: {
-    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    zIndex: 999,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: -140,
